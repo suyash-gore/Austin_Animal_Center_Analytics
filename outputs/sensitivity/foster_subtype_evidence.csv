@@ -1,0 +1,5 @@
+outcome_type,outcome_subtype,outcome_events,followed_by_another_outcome_without_new_intake,matched_visits_primary,median_los_days_primary,same_day_pct_primary,transfer_subtypes_in_source
+Adoption,Foster,17945,3,17723,54.92,0.07,Barn; Emer; In State; Out State; Partner; SCRP; Snr
+Died,In Foster,377,0,372,15.6,4.3,Barn; Emer; In State; Out State; Partner; SCRP; Snr
+Missing,In Foster,39,0,38,66.97,0.0,Barn; Emer; In State; Out State; Partner; SCRP; Snr
+Return to Owner,Foster,2,0,2,1.52,0.0,Barn; Emer; In State; Out State; Partner; SCRP; Snr

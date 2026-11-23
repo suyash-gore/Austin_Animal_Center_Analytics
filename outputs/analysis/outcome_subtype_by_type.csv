@@ -1,0 +1,45 @@
+breakdown,outcome_type,outcome_subtype,visits,denominator_visits,share_pct
+outcome_type x subtype,Adoption,(not recorded),65713,83934,78.29
+outcome_type x subtype,Adoption,Barn,3,83934,0.0
+outcome_type x subtype,Adoption,Foster,17723,83934,21.12
+outcome_type x subtype,Adoption,Offsite,495,83934,0.59
+outcome_type x subtype,Died,(not recorded),125,1645,7.6
+outcome_type x subtype,Died,At Vet,110,1645,6.69
+outcome_type x subtype,Died,Emergency,53,1645,3.22
+outcome_type x subtype,Died,Enroute,111,1645,6.75
+outcome_type x subtype,Died,In Foster,372,1645,22.61
+outcome_type x subtype,Died,In Kennel,841,1645,51.12
+outcome_type x subtype,Died,In Surgery,33,1645,2.01
+outcome_type x subtype,Disposal,(not recorded),815,868,93.89
+outcome_type x subtype,Disposal,Rabies Risk,53,868,6.11
+outcome_type x subtype,Euthanasia,(not recorded),283,10735,2.64
+outcome_type x subtype,Euthanasia,Aggressive,598,10735,5.57
+outcome_type x subtype,Euthanasia,At Vet,236,10735,2.2
+outcome_type x subtype,Euthanasia,Behavior,167,10735,1.56
+outcome_type x subtype,Euthanasia,Court/Investigation,103,10735,0.96
+outcome_type x subtype,Euthanasia,Medical,353,10735,3.29
+outcome_type x subtype,Euthanasia,Rabies Risk,4831,10735,45.0
+outcome_type x subtype,Euthanasia,Suffering,4127,10735,38.44
+outcome_type x subtype,Euthanasia,Underage,37,10735,0.34
+outcome_type x subtype,Lost,(not recorded),2,2,100.0
+outcome_type x subtype,Missing,(not recorded),20,91,21.98
+outcome_type x subtype,Missing,Enroute,1,91,1.1
+outcome_type x subtype,Missing,In Foster,38,91,41.76
+outcome_type x subtype,Missing,In Kennel,16,91,17.58
+outcome_type x subtype,Missing,Possible Theft,16,91,17.58
+outcome_type x subtype,Relocate,(not recorded),27,27,100.0
+outcome_type x subtype,Return to Owner,(not recorded),25313,25600,98.88
+outcome_type x subtype,Return to Owner,At Vet,1,25600,0.0
+outcome_type x subtype,Return to Owner,Customer S,21,25600,0.08
+outcome_type x subtype,Return to Owner,Field,243,25600,0.95
+outcome_type x subtype,Return to Owner,Foster,2,25600,0.01
+outcome_type x subtype,Return to Owner,Prc,20,25600,0.08
+outcome_type x subtype,Rto-Adopt,(not recorded),1239,1239,100.0
+outcome_type x subtype,Stolen,(not recorded),5,5,100.0
+outcome_type x subtype,Transfer,Barn,13,48358,0.03
+outcome_type x subtype,Transfer,Emer,11,48358,0.02
+outcome_type x subtype,Transfer,In State,12,48358,0.02
+outcome_type x subtype,Transfer,Out State,931,48358,1.93
+outcome_type x subtype,Transfer,Partner,40121,48358,82.97
+outcome_type x subtype,Transfer,SCRP,3170,48358,6.56
+outcome_type x subtype,Transfer,Snr,4100,48358,8.48

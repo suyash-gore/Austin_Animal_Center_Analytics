@@ -1,0 +1,10 @@
+dataset,column,labels,note,action
+intakes,Intake Condition,Medical (614) | Med Attn (87) | Med Urgent (21),Medical-need labels of differing urgency; definitions not published in the extract,Retained as-is in derived data; review before grouping
+intakes,Intake Condition,Neonatal (1971) | Nursing (3878),Life-stage labels used as a 'condition',Retained as-is in derived data; review before grouping
+intakes,Intake Condition,Sick (7939) | Parvo (11) | Panleuk (1) | Neurologic (13),Specific diseases coexist with the generic 'Sick',Retained as-is in derived data; review before grouping
+intakes,Intake Condition,Unknown (48) | Other (353) | Space (4),Non-clinical / indeterminate labels,Retained as-is in derived data; review before grouping
+outcomes,Outcome Type,Return to Owner (25691) | Rto-Adopt (1241),Rto-Adopt: owner reclaim processed as an adoption; grouped with RTO,Retained as-is in derived data; review before grouping
+outcomes,Outcome Type,Missing (92) | Lost (2) | Stolen (5),Animal left custody without a placement,Retained as-is in derived data; review before grouping
+outcomes,Outcome Subtype,Emergency (54) | Emer (11),Abbreviation variant,Retained as-is in derived data; review before grouping
+outcomes,Outcome Subtype,Foster (17950) | In Foster (416),Foster as adoption/transfer subtype vs location while died/missing,Retained as-is in derived data; review before grouping
+outcomes,Outcome Subtype,Snr (4102) | SCRP (3211),Community-cat return programmes (spelling/case conventions differ),Retained as-is in derived data; review before grouping

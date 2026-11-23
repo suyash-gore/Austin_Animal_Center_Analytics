@@ -1,0 +1,9 @@
+method_a,method_b,outcomes_assigned_different_intake,substantive_changes_different_intake_time,animal_ids_affected_substantive,intakes_assigned_different_outcome,outcomes_matched_only_in_a,outcomes_matched_only_in_b,animal_ids_affected,identical_pair_sets
+fifo,lifo,90,81,47,70,0,0,51,0
+fifo,adjacent,59,54,47,39,32,0,51,0
+lifo,adjacent,0,0,0,0,32,0,32,0
+fifo_dp,lifo_dp,85,76,41,82,0,8,45,0
+fifo_dp,adjacent_dp,51,46,41,48,35,8,45,0
+lifo_dp,adjacent_dp,0,0,0,0,35,0,35,0
+adjacent,adjacent_dp,4,4,4,4,3,637,640,0
+rank,fifo,55,55,41,170,754,115,754,0

@@ -1,0 +1,92 @@
+outcome_group,visits,median_days,p75_days,p90_days,mean_days,share_over_30d_pct,share_over_90d_pct,breakdown,animal_type,intake_type,age_band_intake,intake_condition,intake_year
+Adoption,83934,14.07,43.01,79.89,34.92,34.39,8.15,outcome_group,,,,,
+Died,1645,3.9,11.03,28.09,12.69,9.3,2.25,outcome_group,,,,,
+Disposal,868,1.45,4.02,10.69,6.03,2.3,0.58,outcome_group,,,,,
+Euthanasia,10735,0.58,3.61,9.0,6.25,3.56,1.14,outcome_group,,,,,
+Missing / Lost / Stolen,98,35.83,67.4,107.61,52.76,56.12,20.41,outcome_group,,,,,
+Not recorded,43,6.2,19.66,49.83,17.58,20.93,4.65,outcome_group,,,,,
+Relocate,27,1.0,7.39,9.74,5.33,3.7,0.0,outcome_group,,,,,
+Return to Owner,26839,1.9,5.06,10.01,4.25,1.17,0.25,outcome_group,,,,,
+Transfer,48358,4.0,8.94,22.69,10.03,7.24,1.42,outcome_group,,,,,
+,872,4.13,13.17,23.79,9.65,6.88,0.57,animal_type,Bird,,,,
+,68801,7.19,31.11,62.94,23.27,25.84,4.56,animal_type,Cat,,,,
+,93941,5.99,15.21,50.44,20.95,16.04,4.83,animal_type,Dog,,,,
+,33,19.89,57.02,342.94,109.99,45.45,24.24,animal_type,Livestock,,,,
+,8900,0.68,3.01,10.14,5.43,4.34,0.99,animal_type,Other,,,,
+,1873,10.05,32.89,69.13,28.54,27.18,6.62,intake_type,,Abandoned,,,
+,264,0.11,1.12,8.17,5.36,4.17,1.52,intake_type,,Euthanasia Request,,,
+,35295,7.95,26.07,66.9,27.49,22.58,6.73,intake_type,,Owner Surrender,,,
+,10350,8.69,13.15,37.76,18.39,12.64,3.37,intake_type,,Public Assist,,,
+,118333,5.91,20.14,55.84,20.29,19.83,4.15,intake_type,,Stray,,,
+,6432,0.39,0.93,3.68,1.85,0.59,0.23,intake_type,,Wildlife,,,
+,55865,5.84,15.85,49.16,19.98,16.06,4.72,age_band_intake,,,1-2 years,,
+,42993,6.69,20.8,44.22,17.34,17.9,2.4,age_band_intake,,,1-5 months,,
+,23860,6.2,18.38,62.26,25.67,18.2,6.83,age_band_intake,,,3-6 years,,
+,12889,6.0,13.04,35.9,15.43,12.1,2.81,age_band_intake,,,6-11 months,,
+,13891,4.85,15.46,63.06,26.54,17.19,7.19,age_band_intake,,,7+ years,,
+,10,3.97,6.72,11.61,7.34,10.0,0.0,age_band_intake,,,Invalid / unknown,,
+,23039,3.81,47.91,71.2,25.48,36.22,4.87,age_band_intake,,,Under 1 month,,
+,525,2.1,7.17,39.56,20.45,11.24,5.71,intake_condition,,,,Aged,
+,4,4.1,4.64,5.49,3.8,0.0,0.0,intake_condition,,,,Agonal,
+,79,25.18,45.55,135.27,49.61,36.71,12.66,intake_condition,,,,Behavior,
+,1,1.16,1.16,1.16,1.16,0.0,0.0,intake_condition,,,,Congenital,
+,144,7.92,18.56,39.53,17.7,11.81,2.08,intake_condition,,,,Feral,
+,10664,4.39,22.3,67.1,23.67,21.12,6.53,intake_condition,,,,Injured,
+,78,6.0,29.58,67.39,22.46,25.64,6.41,intake_condition,,,,Med Attn,
+,21,0.79,5.07,8.87,10.33,9.52,4.76,intake_condition,,,,Med Urgent,
+,587,7.29,32.44,60.48,26.33,27.26,6.3,intake_condition,,,,Medical,
+,1905,0.77,30.01,68.9,19.19,25.04,4.2,intake_condition,,,,Neonatal,
+,13,1.13,3.09,39.99,21.32,15.38,7.69,intake_condition,,,,Neurologic,
+,146240,6.16,19.9,53.97,21.1,19.05,4.4,intake_condition,,,,Normal,
+,3867,2.8,41.9,69.62,23.06,30.23,4.73,intake_condition,,,,Nursing,
+,349,5.29,29.22,62.94,27.62,24.07,7.45,intake_condition,,,,Other,
+,1,1.88,1.88,1.88,1.88,0.0,0.0,intake_condition,,,,Panleuk,
+,11,0.63,3.39,4.0,1.79,0.0,0.0,intake_condition,,,,Parvo,
+,155,6.01,28.91,79.46,25.13,25.16,6.45,intake_condition,,,,Pregnant,
+,7851,1.9,10.12,41.08,14.7,14.32,3.26,intake_condition,,,,Sick,
+,4,0.0,0.0,0.0,0.0,0.0,0.0,intake_condition,,,,Space,
+,48,8.96,16.66,78.1,27.51,22.92,4.17,intake_condition,,,,Unknown,
+Adoption,35432,25.19,52.12,82.76,38.5,45.52,8.19,animal_type x outcome_group,Cat,,,,
+Died,989,4.84,14.02,32.04,13.34,10.82,2.02,animal_type x outcome_group,Cat,,,,
+Disposal,163,3.86,4.87,8.11,5.19,0.61,0.61,animal_type x outcome_group,Cat,,,,
+Euthanasia,2541,0.94,4.13,11.12,8.71,4.64,1.93,animal_type x outcome_group,Cat,,,,
+Missing / Lost / Stolen,51,51.65,84.31,111.85,62.62,76.47,25.49,animal_type x outcome_group,Cat,,,,
+Not recorded,9,13.94,49.37,52.99,22.99,33.33,0.0,animal_type x outcome_group,Cat,,,,
+Relocate,6,7.39,8.51,8.74,5.39,0.0,0.0,animal_type x outcome_group,Cat,,,,
+Return to Owner,3100,2.78,6.61,11.12,5.39,2.06,0.26,animal_type x outcome_group,Cat,,,,
+Transfer,26510,2.52,6.33,16.91,6.81,4.97,0.54,animal_type x outcome_group,Cat,,,,
+Adoption,47163,9.25,32.12,76.88,32.52,26.37,8.22,animal_type x outcome_group,Dog,,,,
+Died,394,3.88,10.11,36.88,17.69,11.17,4.31,animal_type x outcome_group,Dog,,,,
+Disposal,96,4.22,6.13,13.11,7.91,5.21,0.0,animal_type x outcome_group,Dog,,,,
+Euthanasia,2181,3.94,12.59,34.0,16.96,11.51,3.12,animal_type x outcome_group,Dog,,,,
+Missing / Lost / Stolen,40,24.64,43.37,96.42,42.53,35.0,12.5,animal_type x outcome_group,Dog,,,,
+Not recorded,27,7.13,24.66,54.58,20.19,22.22,7.41,animal_type x outcome_group,Dog,,,,
+Relocate,2,1.68,2.5,3.0,1.68,0.0,0.0,animal_type x outcome_group,Dog,,,,
+Return to Owner,23601,1.82,4.97,9.96,4.1,1.06,0.25,animal_type x outcome_group,Dog,,,,
+Transfer,20437,5.17,11.91,30.05,14.21,10.07,2.51,animal_type x outcome_group,Dog,,,,
+,1307,6.32,24.09,46.93,18.51,20.2,2.45,animal_type x intake_year,Cat,,,,2013.0
+,6902,4.21,16.21,46.11,15.99,17.28,2.71,animal_type x intake_year,Cat,,,,2014.0
+,7477,5.76,25.87,60.99,21.88,22.52,4.39,animal_type x intake_year,Cat,,,,2015.0
+,6625,7.07,33.01,64.98,23.93,26.94,5.06,animal_type x intake_year,Cat,,,,2016.0
+,6470,6.53,29.09,60.07,22.57,24.44,4.22,animal_type x intake_year,Cat,,,,2017.0
+,6012,6.22,30.85,61.97,23.35,25.6,4.54,animal_type x intake_year,Cat,,,,2018.0
+,7867,7.14,35.0,68.09,25.06,28.13,5.28,animal_type x intake_year,Cat,,,,2019.0
+,3433,10.88,44.08,86.96,33.56,33.96,9.23,animal_type x intake_year,Cat,,,,2020.0
+,5111,9.01,33.83,65.73,24.46,26.88,5.07,animal_type x intake_year,Cat,,,,2021.0
+,4677,10.11,34.19,61.98,24.57,29.01,4.3,animal_type x intake_year,Cat,,,,2022.0
+,5593,11.15,37.83,64.89,25.97,30.43,4.24,animal_type x intake_year,Cat,,,,2023.0
+,6030,9.25,36.24,66.22,24.39,30.2,4.58,animal_type x intake_year,Cat,,,,2024.0
+,1297,5.4,10.23,25.22,10.17,7.63,0.31,animal_type x intake_year,Cat,,,,2025.0
+,2634,5.23,12.93,36.89,15.77,11.88,3.0,animal_type x intake_year,Dog,,,,2013.0
+,10552,5.12,12.05,37.21,16.28,12.26,3.5,animal_type x intake_year,Dog,,,,2014.0
+,10321,5.12,11.47,37.32,16.72,12.14,3.33,animal_type x intake_year,Dog,,,,2015.0
+,9926,5.11,11.74,38.25,17.66,12.4,3.82,animal_type x intake_year,Dog,,,,2016.0
+,9921,4.96,10.2,32.77,15.1,11.4,3.14,animal_type x intake_year,Dog,,,,2017.0
+,9985,5.17,13.3,51.82,21.41,16.58,4.75,animal_type x intake_year,Dog,,,,2018.0
+,10921,5.24,11.14,40.29,18.02,12.69,4.01,animal_type x intake_year,Dog,,,,2019.0
+,5410,6.13,17.04,65.75,27.42,17.86,7.19,animal_type x intake_year,Dog,,,,2020.0
+,6218,7.14,18.88,52.21,23.71,18.09,5.07,animal_type x intake_year,Dog,,,,2021.0
+,6483,8.21,25.79,69.43,30.12,22.09,7.43,animal_type x intake_year,Dog,,,,2022.0
+,5069,13.93,40.06,93.06,35.95,32.14,10.44,animal_type x intake_year,Dog,,,,2023.0
+,5065,10.83,35.38,79.78,30.13,28.43,8.31,animal_type x intake_year,Dog,,,,2024.0
+,1436,7.19,17.99,39.15,14.23,14.55,0.56,animal_type x intake_year,Dog,,,,2025.0

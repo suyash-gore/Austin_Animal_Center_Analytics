@@ -1,0 +1,5 @@
+long_band,visits,dogs_pct,adoption_pct,transfer_pct,euthanasia_pct,return_intake_pct,owner_surrender_pct,foster_subtype_pct,method_dependent
+<=90d,164770,54.3,46.8,28.9,6.4,9.8,20.0,8.4,75
+91-180d,5412,52.3,87.8,9.3,1.1,12.9,27.9,50.4,0
+181-365d,1788,70.5,88.8,7.9,1.8,20.7,35.0,62.0,1
+>365d,577,77.1,86.5,7.3,4.7,25.1,41.8,75.2,0

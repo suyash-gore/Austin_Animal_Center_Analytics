@@ -1,0 +1,4 @@
+group,outcome_events,first_year,last_year,top_outcome_types
+Midnight with -05:00 offset,3583,2013.0,2025.0,Transfer=2490; Adoption=768; Return to Owner=146
+Midnight without offset,204,2013.0,2025.0,Transfer=148; Euthanasia=28; Died=12
+All midnight outcomes,3787,,,

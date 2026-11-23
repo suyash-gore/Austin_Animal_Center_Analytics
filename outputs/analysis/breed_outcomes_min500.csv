@@ -1,0 +1,42 @@
+breed,visits,median_los_days,adoption_pct,rto_pct,transfer_pct,euthanasia_pct,share_over_90d_pct,animal_type
+Pit Bull Mix,10036,9.26,42.91,32.12,19.45,4.96,10.39,Dog
+Labrador Retriever Mix,8751,6.24,55.73,21.16,20.79,1.83,4.82,Dog
+Chihuahua Shorthair Mix,6867,4.94,48.1,23.59,25.11,2.46,1.76,Dog
+German Shepherd Mix,4034,6.89,56.52,23.0,18.17,1.91,3.27,Dog
+Pit Bull,3400,12.16,51.21,26.18,18.12,3.38,14.15,Dog
+Labrador Retriever,2022,6.73,51.43,20.82,25.07,1.48,3.56,Dog
+Chihuahua Shorthair,2007,4.95,46.89,21.67,28.15,2.24,1.74,Dog
+Australian Cattle Dog Mix,1975,7.11,58.48,19.04,20.15,1.92,4.96,Dog
+German Shepherd,1820,7.11,58.02,24.73,14.62,1.7,3.3,Dog
+Dachshund Mix,1184,4.89,49.58,23.06,25.08,1.86,1.01,Dog
+Boxer Mix,1171,6.93,49.36,27.84,20.07,2.48,6.49,Dog
+Border Collie Mix,1145,5.98,57.73,21.92,18.43,1.66,2.71,Dog
+Siberian Husky Mix,973,5.4,55.09,30.32,11.0,2.67,2.06,Dog
+Miniature Poodle Mix,925,4.08,38.59,35.68,23.14,2.05,0.97,Dog
+Australian Shepherd Mix,874,5.3,51.95,23.57,21.62,2.17,1.6,Dog
+Siberian Husky,862,5.28,53.02,33.53,10.56,1.74,1.74,Dog
+Catahoula Mix,848,7.94,56.6,23.0,18.16,1.77,5.66,Dog
+Staffordshire Mix,795,10.07,53.96,29.56,13.96,1.89,10.94,Dog
+Great Pyrenees Mix,778,5.87,51.8,18.64,27.12,1.54,2.19,Dog
+Rat Terrier Mix,727,4.87,45.8,29.85,21.6,1.65,0.96,Dog
+Yorkshire Terrier Mix,693,3.94,38.1,31.02,27.56,2.45,0.58,Dog
+Miniature Schnauzer Mix,680,4.14,41.18,32.65,23.82,1.76,0.44,Dog
+Beagle Mix,671,4.91,46.5,25.93,25.93,1.19,2.38,Dog
+Jack Russell Terrier Mix,663,4.41,53.09,24.59,20.51,1.51,1.81,Dog
+Pointer Mix,645,8.14,63.72,14.73,20.78,0.47,8.22,Dog
+Cairn Terrier Mix,609,4.29,54.52,21.84,22.5,1.15,0.99,Dog
+American Bulldog Mix,603,11.78,50.08,27.86,18.41,2.65,13.76,Dog
+Australian Cattle Dog,579,7.87,60.97,17.44,18.65,2.42,3.28,Dog
+Chihuahua Longhair Mix,565,4.22,52.92,22.12,21.42,2.3,1.24,Dog
+Anatol Shepherd Mix,548,5.3,62.77,13.32,22.08,1.09,1.64,Dog
+Black Mouth Cur Mix,533,10.04,68.48,13.13,16.89,0.94,10.13,Dog
+Rottweiler Mix,506,6.14,41.9,33.99,18.18,5.34,3.75,Dog
+Labrador Retriever/Pit Bull,505,8.46,47.13,27.33,21.58,3.37,7.33,Dog
+Domestic Shorthair Mix,33580,6.21,46.12,4.65,43.67,4.04,4.28,Cat
+Domestic Shorthair,23801,9.04,57.79,3.51,33.64,2.91,5.15,Cat
+Domestic Medium Hair Mix,3330,7.09,49.52,4.89,39.28,4.65,3.48,Cat
+Domestic Medium Hair,2095,10.07,62.34,3.39,28.5,3.34,4.82,Cat
+Domestic Longhair Mix,1675,6.99,50.51,8.3,34.03,5.61,4.36,Cat
+Siamese Mix,1464,5.55,51.37,7.1,35.59,4.58,4.37,Cat
+Domestic Longhair,790,7.33,62.03,5.82,24.68,5.57,4.56,Cat
+Siamese,544,6.0,60.11,5.88,29.04,2.76,2.94,Cat

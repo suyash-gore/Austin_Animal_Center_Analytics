@@ -1,0 +1,3 @@
+dataset,column,normalised_key,n_variants,variants,rows
+intakes,Color,bluecream,2,'Blue Cream' (93) | 'Blue/Cream' (5),98
+outcomes,Color,bluecream,2,'Blue Cream' (95) | 'Blue/Cream' (5),100

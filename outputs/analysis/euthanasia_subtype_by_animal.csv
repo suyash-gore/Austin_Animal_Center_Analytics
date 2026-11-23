@@ -1,0 +1,30 @@
+breakdown,animal_type,outcome_subtype,visits,denominator_visits,share_pct
+euthanasia subtype by animal,Bird,(not recorded),4,154,2.6
+euthanasia subtype by animal,Bird,At Vet,2,154,1.3
+euthanasia subtype by animal,Bird,Medical,12,154,7.79
+euthanasia subtype by animal,Bird,Suffering,135,154,87.66
+euthanasia subtype by animal,Bird,Underage,1,154,0.65
+euthanasia subtype by animal,Cat,(not recorded),18,2541,0.71
+euthanasia subtype by animal,Cat,Aggressive,4,2541,0.16
+euthanasia subtype by animal,Cat,At Vet,122,2541,4.8
+euthanasia subtype by animal,Cat,Medical,101,2541,3.97
+euthanasia subtype by animal,Cat,Rabies Risk,111,2541,4.37
+euthanasia subtype by animal,Cat,Suffering,2184,2541,85.95
+euthanasia subtype by animal,Cat,Underage,1,2541,0.04
+euthanasia subtype by animal,Dog,(not recorded),13,2181,0.6
+euthanasia subtype by animal,Dog,Aggressive,593,2181,27.19
+euthanasia subtype by animal,Dog,At Vet,89,2181,4.08
+euthanasia subtype by animal,Dog,Behavior,166,2181,7.61
+euthanasia subtype by animal,Dog,Court/Investigation,103,2181,4.72
+euthanasia subtype by animal,Dog,Medical,85,2181,3.9
+euthanasia subtype by animal,Dog,Rabies Risk,106,2181,4.86
+euthanasia subtype by animal,Dog,Suffering,1026,2181,47.04
+euthanasia subtype by animal,Livestock,Behavior,1,2,50.0
+euthanasia subtype by animal,Livestock,Suffering,1,2,50.0
+euthanasia subtype by animal,Other,(not recorded),248,5857,4.23
+euthanasia subtype by animal,Other,Aggressive,1,5857,0.02
+euthanasia subtype by animal,Other,At Vet,23,5857,0.39
+euthanasia subtype by animal,Other,Medical,155,5857,2.65
+euthanasia subtype by animal,Other,Rabies Risk,4614,5857,78.78
+euthanasia subtype by animal,Other,Suffering,781,5857,13.33
+euthanasia subtype by animal,Other,Underage,35,5857,0.6

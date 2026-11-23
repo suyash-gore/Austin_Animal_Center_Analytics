@@ -1,0 +1,26 @@
+metric,preliminary,reproduced,note,difference,status
+Intake rows,173812.0,173812.0,Source row count,0.0,Reproduced exactly
+Outcome rows,173775.0,173775.0,Source row count,0.0,Reproduced exactly
+Unique Animal IDs - intakes,156287.0,156287.0,,0.0,Reproduced exactly
+Unique Animal IDs - outcomes,156237.0,156237.0,,0.0,Reproduced exactly
+Exact duplicate excess rows - intakes,36.0,36.0,,0.0,Reproduced exactly
+Exact duplicate excess rows - outcomes,26.0,26.0,,0.0,Reproduced exactly
+Sequence (derived rank) pairs,172850.0,172850.0,Raw rows; rank join,0.0,Reproduced exactly
+Sequence pairs with outcome before intake,781.0,781.0,Raw rows,0.0,Reproduced exactly
+"Latest preceding intake, no 1:1",155448.0,172245.0,Not reproduced by any tested variant; method rejected (reuses intakes),16797.0,Differs
+Chronological 1:1 matches (run 1),172205.0,172205.0,FIFO or LIFO on raw rows,0.0,Reproduced exactly
+Unmatched outcomes (run 1),1570.0,1570.0,,0.0,Reproduced exactly
+Unmatched intakes (run 1),1607.0,1607.0,,0.0,Reproduced exactly
+Multiple-open-intake instances (run 1),96.0,96.0,,0.0,Reproduced exactly
+Chronological 1:1 matches (dedup run),172170.0,172170.0,FIFO or LIFO after exact-duplicate removal,0.0,Reproduced exactly
+Unmatched outcomes (dedup run),1579.0,1579.0,,0.0,Reproduced exactly
+Unmatched intakes (dedup run),1606.0,1606.0,,0.0,Reproduced exactly
+Multiple-open-intake instances (dedup run),60.0,60.0,,0.0,Reproduced exactly
+FIFO vs LIFO changed assignments (dedup),81.0,81.0,Strict timestamps; excludes 9 choices between identical-timestamp intakes (90 incl.),0.0,Reproduced exactly
+FIFO vs LIFO Animal IDs affected (dedup),47.0,47.0,,0.0,Reproduced exactly
+Stays > 365 days (dedup run),578.0,578.0,Matches dedup LIFO,0.0,Reproduced exactly
+LOS P50 (dedup run),6.02,6.02,dedup LIFO,0.0,Reproduced exactly
+LOS P75 (dedup run),19.99,19.98,dedup LIFO; raw LIFO gives 19.99,-0.01,Differs
+LOS P90 (dedup run),55.81,55.81,dedup LIFO,0.0,Reproduced exactly
+LOS P95 (dedup run),84.9,84.9,dedup LIFO,0.0,Reproduced exactly
+LOS P99 (dedup run),215.63,215.24,dedup LIFO; raw LIFO gives 215.63,-0.39,Differs

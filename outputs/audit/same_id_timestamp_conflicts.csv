@@ -1,0 +1,15 @@
+intake_event_id,Animal ID,Name,DateTime,MonthYear,Found Location,Intake Type,Intake Condition,Animal Type,Sex upon Intake,Age upon Intake,Breed,Color,differing_columns,dataset,outcome_event_id,Date of Birth,Outcome Type,Outcome Subtype,Sex upon Outcome,Age upon Outcome
+IN006108,A672744,Oso,02/17/2014 05:10:00 PM,February 2014,Austin (TX),Public Assist,Normal,Dog,Intact Male,3 years,Rottweiler Mix,Black/Tan,"Found Location, Intake Type",intakes,,,,,,
+IN006109,A672744,Oso,02/17/2014 05:10:00 PM,February 2014,Travis (TX),Owner Surrender,Normal,Dog,Intact Male,3 years,Rottweiler Mix,Black/Tan,"Found Location, Intake Type",intakes,,,,,,
+IN123899,A719747,Layla,02/12/2021 09:51:00 PM,February 2021,12 St And Brazos in Austin (TX),Stray,Normal,Dog,Spayed Female,5 years,American Pit Bull Terrier Mix,White/Brown,Found Location,intakes,,,,,,
+IN123900,A719747,Layla,02/12/2021 09:51:00 PM,February 2021,12 Street And Brazos in Austin (TX),Stray,Normal,Dog,Spayed Female,5 years,American Pit Bull Terrier Mix,White/Brown,Found Location,intakes,,,,,,
+IN113734,A811566,Bubby,01/05/2020 09:13:00 PM,January 2020,5100 W Us 290 in Austin (TX),Public Assist,Normal,Cat,Neutered Male,1 year,Domestic Shorthair,White,Found Location,intakes,,,,,,
+IN113735,A811566,Bubby,01/05/2020 09:13:00 PM,January 2020,507 South !St Street #244 in Austin (TX),Public Assist,Normal,Cat,Neutered Male,1 year,Domestic Shorthair,White,Found Location,intakes,,,,,,
+IN118897,A811566,Bubby,07/19/2020 10:01:00 AM,July 2020,507 South !St Street #244 in Austin (TX),Public Assist,Normal,Cat,Neutered Male,2 years,Domestic Shorthair,White,Found Location,intakes,,,,,,
+IN118898,A811566,Bubby,07/19/2020 10:01:00 AM,July 2020,507 South 1St Street in Austin (TX),Public Assist,Normal,Cat,Neutered Male,2 years,Domestic Shorthair,White,Found Location,intakes,,,,,,
+IN141541,A860875,*Crow,07/05/2022 11:26:00 AM,July 2022,550 N Sh 130 Svrd Sb in Austin (TX),Stray,Normal,Cat,Intact Female,4 months,Domestic Shorthair,Calico/White,"Found Location, Intake Type",intakes,,,,,,
+IN141542,A860875,*Crow,07/05/2022 11:26:00 AM,July 2022,Outside Jurisdiction,Owner Surrender,Normal,Cat,Intact Female,4 months,Domestic Shorthair,Calico/White,"Found Location, Intake Type",intakes,,,,,,
+IN154576,A887327,,08/18/2023 06:20:00 PM,August 2023,St Merryn Rd And Harris Branch Pkwy in Austin (TX),Stray,Normal,Cat,Intact Female,3 months,Domestic Medium Hair,Brown Tabby/White,"Found Location, Intake Type",intakes,,,,,,
+IN154577,A887327,,08/18/2023 06:20:00 PM,August 2023,Austin (TX),Owner Surrender,Normal,Cat,Intact Female,3 months,Domestic Medium Hair,Brown Tabby/White,"Found Location, Intake Type",intakes,,,,,,
+,A863452,Amber,2022-09-14T17:07:00,09-2022,,,,Dog,,,German Shepherd,White,Outcome Subtype,outcomes,OUT144731,2021-10-10,Adoption,,Spayed Female,11 months
+,A863452,Amber,2022-09-14T17:07:00,09-2022,,,,Dog,,,German Shepherd,White,Outcome Subtype,outcomes,OUT144732,2021-10-10,Adoption,Foster,Spayed Female,11 months

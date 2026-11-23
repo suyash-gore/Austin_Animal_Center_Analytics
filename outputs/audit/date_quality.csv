@@ -1,0 +1,27 @@
+dataset,metric,value,note
+intakes,timestamp parse failures,0,
+intakes,min timestamp,2013-10-01 07:51:00,source-local wall clock
+intakes,max timestamp,2025-05-04 23:44:00,
+intakes,timestamps after extract end,0,
+intakes,MonthYear inconsistent with timestamp,0,
+intakes,timestamps exactly 00:00:00,58,
+intakes,timestamps with non-zero seconds,0,
+intakes,first year coverage,2013-10-01 to 2013-12-31,partial year
+intakes,last year coverage,2025-01-01 to 2025-05-04,partial year
+outcomes,timestamp parse failures,0,
+outcomes,min timestamp,2013-10-01 09:31:00,source-local wall clock
+outcomes,max timestamp,2025-05-05 07:22:00,
+outcomes,timestamps after extract end,0,
+outcomes,MonthYear inconsistent with timestamp,0,
+outcomes,timestamps exactly 00:00:00,3788,
+outcomes,timestamps with non-zero seconds,4772,
+outcomes,first year coverage,2013-10-01 to 2013-12-31,partial year
+outcomes,last year coverage,2025-01-01 to 2025-05-05,partial year
+intakes,timestamp format,"MM/DD/YYYY hh:mm:ss AM/PM, no offset",100% of rows
+outcomes,offset none,170191,
+outcomes,offset -05:00,3584,
+outcomes,offset rows at exactly 00:00:00,3584,all offset rows are midnight -> date-only records
+outcomes,"offset -05:00 rows in Nov-Feb (CST months, true offset -06:00)",884,offset is not a reliable timezone
+outcomes,date of birth parse failures,0,
+outcomes,date of birth after outcome date,33,
+outcomes,date of birth range,1991-09-22 to 2028-05-01,
