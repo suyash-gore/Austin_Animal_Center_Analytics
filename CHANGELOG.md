@@ -6,7 +6,25 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
-### Added
+### 23-11-2026 — Reproducible source audit and visit-matching framework
+#### Added
+- `analysis/common.py` (loading, parsing, cleaning, duplicate flags), `analysis/matching_engine.py`
+  (rank, FIFO, LIFO, adjacent-event and as-of matching; date-precision and same-day rules),
+  `analysis/audit_datasets.py`, `analysis/match_visits.py`, `analysis/explore_business_opportunities.py`,
+  `analysis/run_all.py`.
+- pytest suite under `analysis/tests/` (parsing, duplicates, one-to-one/chronological matching,
+  unmatched handling, same-day visits, multiple intakes, raw-data checksums, reproducibility).
+- `CLAUDE.md` project instructions; `requirements.txt`; `data/reference/source_checksums.csv`.
+#### Changed
+- `DECISION_LOG.md` §14: decisions D-008 to D-015 (timestamp interpretation, duplicates, visit rule,
+  date-precision rule, same-day rule, LOS definition, provisional outcome grouping, partial years).
+  Affects matching, LOS and denominators; supersedes preliminary §6.3 LOS figures.
+#### Validated
+- Source row counts, unique IDs, duplicate counts and preliminary matching runs reproduced from the raw
+  files (see `outputs/matching/preliminary_reconciliation.csv` once generated).
+
+### Initial setup
+#### Added
 - Established the initial project directory structure for analysis, data, documentation, outputs, Power BI, references, and the presentation website.
 - Added the project decision log to the repository root.
 - Added repository setup documentation and ignore rules.

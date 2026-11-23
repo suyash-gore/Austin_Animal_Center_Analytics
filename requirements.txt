@@ -1,0 +1,4 @@
+# Audit pipeline (tested with Python 3.13, pandas 3.0.5, numpy, pytest 9.1)
+pandas>=2.2
+numpy>=1.26
+pytest>=8.0

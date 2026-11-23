@@ -678,6 +678,125 @@ why the decision changed.
 
 ------------------------------------------------------------------------
 
+## 14. Audit-stage decisions (Stage 1, 23-11-2026)
+
+Made during the reproducible source audit (`analysis/`). Each is
+implemented in code, covered by tests, and evidenced in `outputs/`.
+**Approved by:** pending candidate review (Stage 2). Full detail:
+`docs/VISIT_MATCHING_METHODOLOGY.md`, `docs/DATA_QUALITY_ISSUES.md`.
+
+### D-008 --- Timestamp interpretation: source-local wall clock
+
+**Decision:** Parse both timestamps as timezone-naive Austin wall-clock
+time. Intakes: `MM/DD/YYYY hh:mm:ss AM/PM` (no offset). Outcomes:
+ISO-8601; keep the first 19 characters, store any offset separately as
+metadata (`outcome_tz_offset`), never apply it.\
+**Why:** All 3,584 offset-bearing outcome rows are exactly `00:00:00`
+with a constant `-05:00`, including 884 rows in November--February
+when Central time is `-06:00`; the offset is an export artefact on
+date-only records, not a timezone. `MonthYear` agrees with the wall
+clock on 100% of rows in both files. Converting would shift dates.\
+**Impact:** Preliminary §6.1 handling confirmed. Date-only outcomes are
+flagged (`outcome_time_is_date_only`, `outcome_is_midnight`).
+
+### D-009 --- Duplicate handling
+
+**Decision:** Exact duplicate rows (36 intake, 26 outcome excess copies)
+are flagged and excluded from analytic events; the cleaned files retain
+them. Same-Animal-ID + same-timestamp rows that differ in another field
+(12 intake, 2 outcome rows) are retained and flagged. Repeat intakes for
+an Animal ID are treated as legitimate repeat visits.\
+**Impact:** Analytic events: 173,776 intakes, 173,749 outcomes.
+
+### D-010 --- Visit-matching method: adjacent-event rule (`adjacent_dp`)
+
+**Decision:** A visit is an intake followed by the animal's next
+outcome, provided no other intake for that animal occurs in between. If
+a second intake is recorded before any outcome, the earlier intake is
+closed as "no recorded outcome". An outcome with no open intake is left
+unmatched. One-to-one by construction.\
+**Previous approach:** exploratory FIFO/LIFO and rank ("sequence")
+joins (§6.1--6.2). No sequence field exists in the source; the earlier
+"sequence" was a derived per-animal rank.\
+**Why:** Rank join produced 781 negative durations. FIFO and LIFO are
+one-to-one but produce visits that overlap another intake of the same
+animal (FIFO 42, LIFO 30 after D-011/D-012; physically impossible for
+one animal). The adjacent rule produces zero overlaps, is unaffected by
+exact-duplicate removal, and is explainable in one sentence. It matches
+35 fewer visits than LIFO (0.02%).\
+**Impact:** 172,772 matched visits; LOS percentiles §6.3 superseded by
+`outputs/matching/los_percentiles.csv`.
+
+### D-011 --- Date-precision rule for midnight outcomes
+
+**Decision:** Outcomes stamped exactly `00:00:00` (3,788 rows) are
+treated as date-only: for ordering and eligibility they are placed at the
+end of their calendar day. Stored timestamps are unchanged; a negative
+raw duration on the same date is floored to 0 and flagged
+(`los_floored_to_zero`).\
+**Why:** 621 outcomes were unmatched under strict timestamps although an
+unmatched intake for the same animal existed later the same day (403 of
+them stamped midnight) --- typically same-day returns to owner.
+
+### D-012 --- Same-day, time-reversed second pass
+
+**Decision:** After the primary pass, an unmatched outcome and unmatched
+intake for the same animal on the same calendar date, with the intake
+time later than the outcome time and no event between them, are paired
+(`match_rule = same_day_time_reversed`, LOS = 0). 225 visits.\
+**Why:** Recording-order lag on same-day visits; leaving them unmatched
+under-counts same-day RTO and biases LOS upward. Flagged so they can be
+excluded in sensitivity analysis.
+
+### D-013 --- Length-of-stay definition
+
+**Decision:** `LOS (days) = (outcome timestamp − intake timestamp) /
+24h` per matched visit, floored at 0 only under D-011/D-012. Same-day
+visits are included (LOS < 1 day). Unmatched intakes (open or missing
+outcome) and unmatched outcomes are excluded from LOS and shown
+separately. Long stays are retained and flagged (`long_stay_365plus`).\
+**Limitation:** LOS is time in the shelter's custody, including foster
+care --- 75% of 365+ day visits end with outcome subtype `Foster`.
+
+### D-014 --- Categorical labels and provisional outcome grouping
+
+**Decision:** Source labels are retained unchanged (whitespace trimmed;
+`NULL` → missing). A provisional `outcome_group` maps `Rto-Adopt` to
+Return to Owner and Missing/Lost/Stolen together.
+`outcome_status_provisional`: Adoption, RTO, Transfer, Relocate = live;
+Euthanasia, Died = non-live; Disposal, Missing/Lost/Stolen, blank =
+indeterminate.\
+**Why:** The official live-release formula (open question §12 Q4) is
+not verified; Disposal is undefined in the extract.
+
+### D-015 --- Partial-year comparisons
+
+**Decision:** Year-over-year comparisons use full calendar years
+2014--2024 only. 2013 and 2025 are compared on like-for-like windows
+(01-10 to 31-12; 01-01 to 04-05).
+
+### Reconciliation of §5--§6 preliminary figures
+
+All preliminary counts reproduce exactly from the raw files except:
+"latest preceding intake without 1:1 = 155,448" (not reproducible by
+any tested variant; the method reuses intakes and is rejected) and the
+FIFO/LIFO "81 assignments across 47 IDs", which reproduces only when
+choices between identical-timestamp intakes are excluded (90 / 51
+otherwise). The 172,205 → 172,170 change is exact-duplicate removal under
+FIFO/LIFO. §5 "17,525 / 17,538 rows belonging to repeated IDs" are excess
+rows (rows − unique IDs); rows belonging to repeated IDs are 31,012 /
+31,045. Detail: `outputs/matching/preliminary_reconciliation.csv`.
+
+### Open questions --- proposed answers (pending approval)
+
+-   §12 Q1: D-010 to D-012.
+-   §12 Q2: included, LOS from timestamps; flagged `same_day_visit`.
+-   §12 Q3: yes --- unmatched intakes are rows with status "Intake
+    without matched outcome" in the visit table, excluded from LOS.
+-   §12 Q4 remains open (official live-release formula not verified).
+
+------------------------------------------------------------------------
+
 **End of current project record.**\
 This file is the continuity document for future project stages. Re-read
 it before making material changes to data preparation, visit matching,
