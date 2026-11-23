@@ -4,9 +4,12 @@ A data analytics and Power BI case study using the public Austin Animal Center i
 
 ## Project status
 
-**Current stage:** Repository setup and data-audit preparation.
+**Current stage:** Stage 1 source-data audit and visit-matching validation complete; awaiting candidate
+review of the matching rule (DECISION_LOG D-008 to D-015) before Power BI development.
 
-The source datasets and initial Power BI file have been placed in the project structure. Data validation, visit-level intake/outcome matching, business analysis, dashboard development, and the final director-facing recommendations are still subject to audit and verification.
+Key documents: `docs/DATA_AUDIT_REPORT.md`, `docs/VISIT_MATCHING_METHODOLOGY.md`,
+`docs/DATA_QUALITY_ISSUES.md`, `docs/BUSINESS_OPPORTUNITY_REGISTER.md`, `docs/DATA_DICTIONARY.md`.
+The Power BI report and website have not been built yet.
 
 Do not treat preliminary figures or hypotheses from planning discussions as final findings. Final metrics must be reproduced from the source files and documented methodology.
 
@@ -72,6 +75,26 @@ The planned work includes:
 - Document assumptions, exclusions, and known limitations.
 - Apply `DD-MM-YYYY` as the display format for dates while retaining genuine date/date-time data types.
 - Reproduce all reported metrics from the documented scripts and source data before presenting them as final.
+
+## Reproducing the audit
+
+Requires Python 3.11+ with the packages in `requirements.txt`.
+
+```bash
+pip install -r requirements.txt
+python analysis/run_all.py
+```
+
+`run_all.py` verifies the raw-file checksums, runs `audit_datasets.py` → `match_visits.py` →
+`explore_business_opportunities.py` (about 1.5 minutes) and then the pytest suite. Each script can also be
+run on its own, in that order. Outputs are deterministic.
+
+| Output | Contents |
+|---|---|
+| `data/processed/` | Cleaned intake and outcome event tables (one row per source row, flags, event IDs) |
+| `outputs/audit/` | Profiles, distributions and exception records |
+| `outputs/matching/` | Candidate visit table, unmatched/ambiguous records, method comparison, LOS |
+| `outputs/analysis/` | Time series, visit-level evidence, opportunity register |
 
 ## Tools
 

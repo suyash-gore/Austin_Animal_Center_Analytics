@@ -6,6 +6,19 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 23-11-2026 — Audit reports and business opportunity assessment
+#### Added
+- `docs/DATA_AUDIT_REPORT.md`, `docs/DATA_DICTIONARY.md`, `docs/VISIT_MATCHING_METHODOLOGY.md`,
+  `docs/DATA_QUALITY_ISSUES.md` (31 issues), `docs/BUSINESS_OPPORTUNITY_REGISTER.md` (15 opportunities
+  scored; top eight; three candidate director findings).
+- `outputs/analysis/los_by_foster_subtype.csv` so the foster LOS caveat is reproducible.
+- `analysis/tests/test_docs_consistency.py`: headline figures in docs must match outputs (44 tests total).
+#### Changed
+- `README.md`: project status and reproduction instructions.
+#### Known limitations
+- Live-release definition unverified (§12 Q4); LOS includes foster time; ambiguous/superseded records
+  cannot be resolved from the extract; cause of the 03-2020 break unknown. See `docs/DATA_QUALITY_ISSUES.md`.
+
 ### 23-11-2026 — Validated data audit and matching outputs
 #### Added
 - `data/processed/intakes_clean.csv`, `data/processed/outcomes_clean.csv` (one row per source row,

@@ -328,6 +328,10 @@ def visit_analyses(v: pd.DataFrame, I: pd.DataFrame, out: dict) -> dict:
     # Foster-subtype adoptions include time spent in foster care, so LOS is not
     # equivalent to kennel days for those visits.
     mv["foster_subtype"] = mv["outcome_subtype"].isin(["Foster", "In Foster"])
+    fs = los_summary(mv.assign(foster_subtype=mv["foster_subtype"].map({True: "Foster / In Foster subtype",
+                                                                         False: "Other subtypes or blank"})),
+                     ["foster_subtype"])
+    out["los_by_foster_subtype"] = fs
     rows = []
     for (t, y), g in mv[mv["animal_type"].isin(["Dog", "Cat"])].groupby(["animal_type", "intake_year"]):
         nf = g[~g["foster_subtype"]]
