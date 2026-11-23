@@ -218,3 +218,75 @@ outcome-only. Column definitions: `docs/DATA_DICTIONARY.md`. Key traceability fi
   Euthanasia, RTO). A genuine leave-and-return within one day would be mis-paired; this cannot be
   verified from the extract, so the 225 visits are flagged for sensitivity analysis.
 * Approval of D-010 to D-013 is pending (DECISION_LOG Stage 2).
+
+## 11. Sensitivity validation (added 23-11-2026)
+
+Script: `analysis/sensitivity_analysis.py` → `outputs/sensitivity/`. The current outputs in
+`outputs/matching/` are unchanged; every scenario below uses the same adjacent-event rule and analytic
+events (exact duplicates removed). Test: `analysis/tests/test_sensitivity_outputs.py`.
+
+### 11.1 Midnight outcomes split (`midnight_outcome_split.csv`)
+
+| Group (analytic events) | Outcome events | Most common outcome types |
+|---|---:|---|
+| Midnight with `-05:00` offset | 3,583 | Transfer 2,490; Adoption 768; RTO 146 |
+| Midnight without offset | 204 | Transfer 148; Euthanasia 28; Died 12 |
+| All midnight | 3,787 | (3,788 / 3,584 in raw rows; one offset row is an exact duplicate) |
+
+Original timestamps and offsets are untouched (`outcome_datetime`, `outcome_tz_offset` in the cleaned file).
+
+### 11.2 Scenario comparison (`scenario_comparison.csv`)
+
+| Scenario | Matched | Unmatched intakes / outcomes | By reversed pass | Negative raw (floored) | Zero-day stays | P50 | P75 | P90 | P95 | P99 | > 365 d |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| **A** all midnight date-only + reversed pass (**current**) | 172,772 | 1,004 / 977 | 225 | 641 | 664 | 6.00 | 19.89 | 55.34 | 84.72 | 214.24 | 577 |
+| A excluding the 225 reversed matches | 172,547 | 1,229 / 1,202 | 0 | 416 | 439 | 6.00 | 19.93 | 55.56 | 84.81 | 214.46 | 577 |
+| **B** offset-only date-only + reversed pass | 172,772 | 1,004 / 977 | 304 | 641 | 664 | 6.00 | 19.89 | 55.34 | 84.72 | 214.24 | 577 |
+| B without reversed pass | 172,468 | 1,308 / 1,281 | 0 | 337 | 360 | 6.00 | 19.94 | 55.65 | 84.83 | 214.62 | 577 |
+| **C** strict source timestamps | 172,138 | 1,638 / 1,611 | 0 | 0 | 23 | 6.02 | 19.98 | 55.80 | 84.90 | 215.05 | 577 |
+| C strict + reversed pass | 172,773 | 1,003 / 976 | 635 | 635 | 658 | 6.00 | 19.89 | 55.35 | 84.73 | 214.27 | 577 |
+
+All six scenarios: 0 reused intakes, 0 overlapping visits. "Zero-day stays" = floored cases plus 23
+visits with identical intake and outcome timestamps.
+
+**Reading.** A and B produce the *same* final pair set size: the 204 non-offset midnight outcomes that
+B does not treat as date-only are recovered by the second pass instead (304 vs 225). Strict timestamps
+(C) lose 634 visits, almost all same-day. The LOS distribution moves by at most 0.46 days at P90 and
+0.81 days at P99 across all scenarios; no long stay is affected.
+
+### 11.3 Effect on the three candidate findings
+
+| Metric | A (current) | A excl. 225 reversed | B | C strict | Max spread |
+|---|---:|---:|---:|---:|---:|
+| Dog median LOS, 2014–2019 (avg of annual medians) | 5.12 | 5.12 | 5.12 | 5.13 | 0.01 |
+| Dog median LOS, 2023–2024 (avg of annual medians) | 12.35 | 12.38 | 12.35 | 12.39 | 0.04 |
+| Dog non-foster > 30 d, 2014–2019 (pooled %) | 8.66 | 8.67 | 8.66 | 8.70 | 0.04 |
+| Dog non-foster > 30 d, 2023–2024 (pooled %) | 22.55 | 22.58 | 22.55 | 22.60 | 0.05 |
+| Owner surrenders after any prior adoption, 2016–2024 (%) | 24.45 | 24.46 | 24.45 | 24.49 | 0.04 |
+| Owner surrenders within 30 d of adoption, 2016–2024 (% of surrenders) | 14.87 | 14.89 | 14.87 | 14.90 | 0.03 |
+| Stray-dog RTO share, 2014–2019 (avg of annual %) | 29.50 | 29.47 | 29.50 | 29.47 | 0.03 |
+| Stray-dog RTO share, 2024 (%) | 12.49 | 12.51 | 12.49 | 12.48 | 0.03 |
+
+None of the three findings depends on the date-only or time-reversed assumptions.
+
+### 11.4 Record-level review of the 225 time-reversed matches (`same_day_reversed_review.csv`)
+
+Each row carries both event IDs and source rows, raw timestamp text, offset, the reversal in hours,
+intake type/condition/age/location, outcome type/subtype, other events for the animal within one day and
+an assessment with its reason. Assessments are **not confirmations**:
+
+| Assessment | Rows | Rule |
+|---|---:|---|
+| Plausible — consistent with recording-order lag (unconfirmed) | 188 | Outcome ≤ 8 h before intake, not an adoption, no other event for the animal within 1 day, no owner-surrender → RTO contradiction |
+| Ambiguous — needs review | 37 | 30 with outcome > 8 h before intake; 5 adoptions logged before intake; 1 with another event within 1 day; 1 owner surrender returned to owner |
+
+Pattern: outcomes are logged mostly 07:00–12:00 and the intake later the same day (median reversal
+4.0 h, max 11.7 h). Outcome mix: Transfer 96 (mostly Partner/SCRP), Euthanasia 60 (36 Rabies Risk, all
+animal type Other, 35 of them Wildlife intakes), RTO 38, Died 17, Disposal 7, Adoption 5, Relocate 1 — outcomes that commonly occur on the intake
+day. None is a midnight outcome. Excluding all 225 changes no headline by more than 0.22 days (P90).
+
+### 11.5 Conclusion
+
+No sensitivity reveals a material problem; the recommended method (`adjacent_dp`, scenario A) is
+retained. D-011 and D-012 remain **pending approval** (DECISION_LOG D-016). For conservative reporting,
+filter `match_rule <> "same_day_time_reversed"` (scenario "A excluding") — results in §11.2–11.3.

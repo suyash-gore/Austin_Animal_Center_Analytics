@@ -795,6 +795,49 @@ rows (rows − unique IDs); rows belonging to repeated IDs are 31,012 /
     without matched outcome" in the visit table, excluded from LOS.
 -   §12 Q4 remains open (official live-release formula not verified).
 
+### D-016 --- Sensitivity validation of D-011 and D-012 (23-11-2026)
+
+**Decision:** Retain `adjacent_dp` (D-010 to D-012) unchanged. Status of
+D-011 and D-012 remains **proposed --- pending approval**.\
+**Evidence:** `outputs/sensitivity/scenario_comparison.csv`. Six
+scenarios (all-midnight vs offset-only date-only rule vs strict
+timestamps, each with/without the same-day reversed pass): 0 overlaps and
+0 reused intakes in every scenario; matched visits 172,138--172,773; LOS
+P50 6.00--6.02, P90 55.34--55.80; dog LOS, owner-surrender and stray-RTO
+findings move by ≤ 0.05 pp / 0.04 days. The 225 reversed matches were
+reviewed record by record (`same_day_reversed_review.csv`): 188
+plausible recording-order lag, 37 ambiguous; none confirmed.\
+**Impact:** none on current outputs. Conservative alternative available:
+exclude `match_rule = same_day_time_reversed` (172,547 visits, P90 55.56).
+
+### D-017 --- Owner-surrender finding: definitions and wording (23-11-2026)
+
+**Decision:** "Adoption return" = owner-surrender matched visit whose
+immediately preceding matched visit ended in Adoption; time window
+measured from adoption outcome to surrender intake. Report shares of
+owner surrenders for 2016--2024: any prior adoption 24.45%; within 30
+days 14.87%; within 7 days 8.95%. Do not use "recent adoption" without a
+stated window.\
+**Previous wording:** "37.21% within 7 days / 61.68% within 30 days"
+--- these are shares of all 8,066 adoption returns (2013--2025), not of
+owner surrenders and not of the 2016--2024 window (36.60% / 60.85% for
+that window). Superseded for director-facing use; values retained in
+`outputs/analysis/` unchanged.\
+**Also clarified:** dog LOS baselines (5.12 / 12.35 days) are unweighted
+averages of annual intake-cohort medians; pooled medians are 5.11 /
+12.07. Both are reported.
+
+### Assumptions still requiring approval
+
+1.  D-010 adjacent-event visit rule.
+2.  D-011 date-only treatment of *all* midnight outcomes (B, offset-only,
+    gives the same final totals via the second pass).
+3.  D-012 same-day time-reversed pass (225 visits; 37 ambiguous).
+4.  D-013 LOS definition including foster custody time.
+5.  D-017 adoption-return definition (immediately preceding matched
+    visit) and the 30-day window for the director headline.
+6.  Choice of averaged-annual vs pooled baselines for findings 1 and 3.
+
 ------------------------------------------------------------------------
 
 **End of current project record.**\

@@ -1,0 +1,27 @@
+scenario,intake_year,matched_dog_visits,median_los_days,foster_subtype_pct,nonfoster_median_los_days,nonfoster_over30_pct,dog_intake_events,dog_intakes_unmatched_current,unmatched_pct
+A_all_midnight_dateonly (current),2013,2634,5.23,4.86,5.09,9.9,2634,0,0.0
+A_all_midnight_dateonly (current),2014,10565,5.11,4.54,5.02,9.47,10567,2,0.02
+A_all_midnight_dateonly (current),2015,10324,5.12,4.37,5.0,9.11,10326,2,0.02
+A_all_midnight_dateonly (current),2016,9929,5.11,6.51,4.93,8.38,9932,3,0.03
+A_all_midnight_dateonly (current),2017,9934,4.95,4.9,4.42,7.84,9938,4,0.04
+A_all_midnight_dateonly (current),2018,9997,5.17,9.57,4.87,10.02,10001,4,0.04
+A_all_midnight_dateonly (current),2019,10928,5.24,7.23,5.02,7.25,10929,1,0.01
+A_all_midnight_dateonly (current),2020,5417,6.13,13.99,5.06,8.63,5417,0,0.0
+A_all_midnight_dateonly (current),2021,6221,7.14,7.43,6.32,13.65,6225,4,0.06
+A_all_midnight_dateonly (current),2022,6485,8.21,11.64,7.02,15.01,6489,4,0.06
+A_all_midnight_dateonly (current),2023,5072,13.9,15.97,9.33,24.59,5082,10,0.2
+A_all_midnight_dateonly (current),2024,5072,10.8,13.21,8.21,20.58,5188,116,2.24
+A_all_midnight_dateonly (current),2025,1437,7.18,9.39,6.25,10.6,1860,423,22.74
+A_excl_reversed,2013,2634,5.23,4.86,5.09,9.9,2634,0,0.0
+A_excl_reversed,2014,10552,5.12,4.55,5.02,9.48,10567,2,0.02
+A_excl_reversed,2015,10321,5.12,4.37,5.0,9.11,10326,2,0.02
+A_excl_reversed,2016,9926,5.11,6.51,4.93,8.38,9932,3,0.03
+A_excl_reversed,2017,9921,4.96,4.91,4.44,7.85,9938,4,0.04
+A_excl_reversed,2018,9985,5.17,9.58,4.88,10.04,10001,4,0.04
+A_excl_reversed,2019,10921,5.24,7.23,5.02,7.25,10929,1,0.01
+A_excl_reversed,2020,5410,6.13,14.01,5.07,8.64,5417,0,0.0
+A_excl_reversed,2021,6218,7.14,7.43,6.33,13.66,6225,4,0.06
+A_excl_reversed,2022,6483,8.21,11.65,7.02,15.01,6489,4,0.06
+A_excl_reversed,2023,5069,13.93,15.98,9.39,24.61,5082,10,0.2
+A_excl_reversed,2024,5065,10.83,13.23,8.22,20.61,5188,116,2.24
+A_excl_reversed,2025,1436,7.19,9.4,6.25,10.61,1860,423,22.74

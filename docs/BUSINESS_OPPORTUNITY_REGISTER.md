@@ -40,11 +40,17 @@ adoption-return evidence in rank 1.
 
 ## Evidence and limitations by opportunity
 
-1. **Owner surrender patterns.** 24.45% of owner-surrender visits in 2016–2024 are animals whose previous
-   visit at this shelter ended in adoption (8,066 adoption returns in total; 6,112 dogs, 1,921 cats).
-   37.21% occur within 7 days of the adoption and 61.68% within 30 days
-   (`adoption_returns_by_year.csv`, `adoption_return_timing.csv`). Of all 9,159 return intakes classed
-   as Owner Surrender, 8,066 followed an adoption (`return_intake_previous_outcome.csv`).
+1. **Owner surrender patterns.** Verified in `outputs/sensitivity/owner_surrender_verification.csv`.
+   *Definition:* an owner-surrender matched visit is an "adoption return" when the animal's immediately
+   preceding matched visit at this shelter ended in Adoption; days are measured from that adoption's
+   outcome timestamp to the surrender intake. Denominator = matched owner-surrender visits by intake year.
+   * Any prior adoption (no time limit): 6,669 of 27,281 owner-surrender visits in 2016–2024 = **24.45%**.
+   * Within 30 days of adoption: 4,058 = **14.87%** of owner surrenders (60.85% of the 2016–2024 returns).
+   * Within 7 days of adoption: 2,441 = **8.95%** of owner surrenders (36.60% of the 2016–2024 returns).
+   * The previously published 37.21% (7 d) and 61.68% (30 d) are shares of *all* 8,066 adoption returns,
+     2013–2025 (6,112 dogs, 1,921 cats), not of the 2016–2024 window; they are shares of returns, not of
+     owner surrenders. Of all 9,159 return intakes classed as Owner Surrender, 8,066 followed an adoption
+     (`return_intake_previous_outcome.csv`).
    *Limitations:* adoptions before 01-10-2013 are invisible (2013–2015 biased low); surrender reasons
    are not recorded. *KPI:* % of adoptions returned as owner surrender within 30 days.
 2. **Intake volume and seasonality.** Full-year intake events averaged 18,216 (2014–2019) and 11,643
@@ -58,7 +64,9 @@ adoption-return evidence in rank 1.
    *Limitation:* Adoption/Foster mixes foster-to-adopt with on-site adoption.
 4. **Length of stay.** Median LOS 6.00 days (all matched visits). Dog intake cohorts: median 5.12 days
    (2014–2019 average) vs 12.35 days (2023–2024); excluding foster-subtype outcomes, the share of dog
-   visits over 30 days rose from 8.68% to 22.58% (`los_trend_by_intake_year.csv`). Cats: median 6.14 vs
+   visits over 30 days rose from 8.68% to 22.58% (`los_trend_by_intake_year.csv`). Both baselines are the
+   unweighted average of annual cohort values; pooled equivalents are in
+   `outputs/sensitivity/scenario_comparison.csv` (see Finding 1). Cats: median 6.14 vs
    10.19 days, non-foster > 30 days 15.29% vs 17.60%. *Limitations:* custody time incl. foster; recent
    cohorts mildly right-censored (which would understate the rise). *KPI:* median LOS and % > 30 days
    per intake cohort.
@@ -110,16 +118,30 @@ director controls. Approval pending (Stage 3).
 
 * Dog median LOS rose from 5.12 days (2014–2019 intake cohorts) to 12.35 days (2023–2024). Excluding
   foster-subtype outcomes, the share of dog visits lasting more than 30 days rose from 8.68% to 22.58%.
+* *Calculation (verified, `outputs/sensitivity/dog_los_verification.csv`):* cohorts are by **intake year**;
+  5.12 / 12.35 are the **unweighted average of annual medians** (pooled medians: 5.11 → 12.07). The 30-day
+  shares are averages of annual shares rounded per year (unrounded 8.68 → 22.59; pooled 8.66 → 22.55).
+  Medians **include** foster-subtype outcomes (13–16% of 2023–2024 dog visits); excluding them, the pooled
+  median still rises from 4.95 to 8.93 days. Cohort completeness: 0.20% (2023) and 2.24% (2024) of dog
+  intakes have no accepted outcome yet; they are open stays, so the 2024 median is, if anything, understated.
+* *Sensitivity:* excluding the 225 time-reversed matches gives 5.12 → 12.38 days and 8.67% → 22.58%
+  (pooled); strict timestamps give 5.13 → 12.39. The finding does not depend on these assumptions.
 * Intake events are ~36% below the 2014–2019 level, yet the estimated in-care population fell only 18%
   (1,120 → 916 average per day, 2019 → 2024).
 * **Action:** manage dog length of stay actively — review every dog at day 14 and day 30 with a
   placement plan (adoption promotion, foster, partner transfer); track "% of dogs > 30 days" monthly.
 * **Caveats:** custody time includes foster; the cause of the increase is not established.
 
-### Finding 2 — About one in four owner surrenders is a recent adoption coming back
+### Finding 2 — One in seven owner surrenders is an animal adopted from this shelter in the previous 30 days
 
-* 24.45% of owner-surrender visits (2016–2024) are animals previously adopted from the shelter;
-  37.21% of these returns happen within 7 days and 61.68% within 30 days of adoption.
+**Director headline:** "In 2016–2024, 14.9% of owner surrenders were animals we had adopted out within the
+previous 30 days, and 24.5% had been adopted from us at some earlier point."
+
+* Any prior adoption at this shelter: 24.45% of owner-surrender visits (6,669 of 27,281, 2016–2024).
+* Within 30 days of the adoption: 14.87% of owner surrenders (4,058); within 7 days: 8.95% (2,441).
+* Of the 2016–2024 adoption returns, 60.85% came back within 30 days and 36.60% within 7 days.
+* *Sensitivity:* 24.45–24.49% and 14.87–14.90% across all matching scenarios, incl. excluding the 225
+  time-reversed matches.
 * **Action:** post-adoption support concentrated in the first 30 days (day-3 and day-14 check-ins,
   behaviour helpline, return-prevention counselling before a surrender is accepted); track the 30-day
   adoption-return rate.
@@ -133,6 +155,9 @@ director controls. Approval pending (Stage 3).
   reunification frees capacity quickly.
 * **Action:** strengthen reunification — microchip and ID-tag every dog at outcome, scan and post
   found dogs on intake day, and measure RTO % of stray dogs alongside field returns.
+* *Calculation:* 29.50% is the unweighted average of annual intake-cohort shares (pooled 29.47%);
+  denominator = matched stray-dog visits. *Sensitivity:* 29.47–29.50% and 12.48–12.51% (2024) across all
+  matching scenarios, incl. excluding the 225 time-reversed matches.
 * **Caveats:** field returns without an intake are not in the data; the share may partly reflect which
   dogs reach the shelter. Verify against operational records before presenting as performance.
 

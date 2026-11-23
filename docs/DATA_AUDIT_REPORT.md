@@ -163,6 +163,11 @@ Full method: `docs/VISIT_MATCHING_METHODOLOGY.md`.
 * Recommended rule `adjacent_dp`: 172,772 matched visits; 1,004 unmatched intakes; 977 unmatched
   outcomes; 0 reused intakes; 0 negative durations; 0 overlapping visits; 0 animal-type mismatches.
 * LOS (days): P25 2.00, P50 6.00, P75 19.89, P90 55.34, P95 84.72, P99 214.24; 577 visits > 365 days.
+* Sensitivity (`outputs/sensitivity/`, methodology §11): treating only the 3,583 offset-bearing midnight
+  outcomes as date-only, using strict timestamps, or excluding the 225 same-day time-reversed matches
+  changes matched visits by at most 634 and LOS P90 by at most 0.46 days; no candidate finding moves by
+  more than 0.05 percentage points or 0.04 days. The 225 reversed matches are reviewed record by record
+  (188 plausible, 37 ambiguous; none confirmed).
 
 ## 8. Time-series validation (summary)
 

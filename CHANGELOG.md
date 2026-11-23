@@ -6,6 +6,20 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 23-11-2026 — Visit-matching and business-finding sensitivities
+#### Added
+- `analysis/sensitivity_analysis.py` → `outputs/sensitivity/`: record-level review of the 225
+  same-day time-reversed matches; midnight-outcome split (3,583 offset / 204 non-offset analytic events);
+  six-scenario comparison (date-only rule × reversed pass); owner-surrender and dog-LOS verification.
+- `analysis/tests/test_sensitivity_outputs.py` (48 tests total).
+#### Changed
+- Owner-surrender finding reworded with explicit windows and denominators (D-017); "recent adoption"
+  removed. Dog-LOS and stray-RTO baselines documented as averages of annual values, pooled values added.
+- Methodology §11, audit report §7, opportunity register, DECISION_LOG D-016/D-017.
+#### Validated
+- No scenario changes any candidate finding by more than 0.05 pp / 0.04 days; recommended method
+  unchanged. Existing outputs in `outputs/audit|matching|analysis` not regenerated or modified.
+
 ### 23-11-2026 — Audit reports and business opportunity assessment
 #### Added
 - `docs/DATA_AUDIT_REPORT.md`, `docs/DATA_DICTIONARY.md`, `docs/VISIT_MATCHING_METHODOLOGY.md`,
