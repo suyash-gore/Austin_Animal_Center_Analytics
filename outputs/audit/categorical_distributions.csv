@@ -1,0 +1,199 @@
+dataset,column,value,rows,pct_of_rows
+intakes,Intake Type,Stray,119160,68.557
+intakes,Intake Type,Owner Surrender,35563,20.461
+intakes,Intake Type,Public Assist,10432,6.002
+intakes,Intake Type,Wildlife,6483,3.73
+intakes,Intake Type,Abandoned,1910,1.099
+intakes,Intake Type,Euthanasia Request,264,0.152
+intakes,Intake Condition,Normal,147141,84.655
+intakes,Intake Condition,Injured,10805,6.216
+intakes,Intake Condition,Sick,7939,4.568
+intakes,Intake Condition,Nursing,3878,2.231
+intakes,Intake Condition,Neonatal,1971,1.134
+intakes,Intake Condition,Medical,614,0.353
+intakes,Intake Condition,Aged,525,0.302
+intakes,Intake Condition,Other,353,0.203
+intakes,Intake Condition,Pregnant,170,0.098
+intakes,Intake Condition,Feral,145,0.083
+intakes,Intake Condition,Med Attn,87,0.05
+intakes,Intake Condition,Behavior,81,0.047
+intakes,Intake Condition,Unknown,48,0.028
+intakes,Intake Condition,Med Urgent,21,0.012
+intakes,Intake Condition,Neurologic,13,0.007
+intakes,Intake Condition,Parvo,11,0.006
+intakes,Intake Condition,Space,4,0.002
+intakes,Intake Condition,Agonal,4,0.002
+intakes,Intake Condition,Panleuk,1,0.001
+intakes,Intake Condition,Congenital,1,0.001
+intakes,Animal Type,Dog,94608,54.431
+intakes,Animal Type,Cat,69324,39.884
+intakes,Animal Type,Other,8968,5.16
+intakes,Animal Type,Bird,878,0.505
+intakes,Animal Type,Livestock,34,0.02
+intakes,Sex upon Intake,Intact Male,58996,33.942
+intakes,Sex upon Intake,Intact Female,56714,32.63
+intakes,Sex upon Intake,Neutered Male,24236,13.944
+intakes,Sex upon Intake,Spayed Female,20324,11.693
+intakes,Sex upon Intake,Unknown,13541,7.791
+intakes,Sex upon Intake,NULL,1,0.001
+intakes,Age upon Intake,1 year,28294,16.279
+intakes,Age upon Intake,2 years,28033,16.128
+intakes,Age upon Intake,1 month,18203,10.473
+intakes,Age upon Intake,2 months,10432,6.002
+intakes,Age upon Intake,3 years,9610,5.529
+intakes,Age upon Intake,4 weeks,6324,3.638
+intakes,Age upon Intake,4 years,5842,3.361
+intakes,Age upon Intake,5 years,5187,2.984
+intakes,Age upon Intake,3 weeks,5124,2.948
+intakes,Age upon Intake,3 months,4924,2.833
+intakes,Age upon Intake,4 months,4787,2.754
+intakes,Age upon Intake,5 months,4377,2.518
+intakes,Age upon Intake,2 weeks,3655,2.103
+intakes,Age upon Intake,6 years,3426,1.971
+intakes,Age upon Intake,6 months,3329,1.915
+intakes,Age upon Intake,7 years,3010,1.732
+intakes,Age upon Intake,8 years,2834,1.63
+intakes,Age upon Intake,7 months,2591,1.491
+intakes,Age upon Intake,9 months,2496,1.436
+intakes,Age upon Intake,10 years,2292,1.319
+intakes,Age upon Intake,8 months,2027,1.166
+intakes,Age upon Intake,9 years,1673,0.963
+intakes,Age upon Intake,1 week,1483,0.853
+intakes,Age upon Intake,1 weeks,1433,0.824
+intakes,Age upon Intake,10 months,1388,0.799
+intakes,Age upon Intake,0 years,1268,0.73
+intakes,Age upon Intake,11 months,1140,0.656
+intakes,Age upon Intake,12 years,1116,0.642
+intakes,Age upon Intake,1 day,1018,0.586
+intakes,Age upon Intake,11 years,925,0.532
+intakes,Age upon Intake,3 days,920,0.529
+intakes,Age upon Intake,2 days,771,0.444
+intakes,Age upon Intake,13 years,717,0.413
+intakes,Age upon Intake,6 days,538,0.31
+intakes,Age upon Intake,14 years,525,0.302
+intakes,Age upon Intake,4 days,501,0.288
+intakes,Age upon Intake,15 years,453,0.261
+intakes,Age upon Intake,5 weeks,444,0.255
+intakes,Age upon Intake,5 days,265,0.152
+intakes,Age upon Intake,16 years,193,0.111
+intakes,Age upon Intake,17 years,104,0.06
+intakes,Age upon Intake,18 years,62,0.036
+intakes,Age upon Intake,19 years,29,0.017
+intakes,Age upon Intake,20 years,26,0.015
+intakes,Age upon Intake,22 years,6,0.003
+intakes,Age upon Intake,-1 years,6,0.003
+intakes,Age upon Intake,-3 years,2,0.001
+intakes,Age upon Intake,25 years,2,0.001
+intakes,Age upon Intake,-2 years,1,0.001
+intakes,Age upon Intake,24 years,1,0.001
+intakes,Age upon Intake,-4 years,1,0.001
+intakes,Age upon Intake,21 years,1,0.001
+intakes,Age upon Intake,23 years,1,0.001
+intakes,Age upon Intake,30 years,1,0.001
+intakes,Age upon Intake,28 years,1,0.001
+outcomes,Outcome Type,Adoption,84598,48.682
+outcomes,Outcome Type,Transfer,48689,28.018
+outcomes,Outcome Type,Return to Owner,25691,14.784
+outcomes,Outcome Type,Euthanasia,10833,6.234
+outcomes,Outcome Type,Died,1672,0.962
+outcomes,Outcome Type,Rto-Adopt,1241,0.714
+outcomes,Outcome Type,Disposal,877,0.505
+outcomes,Outcome Type,Missing,92,0.053
+outcomes,Outcome Type,(blank),46,0.026
+outcomes,Outcome Type,Relocate,29,0.017
+outcomes,Outcome Type,Stolen,5,0.003
+outcomes,Outcome Type,Lost,2,0.001
+outcomes,Outcome Subtype,(blank),94115,54.159
+outcomes,Outcome Subtype,Partner,40410,23.254
+outcomes,Outcome Subtype,Foster,17950,10.329
+outcomes,Outcome Subtype,Rabies Risk,4922,2.832
+outcomes,Outcome Subtype,Suffering,4154,2.39
+outcomes,Outcome Subtype,Snr,4102,2.361
+outcomes,Outcome Subtype,SCRP,3211,1.848
+outcomes,Outcome Subtype,Out State,931,0.536
+outcomes,Outcome Subtype,In Kennel,873,0.502
+outcomes,Outcome Subtype,Aggressive,613,0.353
+outcomes,Outcome Subtype,Offsite,512,0.295
+outcomes,Outcome Subtype,In Foster,416,0.239
+outcomes,Outcome Subtype,At Vet,357,0.205
+outcomes,Outcome Subtype,Medical,355,0.204
+outcomes,Outcome Subtype,Field,243,0.14
+outcomes,Outcome Subtype,Behavior,176,0.101
+outcomes,Outcome Subtype,Enroute,112,0.064
+outcomes,Outcome Subtype,Court/Investigation,103,0.059
+outcomes,Outcome Subtype,Emergency,54,0.031
+outcomes,Outcome Subtype,Underage,37,0.021
+outcomes,Outcome Subtype,In Surgery,33,0.019
+outcomes,Outcome Subtype,Customer S,21,0.012
+outcomes,Outcome Subtype,Prc,20,0.012
+outcomes,Outcome Subtype,Possible Theft,16,0.009
+outcomes,Outcome Subtype,Barn,16,0.009
+outcomes,Outcome Subtype,In State,12,0.007
+outcomes,Outcome Subtype,Emer,11,0.006
+outcomes,Animal Type,Dog,94505,54.384
+outcomes,Animal Type,Cat,69399,39.936
+outcomes,Animal Type,Other,8960,5.156
+outcomes,Animal Type,Bird,877,0.505
+outcomes,Animal Type,Livestock,34,0.02
+outcomes,Sex upon Outcome,Neutered Male,60933,35.064
+outcomes,Sex upon Outcome,Spayed Female,55269,31.805
+outcomes,Sex upon Outcome,Intact Male,22263,12.811
+outcomes,Sex upon Outcome,Intact Female,21804,12.547
+outcomes,Sex upon Outcome,Unknown,13505,7.772
+outcomes,Sex upon Outcome,NULL,1,0.001
+outcomes,Age upon Outcome,1 year,28782,16.563
+outcomes,Age upon Outcome,2 years,27945,16.081
+outcomes,Age upon Outcome,2 months,23274,13.393
+outcomes,Age upon Outcome,3 years,9795,5.637
+outcomes,Age upon Outcome,3 months,9201,5.295
+outcomes,Age upon Outcome,1 month,7410,4.264
+outcomes,Age upon Outcome,4 months,6057,3.486
+outcomes,Age upon Outcome,4 years,5824,3.351
+outcomes,Age upon Outcome,5 years,5265,3.03
+outcomes,Age upon Outcome,5 months,4438,2.554
+outcomes,Age upon Outcome,6 months,4202,2.418
+outcomes,Age upon Outcome,6 years,3431,1.974
+outcomes,Age upon Outcome,7 years,3020,1.738
+outcomes,Age upon Outcome,8 years,2963,1.705
+outcomes,Age upon Outcome,3 weeks,2888,1.662
+outcomes,Age upon Outcome,2 weeks,2883,1.659
+outcomes,Age upon Outcome,8 months,2714,1.562
+outcomes,Age upon Outcome,4 weeks,2423,1.394
+outcomes,Age upon Outcome,10 months,2407,1.385
+outcomes,Age upon Outcome,10 years,2383,1.371
+outcomes,Age upon Outcome,7 months,2275,1.309
+outcomes,Age upon Outcome,9 months,1771,1.019
+outcomes,Age upon Outcome,9 years,1660,0.955
+outcomes,Age upon Outcome,1 weeks,1377,0.792
+outcomes,Age upon Outcome,12 years,1164,0.67
+outcomes,Age upon Outcome,11 months,1104,0.635
+outcomes,Age upon Outcome,1 week,966,0.556
+outcomes,Age upon Outcome,11 years,927,0.533
+outcomes,Age upon Outcome,13 years,746,0.429
+outcomes,Age upon Outcome,3 days,567,0.326
+outcomes,Age upon Outcome,14 years,536,0.308
+outcomes,Age upon Outcome,2 days,526,0.303
+outcomes,Age upon Outcome,1 day,511,0.294
+outcomes,Age upon Outcome,15 years,464,0.267
+outcomes,Age upon Outcome,4 days,362,0.208
+outcomes,Age upon Outcome,6 days,341,0.196
+outcomes,Age upon Outcome,0 years,272,0.157
+outcomes,Age upon Outcome,5 days,236,0.136
+outcomes,Age upon Outcome,5 weeks,204,0.117
+outcomes,Age upon Outcome,16 years,202,0.116
+outcomes,Age upon Outcome,17 years,107,0.062
+outcomes,Age upon Outcome,18 years,65,0.037
+outcomes,Age upon Outcome,19 years,29,0.017
+outcomes,Age upon Outcome,20 years,26,0.015
+outcomes,Age upon Outcome,NULL,9,0.005
+outcomes,Age upon Outcome,22 years,6,0.003
+outcomes,Age upon Outcome,-1 years,6,0.003
+outcomes,Age upon Outcome,25 years,2,0.001
+outcomes,Age upon Outcome,-3 years,2,0.001
+outcomes,Age upon Outcome,-2 years,1,0.001
+outcomes,Age upon Outcome,24 years,1,0.001
+outcomes,Age upon Outcome,-4 years,1,0.001
+outcomes,Age upon Outcome,21 years,1,0.001
+outcomes,Age upon Outcome,23 years,1,0.001
+outcomes,Age upon Outcome,30 years,1,0.001
+outcomes,Age upon Outcome,28 years,1,0.001

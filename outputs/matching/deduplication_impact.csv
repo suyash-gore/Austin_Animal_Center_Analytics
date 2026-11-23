@@ -1,0 +1,4 @@
+method,raw_matches,dedup_matches,net_change,raw_pairs_dup_intake_and_dup_outcome,raw_pairs_dup_intake_only,raw_pairs_dup_outcome_only,raw_pairs_lost,new_pairs_after_dedup,dup_intake_rows_removed,dup_outcome_rows_removed
+fifo,172205,172170,-35,20,15,1,38,3,36,26
+lifo,172205,172170,-35,0,36,21,71,36,36,26
+adjacent,172138,172138,0,0,36,0,36,36,36,26

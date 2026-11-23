@@ -1,0 +1,8 @@
+dataset,class,rows,treatment
+intakes,Exact duplicate rows (excess copies),36,Excluded from analytic events; retained and flagged in cleaned file
+outcomes,Exact duplicate rows (excess copies),26,Excluded from analytic events; retained and flagged in cleaned file
+intakes,"Same Animal ID + timestamp, other fields differ",12,Retained; flagged; see ambiguity list
+outcomes,"Same Animal ID + timestamp, other fields differ",2,Retained; flagged; see ambiguity list
+intakes,"Consecutive intakes < 24h apart, no outcome between (suspected duplicate event)",10,Retained; resolved by matching rule
+outcomes,"Consecutive outcomes < 24h apart, no intake between (suspected duplicate event)",17,Retained; second becomes unmatched outcome
+intakes,Repeat intake for the same Animal ID (legitimate repeat visits likely),17489,Retained; each intake is a separate visit candidate

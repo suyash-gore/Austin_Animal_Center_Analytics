@@ -1,0 +1,7 @@
+days_since_adoption,returns,share_pct,cumulative_pct
+0-7 days,3001,37.21,37.21
+8-30 days,1974,24.47,61.68
+31-90 days,962,11.93,73.61
+91-180 days,668,8.28,81.89
+181-365 days,580,7.19,89.08
+365+ days,881,10.92,100.0

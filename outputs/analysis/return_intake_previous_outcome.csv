@@ -1,0 +1,27 @@
+intake_type,previous_visit_outcome,return_intakes
+Abandoned,Adoption,70
+Abandoned,Return to Owner,43
+Abandoned,Transfer,1
+Euthanasia Request,Adoption,5
+Euthanasia Request,Return to Owner,8
+Euthanasia Request,Transfer,3
+Owner Surrender,(previous intake unmatched),14
+Owner Surrender,Adoption,8066
+Owner Surrender,Missing / Lost / Stolen,2
+Owner Surrender,Not recorded,1
+Owner Surrender,Return to Owner,908
+Owner Surrender,Transfer,168
+Public Assist,(previous intake unmatched),1
+Public Assist,Adoption,394
+Public Assist,Euthanasia,1
+Public Assist,Missing / Lost / Stolen,1
+Public Assist,Return to Owner,1106
+Public Assist,Transfer,197
+Stray,(previous intake unmatched),14
+Stray,Adoption,1874
+Stray,Died,1
+Stray,Missing / Lost / Stolen,15
+Stray,Not recorded,4
+Stray,Return to Owner,3861
+Stray,Transfer,619
+Wildlife,Euthanasia,1

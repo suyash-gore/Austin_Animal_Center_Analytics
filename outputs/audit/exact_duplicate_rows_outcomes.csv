@@ -1,0 +1,53 @@
+Animal ID,Date of Birth,Name,DateTime,MonthYear,Outcome Type,Outcome Subtype,Animal Type,Sex upon Outcome,Age upon Outcome,Breed,Color,dataset,event_id,is_excess_copy
+A755088,2016-09-29,Machete,2017-08-19T00:00:00-05:00,08-2017,Adoption,,Dog,Spayed Female,10 months,Australian Kelpie Mix,Black/White,outcomes,OUT001704,0
+A755088,2016-09-29,Machete,2017-08-19T00:00:00-05:00,08-2017,Adoption,,Dog,Spayed Female,10 months,Australian Kelpie Mix,Black/White,outcomes,OUT001705,1
+A660948,2013-07-08,*Roy,2013-11-03T18:16:00,11-2013,Adoption,,Cat,Neutered Male,3 months,Domestic Shorthair Mix,Brown Tabby/White,outcomes,OUT004154,0
+A660948,2013-07-08,*Roy,2013-11-03T18:16:00,11-2013,Adoption,,Cat,Neutered Male,3 months,Domestic Shorthair Mix,Brown Tabby/White,outcomes,OUT004155,1
+A682781,2013-01-02,,2014-07-03T09:00:00,07-2014,Transfer,SCRP,Cat,Neutered Male,1 year,Domestic Shorthair Mix,White/Black,outcomes,OUT015699,0
+A682781,2013-01-02,,2014-07-03T09:00:00,07-2014,Transfer,SCRP,Cat,Neutered Male,1 year,Domestic Shorthair Mix,White/Black,outcomes,OUT015700,1
+A683782,2014-02-15,,2014-07-16T09:00:00,07-2014,Transfer,SCRP,Cat,Neutered Male,4 months,Domestic Shorthair Mix,Brown Tabby,outcomes,OUT016655,0
+A683782,2014-02-15,,2014-07-16T09:00:00,07-2014,Transfer,SCRP,Cat,Neutered Male,4 months,Domestic Shorthair Mix,Brown Tabby,outcomes,OUT016656,1
+A686827,2012-02-27,,2014-08-28T09:00:00,08-2014,Transfer,SCRP,Cat,Spayed Female,2 years,Domestic Shorthair Mix,Calico,outcomes,OUT019233,0
+A686827,2012-02-27,,2014-08-28T09:00:00,08-2014,Transfer,SCRP,Cat,Spayed Female,2 years,Domestic Shorthair Mix,Calico,outcomes,OUT019234,1
+A695798,2014-02-23,Jim,2015-01-23T12:34:00,01-2015,Euthanasia,Suffering,Cat,Neutered Male,10 months,Domestic Shorthair Mix,Orange,outcomes,OUT026417,0
+A695798,2014-02-23,Jim,2015-01-23T12:34:00,01-2015,Euthanasia,Suffering,Cat,Neutered Male,10 months,Domestic Shorthair Mix,Orange,outcomes,OUT026418,1
+A696688,2012-02-10,Mari,2015-03-26T19:05:00,03-2015,Adoption,,Cat,Spayed Female,3 years,Domestic Shorthair Mix,Calico/White,outcomes,OUT028879,0
+A696688,2012-02-10,Mari,2015-03-26T19:05:00,03-2015,Adoption,,Cat,Spayed Female,3 years,Domestic Shorthair Mix,Calico/White,outcomes,OUT028880,1
+A748204,2017-02-04,Bob,2017-05-04T18:04:00,05-2017,Adoption,,Cat,Neutered Male,2 months,Domestic Shorthair Mix,White/Blue,outcomes,OUT065723,0
+A748204,2017-02-04,Bob,2017-05-04T18:04:00,05-2017,Adoption,,Cat,Neutered Male,2 months,Domestic Shorthair Mix,White/Blue,outcomes,OUT065724,1
+A755687,2014-08-07,,2017-08-07T13:50:00,08-2017,Disposal,,Other,Unknown,3 years,Bat Mix,Brown,outcomes,OUT070738,0
+A755687,2014-08-07,,2017-08-07T13:50:00,08-2017,Disposal,,Other,Unknown,3 years,Bat Mix,Brown,outcomes,OUT070739,1
+A761936,2017-01-12,,2017-11-16T12:54:00,11-2017,Transfer,Partner,Dog,Intact Male,10 months,Scottish Terrier Mix,Brown Brindle,outcomes,OUT075713,0
+A761936,2017-01-12,,2017-11-16T12:54:00,11-2017,Transfer,Partner,Dog,Intact Male,10 months,Scottish Terrier Mix,Brown Brindle,outcomes,OUT075714,1
+A773428,2018-05-04,*Atreyu,2018-06-07T09:31:00,06-2018,Died,At Vet,Cat,Intact Male,4 weeks,Domestic Shorthair Mix,Orange Tabby,outcomes,OUT083879,0
+A773428,2018-05-04,*Atreyu,2018-06-07T09:31:00,06-2018,Died,At Vet,Cat,Intact Male,4 weeks,Domestic Shorthair Mix,Orange Tabby,outcomes,OUT083880,1
+A764464,2017-10-15,Pepper,2018-09-18T14:28:00,09-2018,Transfer,Partner,Dog,Spayed Female,11 months,Soft Coated Wheaten Terrier Mix,Black/Tricolor,outcomes,OUT089213,0
+A764464,2017-10-15,Pepper,2018-09-18T14:28:00,09-2018,Transfer,Partner,Dog,Spayed Female,11 months,Soft Coated Wheaten Terrier Mix,Black/Tricolor,outcomes,OUT089214,1
+A783234,2016-10-27,Princess,2019-01-13T16:39:00,01-2019,Rto-Adopt,,Dog,Spayed Female,2 years,Collie Smooth/Pointer,Brown,outcomes,OUT094399,0
+A783234,2016-10-27,Princess,2019-01-13T16:39:00,01-2019,Rto-Adopt,,Dog,Spayed Female,2 years,Collie Smooth/Pointer,Brown,outcomes,OUT094400,1
+A797007,2009-12-08,Ummi,2019-06-09T16:33:00,06-2019,Died,In Kennel,Dog,Neutered Male,9 years,Miniature Poodle,White,outcomes,OUT102620,0
+A797007,2009-12-08,Ummi,2019-06-09T16:33:00,06-2019,Died,In Kennel,Dog,Neutered Male,9 years,Miniature Poodle,White,outcomes,OUT102621,1
+A811566,2018-07-09,Bubby,2020-01-09T17:22:00,01-2020,Return to Owner,,Cat,Neutered Male,1 year,Domestic Shorthair,White,outcomes,OUT114965,0
+A811566,2018-07-09,Bubby,2020-01-09T17:22:00,01-2020,Return to Owner,,Cat,Neutered Male,1 year,Domestic Shorthair,White,outcomes,OUT114966,1
+A815987,2019-04-02,Princess,2020-04-13T16:56:00,04-2020,Return to Owner,,Dog,Intact Female,1 year,Cairn Terrier,White/Brown,outcomes,OUT118178,0
+A815987,2019-04-02,Princess,2020-04-13T16:56:00,04-2020,Return to Owner,,Dog,Intact Female,1 year,Cairn Terrier,White/Brown,outcomes,OUT118179,1
+A826102,2018-11-19,Sasha,2020-11-23T17:16:00,11-2020,Rto-Adopt,,Dog,Spayed Female,2 years,Siberian Husky Mix,Black/Tricolor,outcomes,OUT123177,0
+A826102,2018-11-19,Sasha,2020-11-23T17:16:00,11-2020,Rto-Adopt,,Dog,Spayed Female,2 years,Siberian Husky Mix,Black/Tricolor,outcomes,OUT123178,1
+A833777,2021-04-14,*Ripple,2021-06-30T15:01:00,06-2021,Adoption,Foster,Cat,Spayed Female,2 months,Domestic Shorthair Mix,Calico,outcomes,OUT128800,0
+A833777,2021-04-14,*Ripple,2021-06-30T15:01:00,06-2021,Adoption,Foster,Cat,Spayed Female,2 months,Domestic Shorthair Mix,Calico,outcomes,OUT128801,1
+A846569,2021-06-15,A846569,2021-12-04T10:34:00,12-2021,Adoption,,Dog,Neutered Male,5 months,Australian Cattle Dog Mix,Red Tick,outcomes,OUT135082,0
+A846569,2021-06-15,A846569,2021-12-04T10:34:00,12-2021,Adoption,,Dog,Neutered Male,5 months,Australian Cattle Dog Mix,Red Tick,outcomes,OUT135083,1
+A857222,2021-08-13,Keanu,2022-05-13T18:57:00,05-2022,Adoption,,Other,Intact Male,8 months,Guinea Pig,White/Gray,outcomes,OUT140081,0
+A857222,2021-08-13,Keanu,2022-05-13T18:57:00,05-2022,Adoption,,Other,Intact Male,8 months,Guinea Pig,White/Gray,outcomes,OUT140082,1
+A862948,2022-05-02,*Christine,2022-08-03T14:05:00,08-2022,Transfer,Partner,Cat,Intact Female,3 months,Domestic Shorthair Mix,Brown Tabby,outcomes,OUT143111,0
+A862948,2022-05-02,*Christine,2022-08-03T14:05:00,08-2022,Transfer,Partner,Cat,Intact Female,3 months,Domestic Shorthair Mix,Brown Tabby,outcomes,OUT143112,1
+A866229,2022-08-07,*Jones,2022-10-29T11:16:00,10-2022,Adoption,,Cat,Neutered Male,2 months,Domestic Shorthair,Orange Tabby,outcomes,OUT146028,0
+A866229,2022-08-07,*Jones,2022-10-29T11:16:00,10-2022,Adoption,,Cat,Neutered Male,2 months,Domestic Shorthair,Orange Tabby,outcomes,OUT146029,1
+A873909,2023-01-02,*Titanium,2023-03-04T13:09:00,03-2023,Adoption,Foster,Dog,Neutered Male,1 month,Labrador Retriever Mix,Black/Tan,outcomes,OUT149356,0
+A873909,2023-01-02,*Titanium,2023-03-04T13:09:00,03-2023,Adoption,Foster,Dog,Neutered Male,1 month,Labrador Retriever Mix,Black/Tan,outcomes,OUT149357,1
+A874763,2019-09-17,Oolong,2023-06-30T14:08:00,06-2023,Adoption,,Dog,Neutered Male,3 years,Plott Hound,Black/Brown,outcomes,OUT153193,0
+A874763,2019-09-17,Oolong,2023-06-30T14:08:00,06-2023,Adoption,,Dog,Neutered Male,3 years,Plott Hound,Black/Brown,outcomes,OUT153194,1
+A925190,2024-10-21,*Pua,2025-02-25T18:39:00,02-2025,Adoption,,Dog,Neutered Male,4 months,Chihuahua Shorthair/Dachshund,Black/White,outcomes,OUT171819,0
+A925190,2024-10-21,*Pua,2025-02-25T18:39:00,02-2025,Adoption,,Dog,Neutered Male,4 months,Chihuahua Shorthair/Dachshund,Black/White,outcomes,OUT171820,1
+A921615,2023-01-17,*Charles,2025-04-17T17:15:00,04-2025,Adoption,,Dog,Neutered Male,2 years,Labrador Retriever Mix,Tan,outcomes,OUT173262,0
+A921615,2023-01-17,*Charles,2025-04-17T17:15:00,04-2025,Adoption,,Dog,Neutered Male,2 years,Labrador Retriever Mix,Tan,outcomes,OUT173263,1

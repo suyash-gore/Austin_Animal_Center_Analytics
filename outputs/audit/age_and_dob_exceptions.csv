@@ -1,0 +1,63 @@
+event_id,animal_id,event_datetime,age_raw,dataset,issue,date_of_birth
+IN032014,A753893,2015-06-26 16:30:00,-1 years,intakes,negative or unparseable age,
+IN049616,A725472,2016-06-12 14:16:00,-3 years,intakes,negative or unparseable age,
+IN071452,A757376,2017-09-01 16:49:00,-2 years,intakes,negative or unparseable age,
+IN085746,A725472,2018-07-10 16:25:00,-1 years,intakes,negative or unparseable age,
+IN090464,A757376,2018-10-13 13:42:00,-1 years,intakes,negative or unparseable age,
+IN091571,A783723,2018-11-05 11:00:00,-4 years,intakes,negative or unparseable age,
+IN096041,A725472,2019-02-26 11:25:00,-1 years,intakes,negative or unparseable age,
+IN102380,A797495,2019-06-14 11:34:00,-1 years,intakes,negative or unparseable age,
+IN116468,A871020,2020-03-13 16:15:00,-1 years,intakes,negative or unparseable age,
+IN171872,A922017,2025-03-05 09:08:00,-3 years,intakes,negative or unparseable age,
+OUT034321,A753893,2015-07-02 11:06:00,-1 years,outcomes,negative or unparseable age,2016-07-12
+OUT052968,A725472,2016-07-24 15:54:00,-3 years,outcomes,negative or unparseable age,2020-04-29
+OUT072342,A757376,2017-09-05 19:25:00,-2 years,outcomes,negative or unparseable age,2019-11-05
+OUT085774,A725472,2018-07-11 16:40:00,-1 years,outcomes,negative or unparseable age,2020-04-29
+OUT090881,A757376,2018-10-21 19:01:00,-1 years,outcomes,negative or unparseable age,2019-11-05
+OUT091767,A783723,2018-11-12 11:53:00,-4 years,outcomes,negative or unparseable age,2023-02-07
+OUT096191,A725472,2019-02-26 14:34:00,-1 years,outcomes,negative or unparseable age,2020-04-29
+OUT103007,A797495,2019-06-15 12:44:00,-1 years,outcomes,negative or unparseable age,2020-12-16
+OUT117705,A871020,2020-03-17 12:04:00,-1 years,outcomes,negative or unparseable age,2021-12-16
+OUT171865,A924936,2025-02-27 15:25:11,NULL,outcomes,negative or unparseable age,2023-02-17
+OUT172053,A922017,2025-03-05 13:00:00,-3 years,outcomes,negative or unparseable age,2028-05-01
+OUT173351,A928819,2025-04-20 09:47:31,NULL,outcomes,negative or unparseable age,2023-04-19
+OUT173471,A929116,2025-04-25 10:12:36,NULL,outcomes,negative or unparseable age,2023-04-25
+OUT173560,A929285,2025-04-28 12:48:28,NULL,outcomes,negative or unparseable age,2024-04-28
+OUT173646,A929414,2025-04-30 16:42:24,NULL,outcomes,negative or unparseable age,2025-03-23
+OUT173655,A929491,2025-05-01 10:43:23,NULL,outcomes,negative or unparseable age,2023-05-01
+OUT173671,A929513,2025-05-01 14:07:13,NULL,outcomes,negative or unparseable age,2024-05-01
+OUT173680,A929524,2025-05-01 17:53:45,NULL,outcomes,negative or unparseable age,2025-04-01
+OUT173752,A929710,2025-05-04 17:13:03,NULL,outcomes,negative or unparseable age,2015-05-04
+OUT000634,A754280,2016-04-11 00:00:00,0 years,outcomes,date of birth after outcome date,2016-07-12
+OUT005359,A660928,2013-12-01 13:19:00,0 years,outcomes,date of birth after outcome date,2014-04-03
+OUT020048,A751749,2014-09-10 17:29:00,0 years,outcomes,date of birth after outcome date,2014-12-12
+OUT031763,A702326,2015-05-24 17:01:00,0 years,outcomes,date of birth after outcome date,2015-08-29
+OUT031934,A703416,2015-05-26 16:58:00,0 years,outcomes,date of birth after outcome date,2015-05-29
+OUT034321,A753893,2015-07-02 11:06:00,-1 years,outcomes,date of birth after outcome date,2016-07-12
+OUT034495,A706929,2015-07-05 14:46:00,0 years,outcomes,date of birth after outcome date,2015-07-06
+OUT052968,A725472,2016-07-24 15:54:00,-3 years,outcomes,date of birth after outcome date,2020-04-29
+OUT056539,A736114,2016-10-04 15:13:00,0 years,outcomes,date of birth after outcome date,2016-10-28
+OUT057910,A737397,2016-11-05 18:16:00,0 years,outcomes,date of birth after outcome date,2016-11-15
+OUT063500,A745085,2017-03-13 18:11:00,0 years,outcomes,date of birth after outcome date,2017-10-11
+OUT066073,A749253,2017-05-12 16:43:00,0 years,outcomes,date of birth after outcome date,2017-07-01
+OUT072342,A757376,2017-09-05 19:25:00,-2 years,outcomes,date of birth after outcome date,2019-11-05
+OUT085774,A725472,2018-07-11 16:40:00,-1 years,outcomes,date of birth after outcome date,2020-04-29
+OUT090881,A757376,2018-10-21 19:01:00,-1 years,outcomes,date of birth after outcome date,2019-11-05
+OUT091767,A783723,2018-11-12 11:53:00,-4 years,outcomes,date of birth after outcome date,2023-02-07
+OUT095723,A788874,2019-02-14 17:13:00,0 years,outcomes,date of birth after outcome date,2019-12-06
+OUT095747,A788866,2019-02-15 12:02:00,0 years,outcomes,date of birth after outcome date,2019-12-06
+OUT096191,A725472,2019-02-26 14:34:00,-1 years,outcomes,date of birth after outcome date,2020-04-29
+OUT100111,A802049,2019-07-16 00:00:00,0 years,outcomes,date of birth after outcome date,2019-07-17
+OUT103007,A797495,2019-06-15 12:44:00,-1 years,outcomes,date of birth after outcome date,2020-12-16
+OUT105182,A799589,2019-07-16 19:04:00,0 years,outcomes,date of birth after outcome date,2019-10-15
+OUT108670,A804197,2019-09-11 18:24:00,0 years,outcomes,date of birth after outcome date,2019-09-12
+OUT117705,A871020,2020-03-17 12:04:00,-1 years,outcomes,date of birth after outcome date,2021-12-16
+OUT122612,A825065,2020-10-31 11:05:00,0 years,outcomes,date of birth after outcome date,2021-10-01
+OUT127132,A834123,2021-05-14 13:09:00,0 years,outcomes,date of birth after outcome date,2021-07-04
+OUT128185,A853991,2021-06-15 16:07:00,0 years,outcomes,date of birth after outcome date,2021-09-28
+OUT136676,A850078,2022-01-19 16:10:00,0 years,outcomes,date of birth after outcome date,2022-05-07
+OUT141797,A860186,2022-06-28 19:18:00,0 years,outcomes,date of birth after outcome date,2022-07-08
+OUT151726,A881120,2023-05-21 15:23:00,0 years,outcomes,date of birth after outcome date,2024-03-17
+OUT159085,A896364,2024-01-14 16:42:00,0 years,outcomes,date of birth after outcome date,2024-01-15
+OUT159476,A896867,2024-01-29 11:53:00,0 years,outcomes,date of birth after outcome date,2024-03-18
+OUT172053,A922017,2025-03-05 13:00:00,-3 years,outcomes,date of birth after outcome date,2028-05-01

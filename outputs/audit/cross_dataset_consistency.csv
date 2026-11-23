@@ -1,0 +1,11 @@
+metric,value
+Animal IDs in both datasets,155423
+Animal IDs only in intakes,864
+Animal IDs only in outcomes,814
+Intake rows whose Animal ID has no outcome,864
+Outcome rows whose Animal ID has no intake,815
+Animal IDs with >1 animal type across both files,0
+Intake rows with Found Location ending '(TX)',171729
+Intake rows with Found Location 'Outside Jurisdiction',2083
+Names starting with '*' (intakes),43333
+Names starting with '*' (outcomes),43369

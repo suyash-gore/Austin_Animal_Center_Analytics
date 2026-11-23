@@ -6,6 +6,23 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 23-11-2026 — Validated data audit and matching outputs
+#### Added
+- `data/processed/intakes_clean.csv`, `data/processed/outcomes_clean.csv` (one row per source row,
+  typed fields, event IDs, quality flags; booleans 1/0).
+- `outputs/audit/` (15 files): file/column profiles, categorical distributions, label variants,
+  duplicates, same-ID/timestamp conflicts, suspected duplicate events, date and age exceptions.
+- `outputs/matching/` (11 files): candidate visit table (method `adjacent_dp`), unmatched intakes and
+  outcomes with reasons, ambiguous event streams, method comparison, pairwise differences,
+  deduplication impact, LOS percentiles/distribution, preliminary reconciliation, key metrics.
+- `outputs/analysis/` (34 files): monthly/annual/like-for-like time series, seasonality, structural-break
+  screen, visit-level outcome mix, LOS by segment and cohort, long stays, census estimate, repeat visits,
+  adoption returns, breed and condition profiles, scored opportunity register.
+#### Validated
+- Outputs regenerated twice from the raw files with byte-identical results; 41/41 tests pass;
+  raw checksums unchanged. Matched visits 172,772; unmatched intakes 1,004; unmatched outcomes 977;
+  0 reused intakes, 0 negative LOS, 0 overlapping visits, 0 animal-type mismatches.
+
 ### 23-11-2026 — Reproducible source audit and visit-matching framework
 #### Added
 - `analysis/common.py` (loading, parsing, cleaning, duplicate flags), `analysis/matching_engine.py`

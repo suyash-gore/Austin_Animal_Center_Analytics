@@ -1,0 +1,45 @@
+year,unmatched_reason,rows,event
+2014,Animal ID has no outcome records,1,Intake
+2014,No outcome recorded after this intake (open at extract end or outcome not recorded),3,Intake
+2014,Superseded: animal has a later intake before any outcome,6,Intake
+2015,Animal ID has no outcome records,1,Intake
+2015,Superseded: animal has a later intake before any outcome,4,Intake
+2016,Superseded: animal has a later intake before any outcome,6,Intake
+2017,Superseded: animal has a later intake before any outcome,8,Intake
+2018,No outcome recorded after this intake (open at extract end or outcome not recorded),1,Intake
+2018,Superseded: animal has a later intake before any outcome,3,Intake
+2019,Superseded: animal has a later intake before any outcome,3,Intake
+2020,Superseded: animal has a later intake before any outcome,2,Intake
+2021,Animal ID has no outcome records,1,Intake
+2021,No outcome recorded after this intake (open at extract end or outcome not recorded),1,Intake
+2021,Superseded: animal has a later intake before any outcome,2,Intake
+2022,Animal ID has no outcome records,1,Intake
+2022,No outcome recorded after this intake (open at extract end or outcome not recorded),2,Intake
+2022,Superseded: animal has a later intake before any outcome,2,Intake
+2023,Animal ID has no outcome records,11,Intake
+2023,No outcome recorded after this intake (open at extract end or outcome not recorded),2,Intake
+2023,Superseded: animal has a later intake before any outcome,2,Intake
+2024,Animal ID has no outcome records,106,Intake
+2024,No outcome recorded after this intake (open at extract end or outcome not recorded),24,Intake
+2025,Animal ID has no outcome records,743,Intake
+2025,No outcome recorded after this intake (open at extract end or outcome not recorded),69,Intake
+2013,Animal ID has no intake records,704,Outcome
+2013,No intake recorded before this outcome (intake may pre-date extract or be missing),94,Outcome
+2014,Animal ID has no intake records,106,Outcome
+2014,No intake recorded before this outcome (intake may pre-date extract or be missing),16,Outcome
+2014,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),8,Outcome
+2015,Animal ID has no intake records,3,Outcome
+2015,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),4,Outcome
+2016,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),8,Outcome
+2017,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),9,Outcome
+2018,Animal ID has no intake records,1,Outcome
+2018,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),2,Outcome
+2019,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),6,Outcome
+2020,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),1,Outcome
+2021,No intake recorded before this outcome (intake may pre-date extract or be missing),1,Outcome
+2021,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),3,Outcome
+2022,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),3,Outcome
+2023,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),5,Outcome
+2024,No intake recorded before this outcome (intake may pre-date extract or be missing),1,Outcome
+2024,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),1,Outcome
+2025,Preceding intake already closed by an earlier outcome (extra/duplicate outcome),1,Outcome
