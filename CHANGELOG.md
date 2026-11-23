@@ -6,6 +6,18 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 23-11-2026 — Conformed intake type dimension
+#### Added
+- `powerbi/power_query/DimIntakeType.m`: distinct non-null `intake_type` of FactIntakes and FactVisits (6 members),
+  with sort order and notes; relationships R8 `DimIntakeType[intake_type]` → `FactIntakes[intake_type]` and R9 →
+  `FactVisits[intake_type]` (one-to-many, single direction). Not related to FactOutcomes.
+- Validation: identical domain in both facts; no FactIntakes blanks; FactVisits blank only on the 1,202
+  outcome-only rows (retained under the blank member); no rows excluded; per-type counts equal (130 checks pass;
+  71 tests).
+#### Changed
+- `powerbi/dax/00_Model_Relationships.md`, `docs/POWER_BI_DATA_MODEL.md` (diagram, tables, filter propagation,
+  implementation steps). No change to facts, DAX measures, audit outputs or the PBIX.
+
 ### 23-11-2026 — Power BI Stage 1: data model, Power Query and DAX foundation
 #### Added
 - `powerbi/power_query/`: `RepoRoot.m` (path parameter), `FactIntakes.m`, `FactOutcomes.m` (exact duplicates

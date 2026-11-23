@@ -14,17 +14,24 @@ Relationships to create **manually** in Power BI Desktop (Model view) after load
 | R5 | `DimAnimalType[Animal Type]` | `FactIntakes[animal_type]` | 1 : * | Single | Yes |
 | R6 | `DimAnimalType[Animal Type]` | `FactOutcomes[animal_type]` | 1 : * | Single | Yes |
 | R7 | `DimAnimalType[Animal Type]` | `FactVisits[animal_type]` | 1 : * | Single | Yes |
+| R8 | `DimIntakeType[intake_type]` | `FactIntakes[intake_type]` | 1 : * | Single | Yes |
+| R9 | `DimIntakeType[intake_type]` | `FactVisits[intake_type]` | 1 : * | Single | Yes |
 
 ## Deliberately NOT created
 
 * No relationship on `animal_id` between any tables (Animal ID is not a visit key; DECISION_LOG D-010).
 * No relationship between the fact tables (`intake_event_id` / `outcome_event_id` are traceability keys
-  only; adding them would create ambiguous filter paths through DimDate and DimAnimalType).
+  only; adding them would create ambiguous filter paths through the shared dimensions).
 * No bidirectional and no many-to-many relationships.
-* No shared intake-type / outcome-type dimension in this stage: the category columns stay in their own
-  facts (`FactIntakes[intake_type]`, `FactOutcomes[outcome_group]`, `FactVisits[intake_type]`, …). A slicer
-  on `FactIntakes[intake_type]` therefore filters intake events only; use `FactVisits[intake_type]` for
-  visit measures.
+* No relationship from DimIntakeType to FactOutcomes (outcome events have no intake type).
+* No conformed outcome-type dimension yet: outcome categories stay in their facts
+  (`FactOutcomes[outcome_group]`, `FactVisits[outcome_group]`); a slicer on one filters that fact only.
+
+## Intake type
+
+`DimIntakeType[intake_type]` filters intake events and visits together — use it (not the fact columns) for
+the required intake-type slicer. FactVisits outcome-only rows (1,202) have a null `intake_type`; they are kept
+and belong to the blank member, so selecting any intake type excludes them (they have no intake).
 
 ## Date roles
 
@@ -46,7 +53,7 @@ have no `intake_date`; they are invisible to R3 under any date filter, which is 
    `dd-MM-yyyy HH:mm`.
 3. Sort `DimDate[Month Name]` / `[Month Short Name]` by `[Month Number]`, `[Year-Month]` and
    `[Month-Year Display]` by `[Year-Month Sort]`, `[Day of Week]` by `[Day of Week Number]`,
-   `DimAnimalType[Animal Type]` by `[Animal Type Sort]`.
+   `DimAnimalType[Animal Type]` by `[Animal Type Sort]`, `DimIntakeType[intake_type]` by `[Intake Type Sort]`.
 4. Turn off Auto date/time (File > Options > Current file > Data load).
-5. Hide fact columns used only as keys (`intake_date`, `outcome_date`, `animal_type`) from report view
+5. Hide fact columns used only as keys (`intake_date`, `outcome_date`, `animal_type`, `intake_type`) from report view
    once slicers use the dimension columns.

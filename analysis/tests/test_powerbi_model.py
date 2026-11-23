@@ -108,7 +108,7 @@ def test_time_intelligence_guards_partial_years():
 def test_relationship_spec_has_no_bidirectional_or_animal_id_joins():
     text = (v.DAX_DIR / "00_Model_Relationships.md").read_text(encoding="utf-8")
     table = [l for l in text.splitlines() if l.startswith("| R")]
-    assert len(table) == 7
+    assert len(table) == 9
     assert all("| Single |" in l for l in table)
     assert not any("animal_id" in l for l in table)
 
@@ -116,3 +116,17 @@ def test_relationship_spec_has_no_bidirectional_or_animal_id_joins():
 def test_provisional_outcome_caveat_present():
     text = (v.DAX_DIR / "04_Outcome_Analysis.dax").read_text(encoding="utf-8")
     assert "NOT AUSTIN'S OFFICIAL LIVE-RELEASE RATE" in text
+
+
+def test_intake_type_dimension(checks):
+    names = ["DimIntakeType members", "intake_type values identical in FactIntakes and FactVisits",
+             "FactIntakes[intake_type] has no blanks", "FactVisits[intake_type] blank only on outcome-only rows",
+             "FactIntakes rows under a DimIntakeType member (none excluded)",
+             "FactVisits rows under a member or the blank member (none excluded)",
+             "Intake events by type = visit rows by intake type"]
+    sub = checks[checks["check"].isin(names)]
+    assert len(sub) == len(names) and (sub["status"] == "PASS").all()
+    m = (v.PQ_DIR / "DimIntakeType.m").read_text(encoding="utf-8")
+    assert "FactIntakes[intake_type], FactVisits[intake_type]" in m and "List.RemoveNulls" in m
+    assert "FactOutcomes" not in m.split("let", 1)[1]  # not sourced from / related to outcomes
+    assert "intake_type" in v.m_added_columns("DimIntakeType.m") or "[intake_type = text]" in m

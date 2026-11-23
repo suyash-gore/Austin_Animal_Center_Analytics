@@ -36,7 +36,8 @@ SOURCES = {
     "UnmatchedOutcomes": REPO_ROOT / "outputs" / "matching" / "unmatched_outcomes.csv",
     "ScenarioComparison": REPO_ROOT / "outputs" / "sensitivity" / "scenario_comparison.csv",
 }
-M_FILES = ["RepoRoot.m", "FactIntakes.m", "FactOutcomes.m", "FactVisits.m", "DimDate.m", "DimAnimalType.m"]
+M_FILES = ["RepoRoot.m", "FactIntakes.m", "FactOutcomes.m", "FactVisits.m", "DimDate.m", "DimAnimalType.m",
+           "DimIntakeType.m"]
 DAX_FILES = ["00_Model_Relationships.md", "01_Core_Measures.dax", "02_Time_Intelligence.dax",
              "03_Visit_Operations.dax", "04_Outcome_Analysis.dax"]
 
@@ -290,6 +291,25 @@ def run_checks() -> pd.DataFrame:
     c.eq("dimensions", "DimAnimalType members", ["Bird", "Cat", "Dog", "Livestock", "Other"],
          sorted(set().union(*vals.values())))
 
+    # 8b. intake type dimension: conformed domain, nothing excluded
+    iv, vv = I["intake_type"], V["intake_type"]
+    dom = set(iv.dropna()) | set(vv.dropna())
+    c.eq("dimensions", "DimIntakeType members", ["Abandoned", "Euthanasia Request", "Owner Surrender",
+                                                 "Public Assist", "Stray", "Wildlife"], sorted(dom))
+    c.eq("dimensions", "intake_type values identical in FactIntakes and FactVisits", True,
+         set(iv.dropna()) == set(vv.dropna()))
+    c.eq("dimensions", "FactIntakes[intake_type] has no blanks", 0, int(iv.isna().sum()))
+    c.eq("dimensions", "FactVisits[intake_type] blank only on outcome-only rows", True,
+         bool((vv.isna() == (V["visit_status"] == U_OUT)).all()), f"{int(vv.isna().sum())} blank rows retained")
+    c.eq("dimensions", "No leading/trailing whitespace in intake_type", 0,
+         int(sum((s.dropna() != s.dropna().str.strip()).sum() for s in (iv, vv))))
+    c.eq("dimensions", "FactIntakes rows under a DimIntakeType member (none excluded)", len(I),
+         int(iv.isin(dom).sum()))
+    c.eq("dimensions", "FactVisits rows under a member or the blank member (none excluded)", len(V),
+         int(vv.isin(dom).sum() + vv.isna().sum()))
+    c.eq("dimensions", "Intake events by type = visit rows by intake type", True,
+         iv.value_counts().to_dict() == vv.value_counts().to_dict())
+
     # 9. unmatched reasons and reversed candidates --------------------------------------------
     R = pd.concat([UI[["visit_id", "unmatched_reason"]], UO[["visit_id", "unmatched_reason"]]])
     c.eq("visits", "Unmatched reason files: one row per visit_id", True, bool(R["visit_id"].is_unique))
@@ -328,19 +348,22 @@ def run_checks() -> pd.DataFrame:
         "FactVisits": set(m_expected_columns("FactVisits.m")) | {"unmatched_reason", "unmatched_reason_code"},
         "DimDate": {"Date"} | set(m_added_columns("DimDate.m")),
         "DimAnimalType": {"Animal Type"} | set(m_added_columns("DimAnimalType.m")),
+        "DimIntakeType": {"intake_type"} | set(m_added_columns("DimIntakeType.m")),
     }
     unknown = []
     for f in DAX_FILES:
         if not f.endswith(".dax"):
             continue
-        for table, col in re.findall(r"\b(FactIntakes|FactOutcomes|FactVisits|DimDate|DimAnimalType)\[([^\]]+)\]",
+        for table, col in re.findall(r"\b(FactIntakes|FactOutcomes|FactVisits|DimDate|DimAnimalType|DimIntakeType)\[([^\]]+)\]",
                                      (DAX_DIR / f).read_text(encoding="utf-8")):
             if col not in cols[table] and col not in defs:
                 unknown.append(f"{f}: {table}[{col}]")
     c.eq("artefacts", "DAX column references exist in the model", [], sorted(set(unknown)))
     rel = (DAX_DIR / "00_Model_Relationships.md").read_text(encoding="utf-8")
-    c.eq("artefacts", "Relationship spec has 7 relationships incl. inactive outcome_date",
-         True, rel.count("| R") >= 7 and "`FactVisits[outcome_date]` | 1 : * | Single | **No**" in rel)
+    c.eq("artefacts", "Relationship spec has 9 relationships incl. inactive outcome_date and DimIntakeType",
+         True, rel.count("| R") >= 9
+         and "`DimIntakeType[intake_type]` | `FactIntakes[intake_type]` | 1 : * | Single | Yes" in rel
+         and "`DimIntakeType[intake_type]` | `FactVisits[intake_type]` | 1 : * | Single | Yes" in rel and "`FactVisits[outcome_date]` | 1 : * | Single | **No**" in rel)
 
     # 11. sources not modified ----------------------------------------------------------------
     ref = pd.read_csv(CHECKSUM_FILE).set_index("file")["sha256"]

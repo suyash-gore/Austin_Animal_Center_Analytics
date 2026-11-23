@@ -6,7 +6,7 @@ Desktop manually (§11). No visuals are built at this stage.
 
 | Artefact | Location |
 |---|---|
-| Power Query (M) | `powerbi/power_query/RepoRoot.m`, `FactIntakes.m`, `FactOutcomes.m`, `FactVisits.m`, `DimDate.m`, `DimAnimalType.m` |
+| Power Query (M) | `powerbi/power_query/RepoRoot.m`, `FactIntakes.m`, `FactOutcomes.m`, `FactVisits.m`, `DimDate.m`, `DimAnimalType.m`, `DimIntakeType.m` |
 | Relationships | `powerbi/dax/00_Model_Relationships.md` |
 | DAX measures | `powerbi/dax/01_Core_Measures.dax` … `04_Outcome_Analysis.dax` |
 | Validation | `analysis/validate_powerbi_model.py` → `outputs/powerbi/model_validation_summary.csv`; tests `analysis/tests/test_powerbi_model.py` |
@@ -17,7 +17,8 @@ Analytical definitions are unchanged from the audit (DECISION_LOG D-008 to D-019
 
 ## 1. Model overview
 
-A star schema with three fact tables sharing two conformed dimensions. The facts are **not** related to
+A star schema with three fact tables and three conformed dimensions (DimDate, DimAnimalType,
+DimIntakeType). The facts are **not** related to
 each other and nothing is joined on `animal_id`.
 
 ```mermaid
@@ -29,6 +30,8 @@ erDiagram
     DimAnimalType ||--o{ FactIntakes : "R5 Animal Type -> animal_type"
     DimAnimalType ||--o{ FactOutcomes : "R6 Animal Type -> animal_type"
     DimAnimalType ||--o{ FactVisits : "R7 Animal Type -> animal_type"
+    DimIntakeType ||--o{ FactIntakes : "R8 intake_type -> intake_type"
+    DimIntakeType ||--o{ FactVisits : "R9 intake_type -> intake_type"
 ```
 
 All relationships are one-to-many, single-direction (dimension filters fact).
@@ -42,6 +45,7 @@ All relationships are one-to-many, single-direction (dimension filters fact).
 | FactVisits | `outputs/matching/candidate_visits.csv` (+ reasons from `unmatched_intakes.csv`, `unmatched_outcomes.csv`) | one visit candidate · `visit_id` | 174,978 | **no rows removed** |
 | DimDate | generated in M | one calendar day · `Date` | 4,235 | 01-10-2013 to 05-05-2025, continuous |
 | DimAnimalType | distinct `animal_type` of the three facts | one animal type · `Animal Type` | 5 | Dog, Cat, Other, Bird, Livestock |
+| DimIntakeType | distinct non-null `intake_type` of FactIntakes and FactVisits | one intake type · `intake_type` | 6 | Stray, Owner Surrender, Public Assist, Wildlife, Abandoned, Euthanasia Request |
 
 FactVisits rows by `visit_status`: Matched visit 172,547 · Intake without matched outcome 1,229 · Outcome
 without matched intake 1,202. Of the unmatched rows, 450 (225 intake-only + 225 outcome-only) are the
@@ -61,6 +65,7 @@ loaded into the model.
 | Date key → DimDate (Date) | `intake_date` | `outcome_date` | `intake_date` (active), `outcome_date` (inactive) |
 | Timestamp (DateTime, wall clock) | `intake_datetime` | `outcome_datetime` (+ `outcome_tz_offset` text, never applied) | `intake_datetime`, `outcome_datetime` |
 | Dimension key → DimAnimalType | `animal_type` | `animal_type` | `animal_type` |
+| Dimension key → DimIntakeType | `intake_type` | — | `intake_type` (null on outcome-only rows) |
 | Categories (kept in the fact) | `intake_type`, `intake_condition`, `sex_upon_intake`, `age_band_intake`, `breed`, `color` | `outcome_type`, `outcome_subtype`, `outcome_group`, `outcome_status_provisional`, `sex_upon_outcome` | `visit_status`, `match_rule`, `los_band`, `intake_type`, `intake_condition`, `outcome_type`, `outcome_subtype`, `outcome_group`, `outcome_status_provisional`, `age_band_intake`, `unmatched_reason`, `unmatched_reason_code` |
 | Numeric (decimal) | `age_upon_intake_days` | `age_upon_outcome_days` | `los_days`, `los_days_raw`, `age_upon_intake_days`, `intake_age_dob_gap_days` |
 | Integer | `source_row` | `source_row`, `age_from_dob_days` | `animal_intake_ordinal`, `n_eligible`, `days_open_at_extract_end` |
@@ -92,13 +97,19 @@ from the reason text: `NO_OUTCOME_RECORDS`, `NO_LATER_OUTCOME`, `SUPERSEDED`, `R
 | R5 | DimAnimalType[Animal Type] | FactIntakes[animal_type] | 1:* | Single | Yes |
 | R6 | DimAnimalType[Animal Type] | FactOutcomes[animal_type] | 1:* | Single | Yes |
 | R7 | DimAnimalType[Animal Type] | FactVisits[animal_type] | 1:* | Single | Yes |
+| R8 | DimIntakeType[intake_type] | FactIntakes[intake_type] | 1:* | Single | Yes |
+| R9 | DimIntakeType[intake_type] | FactVisits[intake_type] | 1:* | Single | Yes |
 
 * **DimAnimalType** filters all three facts. Validated: the same five values in all facts, no blanks.
   For visit rows, `animal_type` is the intake animal type (outcome type on outcome-only rows); there are
   0 intake/outcome animal-type mismatches.
-* **Category slicers** placed on a fact column filter only that fact. `FactIntakes[intake_type]` does not
-  filter FactVisits; use `FactVisits[intake_type]` for visit measures. A conformed intake-type /
-  outcome-type dimension is deferred to a later stage.
+* **DimIntakeType** filters FactIntakes and FactVisits (not FactOutcomes, which has no intake type).
+  Validated: the same six values in both facts; FactIntakes has no blanks; FactVisits is blank only on the
+  1,202 outcome-only rows. No rows are excluded — those rows sit under the relationship's blank member and
+  drop out only when a specific intake type is selected. Use `DimIntakeType[intake_type]` for the
+  intake-type slicer. Outcome measures (FactOutcomes) are unaffected by it.
+* **Other category slicers** placed on a fact column filter only that fact. A conformed outcome-type
+  dimension is deferred.
 * **Not created:** Animal ID relationships, fact-to-fact relationships (event IDs are traceability only),
   bidirectional or many-to-many relationships.
 
@@ -223,19 +234,19 @@ python -m pytest analysis/tests/test_powerbi_model.py -q
    not affect parsing (formats are explicit).
 2. **Parameter.** Home > Transform data. Manage Parameters > New: Name `RepoRoot`, Type Text, Current value
    = absolute path of your clone **with trailing backslash** (e.g. `C:\Repos\Austin_Animal_Center_Analytics\`).
-3. **Queries.** For each of `FactIntakes`, `FactOutcomes`, `FactVisits`, `DimDate`, `DimAnimalType` (in that
+3. **Queries.** For each of `FactIntakes`, `FactOutcomes`, `FactVisits`, `DimDate`, `DimAnimalType`, `DimIntakeType` (in that
    order): New Source > Blank Query > Advanced Editor > paste the file content > Done > rename the query to
-   the file name. `DimAnimalType` references the three fact queries, so create it last.
+   the file name. `DimAnimalType` and `DimIntakeType` reference the fact queries, so create them last.
 4. **Check in Power Query.** Column types show date/datetime/decimal/true-false icons; no error rows
    (View > Column quality). Close & Apply.
 5. **Row counts.** In Table view: FactIntakes 173,776; FactOutcomes 173,749; FactVisits 174,978; DimDate 4,235;
-   DimAnimalType 5.
+   DimAnimalType 5; DimIntakeType 6.
 6. **Date table.** Select DimDate > Table tools > Mark as date table > `Date`. Format `Date` as `dd-MM-yyyy`
    (Column tools > Format > custom). Also format fact `*_date` columns `dd-MM-yyyy` and `*_datetime` columns
    `dd-MM-yyyy HH:mm`.
 7. **Sort-by columns.** Month Name and Month Short Name by Month Number; Year-Month and Month-Year Display by
-   Year-Month Sort; Day of Week by Day of Week Number; DimAnimalType[Animal Type] by Animal Type Sort.
-8. **Relationships.** Model view > Manage relationships > New, for R1–R7 (§4 /
+   Year-Month Sort; Day of Week by Day of Week Number; DimAnimalType[Animal Type] by Animal Type Sort; DimIntakeType[intake_type] by Intake Type Sort.
+8. **Relationships.** Model view > Manage relationships > New, for R1–R9 (§4 /
    `powerbi/dax/00_Model_Relationships.md`): cardinality *One to many*, cross filter *Single*. For R4 untick
    *Make this relationship active*. Delete any relationship auto-detected on other columns.
 9. **Measures.** Open DAX query view, paste `01_Core_Measures.dax`, Run, check the result against §10, then
