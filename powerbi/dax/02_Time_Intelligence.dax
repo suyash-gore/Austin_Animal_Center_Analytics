@@ -1,0 +1,145 @@
+// =====================================================================================================
+// 02_Time_Intelligence.dax — prior-year, year-over-year and like-for-like measures
+// Requires: 01_Core_Measures.dax applied; DimDate marked as date table on DimDate[Date].
+// Date roles: FactIntakes is filtered by intake_date and FactOutcomes by outcome_date through their own
+// ACTIVE relationships, so the same DimDate selection means "intake date" for intake measures and
+// "outcome date" for outcome measures.
+//
+// Partial-year rule (D-015): the extract covers 01-10-2013 to 05-05-2025 (05-05-2025 is a partial day).
+//   * PY / YoY measures return BLANK unless the comparison is like-for-like: the prior-year period must start
+//     on or after the extract start and the current period must end on or before the last complete day
+//     (04-05-2025). Full years 2015-2024 and any month from 10-2014 to 04-2025 qualify; year 2014 (vs partial
+//     2013), year 2025 and May 2025 do not.
+//   * Use the "(01-01 to 04-05)" window measures to compare 2025 with earlier years, and the
+//     "(01-10 to 31-12)" window measures to compare 2013 with later years.
+// =====================================================================================================
+DEFINE
+    // Display folder: 03 Time Intelligence\Helpers      (TRUE/FALSE)
+    MEASURE DimDate[Is Comparable YoY Period] =
+        VAR _first = MIN ( DimDate[Date] )
+        VAR _last = MAX ( DimDate[Date] )
+        VAR _extractStart = CALCULATE ( MIN ( DimDate[Date] ), REMOVEFILTERS ( DimDate ) )
+        VAR _lastComplete =
+            CALCULATE (
+                MAX ( DimDate[Date] ),
+                REMOVEFILTERS ( DimDate ),
+                DimDate[Is Complete Extract Day] = TRUE ()
+            )
+        RETURN
+            NOT ISBLANK ( _first )
+                && EDATE ( _first, -12 ) >= _extractStart
+                && _last <= _lastComplete
+
+    // ---------------- Intake events ----------------
+    // Display folder: 03 Time Intelligence\Intakes       Format: #,0
+    MEASURE FactIntakes[Intake Events PY] =
+        IF (
+            [Is Comparable YoY Period],
+            CALCULATE ( [Total Intakes], SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+        )
+
+    // Display folder: 03 Time Intelligence\Intakes       Format: +#,0;-#,0;0
+    MEASURE FactIntakes[Intake Events YoY Change] =
+        VAR _py = [Intake Events PY]
+        RETURN IF ( NOT ISBLANK ( _py ), [Total Intakes] - _py )
+
+    // Display folder: 03 Time Intelligence\Intakes       Format: +0.0%;-0.0%;0.0%
+    MEASURE FactIntakes[Intake Events YoY %] =
+        DIVIDE ( [Intake Events YoY Change], [Intake Events PY] )
+
+    // Display folder: 03 Time Intelligence\Intakes       Format: #,0
+    MEASURE FactIntakes[Intake Events (Full Calendar Years)] =
+        CALCULATE ( [Total Intakes], KEEPFILTERS ( DimDate[Is Full Calendar Year] = TRUE () ) )
+
+    // Display folder: 03 Time Intelligence\Intakes\Like-for-like       Format: #,0
+    MEASURE FactIntakes[Intake Events (01-01 to 04-05)] =
+        CALCULATE ( [Total Intakes], KEEPFILTERS ( DimDate[Is Jan to 04-May Window] = TRUE () ) )
+
+    // Display folder: 03 Time Intelligence\Intakes\Like-for-like       Format: #,0
+    MEASURE FactIntakes[Intake Events (01-01 to 04-05) PY] =
+        CALCULATE ( [Intake Events (01-01 to 04-05)], SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+
+    // Display folder: 03 Time Intelligence\Intakes\Like-for-like       Format: +0.0%;-0.0%;0.0%
+    MEASURE FactIntakes[Intake Events (01-01 to 04-05) YoY %] =
+        VAR _cy = [Intake Events (01-01 to 04-05)]
+        VAR _py = [Intake Events (01-01 to 04-05) PY]
+        RETURN IF ( NOT ISBLANK ( _cy ) && NOT ISBLANK ( _py ), DIVIDE ( _cy - _py, _py ) )
+
+    // Display folder: 03 Time Intelligence\Intakes\Like-for-like       Format: #,0
+    MEASURE FactIntakes[Intake Events (01-10 to 31-12)] =
+        CALCULATE ( [Total Intakes], KEEPFILTERS ( DimDate[Is Oct to Dec Window] = TRUE () ) )
+
+    // Display folder: 03 Time Intelligence\Intakes\Like-for-like       Format: #,0
+    MEASURE FactIntakes[Intake Events (01-10 to 31-12) PY] =
+        CALCULATE ( [Intake Events (01-10 to 31-12)], SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+
+    // Display folder: 03 Time Intelligence\Intakes\Like-for-like       Format: +0.0%;-0.0%;0.0%
+    MEASURE FactIntakes[Intake Events (01-10 to 31-12) YoY %] =
+        VAR _cy = [Intake Events (01-10 to 31-12)]
+        VAR _py = [Intake Events (01-10 to 31-12) PY]
+        RETURN IF ( NOT ISBLANK ( _cy ) && NOT ISBLANK ( _py ), DIVIDE ( _cy - _py, _py ) )
+
+    // ---------------- Outcome events ----------------
+    // Display folder: 03 Time Intelligence\Outcomes      Format: #,0
+    MEASURE FactOutcomes[Outcome Events PY] =
+        IF (
+            [Is Comparable YoY Period],
+            CALCULATE ( [Total Outcomes], SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+        )
+
+    // Display folder: 03 Time Intelligence\Outcomes      Format: +#,0;-#,0;0
+    MEASURE FactOutcomes[Outcome Events YoY Change] =
+        VAR _py = [Outcome Events PY]
+        RETURN IF ( NOT ISBLANK ( _py ), [Total Outcomes] - _py )
+
+    // Display folder: 03 Time Intelligence\Outcomes      Format: +0.0%;-0.0%;0.0%
+    MEASURE FactOutcomes[Outcome Events YoY %] =
+        DIVIDE ( [Outcome Events YoY Change], [Outcome Events PY] )
+
+    // Display folder: 03 Time Intelligence\Outcomes      Format: #,0
+    MEASURE FactOutcomes[Outcome Events (Full Calendar Years)] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( DimDate[Is Full Calendar Year] = TRUE () ) )
+
+    // Display folder: 03 Time Intelligence\Outcomes\Like-for-like      Format: #,0
+    MEASURE FactOutcomes[Outcome Events (01-01 to 04-05)] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( DimDate[Is Jan to 04-May Window] = TRUE () ) )
+
+    // Display folder: 03 Time Intelligence\Outcomes\Like-for-like      Format: #,0
+    MEASURE FactOutcomes[Outcome Events (01-01 to 04-05) PY] =
+        CALCULATE ( [Outcome Events (01-01 to 04-05)], SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+
+    // Display folder: 03 Time Intelligence\Outcomes\Like-for-like      Format: +0.0%;-0.0%;0.0%
+    MEASURE FactOutcomes[Outcome Events (01-01 to 04-05) YoY %] =
+        VAR _cy = [Outcome Events (01-01 to 04-05)]
+        VAR _py = [Outcome Events (01-01 to 04-05) PY]
+        RETURN IF ( NOT ISBLANK ( _cy ) && NOT ISBLANK ( _py ), DIVIDE ( _cy - _py, _py ) )
+
+    // Display folder: 03 Time Intelligence\Outcomes\Like-for-like      Format: #,0
+    MEASURE FactOutcomes[Outcome Events (01-10 to 31-12)] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( DimDate[Is Oct to Dec Window] = TRUE () ) )
+
+    // Display folder: 03 Time Intelligence\Outcomes\Like-for-like      Format: #,0
+    MEASURE FactOutcomes[Outcome Events (01-10 to 31-12) PY] =
+        CALCULATE ( [Outcome Events (01-10 to 31-12)], SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+
+    // Display folder: 03 Time Intelligence\Outcomes\Like-for-like      Format: +0.0%;-0.0%;0.0%
+    MEASURE FactOutcomes[Outcome Events (01-10 to 31-12) YoY %] =
+        VAR _cy = [Outcome Events (01-10 to 31-12)]
+        VAR _py = [Outcome Events (01-10 to 31-12) PY]
+        RETURN IF ( NOT ISBLANK ( _cy ) && NOT ISBLANK ( _py ), DIVIDE ( _cy - _py, _py ) )
+
+// Validation query. Expected (outputs/powerbi/model_validation_summary.csv):
+//   2014: PY blank (2013 partial); 2019 intake YoY +16.21%; 2020 intake YoY -51.41%, outcome YoY -50.56%;
+//   2025: PY blank; (01-01 to 04-05) intakes 3,745 vs PY 3,991 = -6.16%.
+EVALUATE
+SUMMARIZECOLUMNS (
+    DimDate[Year],
+    "Intakes", [Total Intakes],
+    "Intakes PY", [Intake Events PY],
+    "Intakes YoY %", [Intake Events YoY %],
+    "Outcomes", [Total Outcomes],
+    "Outcomes YoY %", [Outcome Events YoY %],
+    "Intakes 01-01..04-05", [Intake Events (01-01 to 04-05)],
+    "Intakes 01-01..04-05 YoY %", [Intake Events (01-01 to 04-05) YoY %]
+)
+ORDER BY DimDate[Year]

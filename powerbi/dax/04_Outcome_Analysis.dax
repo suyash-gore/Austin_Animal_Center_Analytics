@@ -1,0 +1,82 @@
+// =====================================================================================================
+// 04_Outcome_Analysis.dax — outcome counts and provisional outcome grouping
+// Requires: 01_Core_Measures.dax applied.
+// * Counts below are OUTCOME EVENTS from FactOutcomes, dated by outcome_date. They are not conversion
+//   rates and must not be divided by intake events.
+// * "Provisional Live / Non-Live / Indeterminate" use the descriptive grouping in
+//   outcome_status_provisional (D-014). THIS IS NOT AUSTIN'S OFFICIAL LIVE-RELEASE RATE: the official
+//   numerator, denominator and wildlife treatment are unverified (DECISION_LOG §12 Q4).
+//     Live = Adoption, Return to Owner (incl. Rto-Adopt), Transfer, Relocate
+//     Non-live = Euthanasia, Died
+//     Indeterminate = Disposal, Missing / Lost / Stolen, outcome type not recorded
+// * Visit-level shares use matched visits (FactVisits, by intake date) as the denominator.
+// =====================================================================================================
+DEFINE
+    // Display folder: 05 Outcomes\Outcome Events      Format: #,0
+    MEASURE FactOutcomes[Adoption Outcomes] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( FactOutcomes[outcome_group] = "Adoption" ) )
+
+    // Display folder: 05 Outcomes\Outcome Events      Format: #,0
+    // Includes Rto-Adopt.
+    MEASURE FactOutcomes[Return to Owner Outcomes] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( FactOutcomes[outcome_group] = "Return to Owner" ) )
+
+    // Display folder: 05 Outcomes\Outcome Events      Format: #,0
+    // Includes community-cat return programmes (subtypes Snr / SCRP), not only partner placements.
+    MEASURE FactOutcomes[Transfer Outcomes] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( FactOutcomes[outcome_group] = "Transfer" ) )
+
+    // Display folder: 05 Outcomes\Outcome Events      Format: #,0
+    MEASURE FactOutcomes[Euthanasia Outcomes] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( FactOutcomes[outcome_group] = "Euthanasia" ) )
+
+    // Display folder: 05 Outcomes\Outcome Events      Format: #,0
+    MEASURE FactOutcomes[Died Outcomes] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( FactOutcomes[outcome_group] = "Died" ) )
+
+    // Display folder: 05 Outcomes\Provisional Grouping (not official live-release)      Format: #,0
+    MEASURE FactOutcomes[Provisional Live Outcomes] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( FactOutcomes[outcome_status_provisional] = "Live outcome" ) )
+
+    // Display folder: 05 Outcomes\Provisional Grouping (not official live-release)      Format: #,0
+    MEASURE FactOutcomes[Provisional Non-Live Outcomes] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( FactOutcomes[outcome_status_provisional] = "Non-live outcome" ) )
+
+    // Display folder: 05 Outcomes\Provisional Grouping (not official live-release)      Format: #,0
+    MEASURE FactOutcomes[Indeterminate Outcomes] =
+        CALCULATE ( [Total Outcomes], KEEPFILTERS ( FactOutcomes[outcome_status_provisional] = "Other / indeterminate" ) )
+
+    // Display folder: 05 Outcomes\Visit-Level Shares      Format: 0.0%
+    MEASURE FactVisits[Adoption Share of Matched Visits] =
+        DIVIDE (
+            CALCULATE ( [Matched Visits], KEEPFILTERS ( FactVisits[outcome_group] = "Adoption" ) ),
+            [Matched Visits]
+        )
+
+    // Display folder: 05 Outcomes\Visit-Level Shares      Format: 0.0%
+    MEASURE FactVisits[Return to Owner Share of Matched Visits] =
+        DIVIDE (
+            CALCULATE ( [Matched Visits], KEEPFILTERS ( FactVisits[outcome_group] = "Return to Owner" ) ),
+            [Matched Visits]
+        )
+
+    // Display folder: 05 Outcomes\Provisional Grouping (not official live-release)      Format: 0.0%
+    MEASURE FactVisits[Provisional Live Share of Matched Visits] =
+        DIVIDE (
+            CALCULATE ( [Matched Visits], KEEPFILTERS ( FactVisits[outcome_status_provisional] = "Live outcome" ) ),
+            [Matched Visits]
+        )
+
+// Expected unfiltered values: see outputs/powerbi/model_validation_summary.csv (check_group = dax_reference).
+EVALUATE
+ROW (
+    "Adoption Outcomes", [Adoption Outcomes],
+    "Return to Owner Outcomes", [Return to Owner Outcomes],
+    "Transfer Outcomes", [Transfer Outcomes],
+    "Euthanasia Outcomes", [Euthanasia Outcomes],
+    "Died Outcomes", [Died Outcomes],
+    "Provisional Live Outcomes", [Provisional Live Outcomes],
+    "Provisional Non-Live Outcomes", [Provisional Non-Live Outcomes],
+    "Indeterminate Outcomes", [Indeterminate Outcomes],
+    "Provisional Live Share of Matched Visits", [Provisional Live Share of Matched Visits]
+)

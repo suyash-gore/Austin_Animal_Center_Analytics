@@ -6,6 +6,24 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 23-11-2026 — Power BI Stage 1: data model, Power Query and DAX foundation
+#### Added
+- `powerbi/power_query/`: `RepoRoot.m` (path parameter), `FactIntakes.m`, `FactOutcomes.m` (exact duplicates
+  excluded), `FactVisits.m` (all 174,978 rows retained; unmatched reasons and reason codes joined), `DimDate.m`
+  (01-10-2013 to 05-05-2025 with partial-year and like-for-like flags), `DimAnimalType.m`.
+- `powerbi/dax/00_Model_Relationships.md` (7 single-direction relationships; inactive visit outcome-date role)
+  and measure files `01_Core_Measures.dax` … `04_Outcome_Analysis.dax` (core, LOS, guarded time intelligence,
+  like-for-like windows, visit operations, provisional outcome grouping).
+- `analysis/validate_powerbi_model.py` → `outputs/powerbi/model_validation_summary.csv` (121 checks pass,
+  32 reference values); `analysis/tests/test_powerbi_model.py` (70 tests total).
+- `docs/POWER_BI_DATA_MODEL.md` (grains, relationships, date roles, LOS and provisional-outcome caveats,
+  partial-year rules, validation targets, Desktop implementation steps).
+#### Changed
+- README project status. No change to raw data, audit outputs, matching methodology or audit metrics.
+#### Known limitations
+- The PBIX is not modified: queries, relationships and measures must be loaded manually in Power BI Desktop.
+- Measures were validated by an equivalent pandas computation, not executed in the Power BI engine.
+
 ### 23-11-2026 — Matching edge-case validation
 #### Changed
 - **Primary dataset (D-018):** 225 same-day time-reversed pairs excluded from matched visits and kept as

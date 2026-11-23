@@ -4,12 +4,14 @@ A data analytics and Power BI case study using the public Austin Animal Center i
 
 ## Project status
 
-**Current stage:** Stage 1 source-data audit and visit-matching validation complete; awaiting candidate
-review of the matching rule (DECISION_LOG D-008 to D-015) before Power BI development.
+**Current stage:** Audit and visit-matching validation complete (merged). Power BI Stage 1 — data model,
+Power Query and DAX foundation — is written and validated as source files in `powerbi/power_query/` and
+`powerbi/dax/` (see `docs/POWER_BI_DATA_MODEL.md`). These must be loaded into Power BI Desktop manually;
+the PBIX has not been modified and no visuals have been built yet.
 
 Key documents: `docs/DATA_AUDIT_REPORT.md`, `docs/VISIT_MATCHING_METHODOLOGY.md`,
-`docs/DATA_QUALITY_ISSUES.md`, `docs/BUSINESS_OPPORTUNITY_REGISTER.md`, `docs/DATA_DICTIONARY.md`.
-The Power BI report and website have not been built yet.
+`docs/DATA_QUALITY_ISSUES.md`, `docs/BUSINESS_OPPORTUNITY_REGISTER.md`, `docs/DATA_DICTIONARY.md`,
+`docs/POWER_BI_DATA_MODEL.md`.
 
 Do not treat preliminary figures or hypotheses from planning discussions as final findings. Final metrics must be reproduced from the source files and documented methodology.
 
@@ -95,6 +97,7 @@ run on its own, in that order. Outputs are deterministic.
 | `outputs/audit/` | Profiles, distributions and exception records |
 | `outputs/matching/` | Candidate visit table, unmatched/ambiguous records, method comparison, LOS |
 | `outputs/analysis/` | Time series, visit-level evidence, opportunity register |
+| `outputs/powerbi/` | Power BI model validation summary (`python analysis/validate_powerbi_model.py`) |
 
 ## Tools
 

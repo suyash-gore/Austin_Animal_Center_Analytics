@@ -1,0 +1,72 @@
+// =====================================================================================================
+// 03_Visit_Operations.dax — operational visit measures (FactVisits, by INTAKE date unless stated)
+// Requires: 01_Core_Measures.dax applied. visit_status / flags are filtered explicitly in each measure.
+// =====================================================================================================
+DEFINE
+    // Display folder: 04 Visit Operations       Format: #,0
+    // Intakes with no recorded outcome: animal still in care at 05-05-2025 or outcome never recorded
+    // (unmatched_reason_code NO_OUTCOME_RECORDS or NO_LATER_OUTCOME). Excludes superseded intakes and
+    // same-day reversed candidates.
+    MEASURE FactVisits[Open Intake Visits] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Intake without matched outcome" ),
+            KEEPFILTERS ( FactVisits[unmatched_reason_code] IN { "NO_OUTCOME_RECORDS", "NO_LATER_OUTCOME" } )
+        )
+
+    // Display folder: 04 Visit Operations       Format: #,0
+    // Matched visits with LOS > 365 days (retained, not treated as errors). Same as [Visits Over 365 Days].
+    MEASURE FactVisits[Long Stay Visits] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( FactVisits[long_stay_365plus] = TRUE () )
+        )
+
+    // Display folder: 04 Visit Operations       Format: #,0
+    // Visit rows that start with a 2nd-or-later analytic intake of the same Animal ID (matched or not).
+    MEASURE FactVisits[Repeat Intake Visits] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] <> "Outcome without matched intake" ),
+            KEEPFILTERS ( FactVisits[is_return_intake] = TRUE () )
+        )
+
+    // Display folder: 04 Visit Operations       Format: 0.0%
+    MEASURE FactVisits[Repeat Intake Share] =
+        DIVIDE (
+            [Repeat Intake Visits],
+            CALCULATE (
+                COUNTROWS ( FactVisits ),
+                KEEPFILTERS ( FactVisits[visit_status] <> "Outcome without matched intake" )
+            )
+        )
+
+    // Display folder: 04 Visit Operations       Format: #,0
+    // Matched visits whose pairing differs between FIFO / LIFO / adjacent or had > 1 open intake.
+    MEASURE FactVisits[Method-Dependent Visits] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( FactVisits[assignment_method_dependent] = TRUE () )
+        )
+
+    // Display folder: 04 Visit Operations       Format: #,0
+    // Same-day time-reversed candidate PAIRS (D-018). Each pair has two unmatched rows (one intake-only,
+    // one outcome-only); counting only the intake-only row counts each pair once. Dated by intake date.
+    MEASURE FactVisits[Same-Day Reversed Candidates] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Intake without matched outcome" ),
+            KEEPFILTERS ( FactVisits[same_day_reversed_candidate] = TRUE () )
+        )
+
+// Expected unfiltered: Open 966; Long Stay 577; Repeat 17,489; Method-Dependent 76; Reversed pairs 225.
+EVALUATE
+ROW (
+    "Open Intake Visits", [Open Intake Visits],
+    "Long Stay Visits", [Long Stay Visits],
+    "Repeat Intake Visits", [Repeat Intake Visits],
+    "Method-Dependent Visits", [Method-Dependent Visits],
+    "Same-Day Reversed Candidates", [Same-Day Reversed Candidates]
+)

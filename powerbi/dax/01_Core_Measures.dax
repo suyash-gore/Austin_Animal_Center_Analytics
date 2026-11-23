@@ -1,0 +1,130 @@
+// =====================================================================================================
+// 01_Core_Measures.dax — event counts, visit counts and length of stay (LOS)
+// Run in Power BI Desktop > DAX query view; use "Update model: Add new measure" on each MEASURE.
+// Prerequisites: model built per powerbi/dax/00_Model_Relationships.md.
+// Conventions:
+//   * Event counts come from FactIntakes / FactOutcomes (exact duplicates already removed in Power Query).
+//   * Visit measures come from FactVisits and filter visit_status EXPLICITLY inside the measure.
+//   * FactVisits is related to DimDate on intake_date (active) => visit measures are by INTAKE date
+//     (intake cohort) unless the measure name says "by Outcome Date".
+//   * LOS = intake to final recorded outcome, matched visits only (D-013, D-018, D-019). Not kennel time.
+// Display folders are given in the comment above each measure; set them in the Properties pane.
+// =====================================================================================================
+DEFINE
+    // Display folder: 01 Core\Event Counts      Format: #,0
+    MEASURE FactIntakes[Total Intakes] =
+        COUNTROWS ( FactIntakes )
+
+    // Display folder: 01 Core\Event Counts      Format: #,0
+    MEASURE FactOutcomes[Total Outcomes] =
+        COUNTROWS ( FactOutcomes )
+
+    // Display folder: 01 Core\Event Counts      Format: #,0
+    MEASURE FactIntakes[Distinct Animals Intake] =
+        DISTINCTCOUNT ( FactIntakes[animal_id] )
+
+    // Display folder: 01 Core\Event Counts      Format: #,0
+    MEASURE FactOutcomes[Distinct Animals Outcome] =
+        DISTINCTCOUNT ( FactOutcomes[animal_id] )
+
+    // Display folder: 01 Core\Visit Counts      Format: #,0     (by intake date)
+    MEASURE FactVisits[Matched Visits] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" )
+        )
+
+    // Display folder: 01 Core\Visit Counts      Format: #,0     (by outcome date)
+    MEASURE FactVisits[Matched Visits (by Outcome Date)] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            USERELATIONSHIP ( DimDate[Date], FactVisits[outcome_date] )
+        )
+
+    // Display folder: 01 Core\Visit Counts      Format: #,0     (by intake date)
+    // Includes 225 intake events that belong to same-day time-reversed candidate pairs (D-018).
+    MEASURE FactVisits[Unmatched Intake Events] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Intake without matched outcome" )
+        )
+
+    // Display folder: 01 Core\Visit Counts      Format: #,0     (by OUTCOME date: these rows have no intake_date)
+    MEASURE FactVisits[Unmatched Outcome Events] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Outcome without matched intake" ),
+            USERELATIONSHIP ( DimDate[Date], FactVisits[outcome_date] )
+        )
+
+    // Display folder: 02 Length of Stay         Format: 0.00
+    MEASURE FactVisits[Median LOS (Days)] =
+        CALCULATE (
+            MEDIAN ( FactVisits[los_days] ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" )
+        )
+
+    // Display folder: 02 Length of Stay         Format: 0.00
+    MEASURE FactVisits[Average LOS (Days)] =
+        CALCULATE (
+            AVERAGE ( FactVisits[los_days] ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" )
+        )
+
+    // Display folder: 02 Length of Stay         Format: 0.00
+    // PERCENTILE.INC = linear interpolation, identical to the Python pipeline (pandas default).
+    MEASURE FactVisits[P90 LOS (Days)] =
+        CALCULATE (
+            PERCENTILE.INC ( FactVisits[los_days], 0.9 ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" )
+        )
+
+    // Display folder: 02 Length of Stay         Format: #,0
+    MEASURE FactVisits[Visits Over 30 Days] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( FactVisits[los_days] > 30 )
+        )
+
+    // Display folder: 02 Length of Stay         Format: #,0
+    MEASURE FactVisits[Visits Over 90 Days] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( FactVisits[los_days] > 90 )
+        )
+
+    // Display folder: 02 Length of Stay         Format: #,0
+    MEASURE FactVisits[Visits Over 365 Days] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( FactVisits[los_days] > 365 )
+        )
+
+    // Display folder: 02 Length of Stay         Format: #,0
+    // Intake and final outcome on the same calendar date (includes LOS floored to 0 under D-011).
+    MEASURE FactVisits[Same-Day Visits] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( FactVisits[same_day_visit] = TRUE () )
+        )
+
+    // Display folder: 02 Length of Stay         Format: 0.0%
+    MEASURE FactVisits[Share of Matched Visits Over 30 Days] =
+        DIVIDE ( [Visits Over 30 Days], [Matched Visits] )
+
+// Validation query: unfiltered values must equal outputs/powerbi/model_validation_summary.csv
+EVALUATE
+ROW (
+    "Total Intakes", [Total Intakes],                      // 173,776
+    "Total Outcomes", [Total Outcomes],                    // 173,749
+    "Matched Visits", [Matched Visits],                    // 172,547
+    "Unmatched Intake Events", [Unmatched Intake Events],  // 1,229
+    "Unmatched Outcome Events", [Unmatched Outcome Events],// 1,202
+    "Median LOS (Days)", [Median LOS (Days)],              // 6.00
+    "P90 LOS (Days)", [P90 LOS (Days)]                     // 55.56
+)

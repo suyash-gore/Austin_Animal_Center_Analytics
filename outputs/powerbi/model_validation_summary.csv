@@ -1,0 +1,154 @@
+check_group,check,expected,actual,status,note
+files,source exists: data/processed/intakes_clean.csv,True,True,PASS,
+files,source exists: data/processed/outcomes_clean.csv,True,True,PASS,
+files,source exists: outputs/matching/candidate_visits.csv,True,True,PASS,
+files,source exists: outputs/matching/unmatched_intakes.csv,True,True,PASS,
+files,source exists: outputs/matching/unmatched_outcomes.csv,True,True,PASS,
+files,source exists: outputs/sensitivity/scenario_comparison.csv,True,True,PASS,
+files,Power Query file exists: RepoRoot.m,True,True,PASS,
+files,Power Query file exists: FactIntakes.m,True,True,PASS,
+files,Power Query file exists: FactOutcomes.m,True,True,PASS,
+files,Power Query file exists: FactVisits.m,True,True,PASS,
+files,Power Query file exists: DimDate.m,True,True,PASS,
+files,Power Query file exists: DimAnimalType.m,True,True,PASS,
+files,DAX/model file exists: 00_Model_Relationships.md,True,True,PASS,
+files,DAX/model file exists: 01_Core_Measures.dax,True,True,PASS,
+files,DAX/model file exists: 02_Time_Intelligence.dax,True,True,PASS,
+files,DAX/model file exists: 03_Visit_Operations.dax,True,True,PASS,
+files,DAX/model file exists: 04_Outcome_Analysis.dax,True,True,PASS,
+columns,FactIntakes: CSV columns match M ExpectedColumns,"['intake_event_id', 'source_row', 'animal_id', 'intake_datetime', 'intake_date', 'monthyear_consistent', 'name', 'name_has_asterisk', 'found_location', 'intake_type', 'intake_condition', 'animal_type', 'sex_upon_intake', 'age_upon_intake_raw', 'age_upon_intake_days', 'age_upon_intake_invalid', 'age_band_intake', 'breed', 'breed_is_mix', 'color', 'is_exact_duplicate', 'is_same_id_timestamp_conflict']","['intake_event_id', 'source_row', 'animal_id', 'intake_datetime', 'intake_date', 'monthyear_consistent', 'name', 'name_has_asterisk', 'found_location', 'intake_type', 'intake_condition', 'animal_type', 'sex_upon_intake', 'age_upon_intake_raw', 'age_upon_intake_days', 'age_upon_intake_invalid', 'age_band_intake', 'breed', 'breed_is_mix', 'color', 'is_exact_duplicate', 'is_same_id_timestamp_conflict']",PASS,order and names
+columns,FactOutcomes: CSV columns match M ExpectedColumns,"['outcome_event_id', 'source_row', 'animal_id', 'outcome_datetime', 'outcome_date', 'outcome_tz_offset', 'outcome_time_is_date_only', 'outcome_is_midnight', 'monthyear_consistent', 'date_of_birth', 'dob_after_outcome', 'name', 'name_has_asterisk', 'outcome_type', 'outcome_type_missing', 'outcome_subtype', 'outcome_group', 'outcome_status_provisional', 'animal_type', 'sex_upon_outcome', 'age_upon_outcome_raw', 'age_upon_outcome_days', 'age_upon_outcome_invalid', 'age_from_dob_days', 'breed', 'color', 'is_exact_duplicate', 'is_same_id_timestamp_conflict']","['outcome_event_id', 'source_row', 'animal_id', 'outcome_datetime', 'outcome_date', 'outcome_tz_offset', 'outcome_time_is_date_only', 'outcome_is_midnight', 'monthyear_consistent', 'date_of_birth', 'dob_after_outcome', 'name', 'name_has_asterisk', 'outcome_type', 'outcome_type_missing', 'outcome_subtype', 'outcome_group', 'outcome_status_provisional', 'animal_type', 'sex_upon_outcome', 'age_upon_outcome_raw', 'age_upon_outcome_days', 'age_upon_outcome_invalid', 'age_from_dob_days', 'breed', 'color', 'is_exact_duplicate', 'is_same_id_timestamp_conflict']",PASS,order and names
+columns,FactVisits: CSV columns match M ExpectedColumns,"['visit_id', 'visit_status', 'matching_method', 'match_rule', 'animal_id', 'intake_event_id', 'outcome_event_id', 'intake_datetime', 'outcome_datetime', 'intake_date', 'outcome_date', 'los_days', 'los_days_raw', 'los_floored_to_zero', 'los_band', 'same_day_visit', 'long_stay_365plus', 'animal_type', 'animal_type_mismatch', 'intake_type', 'intake_condition', 'outcome_type', 'outcome_subtype', 'outcome_group', 'outcome_status_provisional', 'age_upon_intake_days', 'age_band_intake', 'breed_is_mix', 'animal_intake_ordinal', 'is_return_intake', 'multiple_open_intakes', 'n_eligible', 'assignment_method_dependent', 'intake_id_timestamp_conflict', 'outcome_is_midnight', 'outcome_time_is_date_only', 'intake_age_dob_gap_days', 'days_open_at_extract_end', 'same_day_reversed_candidate', 'candidate_partner_event_id']","['visit_id', 'visit_status', 'matching_method', 'match_rule', 'animal_id', 'intake_event_id', 'outcome_event_id', 'intake_datetime', 'outcome_datetime', 'intake_date', 'outcome_date', 'los_days', 'los_days_raw', 'los_floored_to_zero', 'los_band', 'same_day_visit', 'long_stay_365plus', 'animal_type', 'animal_type_mismatch', 'intake_type', 'intake_condition', 'outcome_type', 'outcome_subtype', 'outcome_group', 'outcome_status_provisional', 'age_upon_intake_days', 'age_band_intake', 'breed_is_mix', 'animal_intake_ordinal', 'is_return_intake', 'multiple_open_intakes', 'n_eligible', 'assignment_method_dependent', 'intake_id_timestamp_conflict', 'outcome_is_midnight', 'outcome_time_is_date_only', 'intake_age_dob_gap_days', 'days_open_at_extract_end', 'same_day_reversed_candidate', 'candidate_partner_event_id']",PASS,order and names
+columns,unmatched_intakes: has visit_id and unmatched_reason,True,True,PASS,
+columns,unmatched_outcomes: has visit_id and unmatched_reason,True,True,PASS,
+types,FactIntakes[intake_date] parses as yyyy-MM-dd,0,0,PASS,failures
+types,FactIntakes[intake_datetime] parses as yyyy-MM-dd HH:mm:ss,0,0,PASS,failures
+types,FactOutcomes[outcome_date] parses as yyyy-MM-dd,0,0,PASS,failures
+types,FactOutcomes[date_of_birth] parses as yyyy-MM-dd,0,0,PASS,failures
+types,FactOutcomes[outcome_datetime] parses as yyyy-MM-dd HH:mm:ss,0,0,PASS,failures
+types,FactVisits[intake_date] parses as yyyy-MM-dd,0,0,PASS,failures
+types,FactVisits[outcome_date] parses as yyyy-MM-dd,0,0,PASS,failures
+types,FactVisits[intake_datetime] parses as yyyy-MM-dd HH:mm:ss,0,0,PASS,failures
+types,FactVisits[outcome_datetime] parses as yyyy-MM-dd HH:mm:ss,0,0,PASS,failures
+types,FactIntakes: all ParseFlag columns contain only 1/0/blank,[],[],PASS,
+types,FactIntakes: all numeric columns parse,[],[],PASS,
+types,FactOutcomes: all ParseFlag columns contain only 1/0/blank,[],[],PASS,
+types,FactOutcomes: all numeric columns parse,[],[],PASS,
+types,FactVisits: all ParseFlag columns contain only 1/0/blank,[],[],PASS,
+types,FactVisits: all numeric columns parse,[],[],PASS,
+rows,FactIntakes: exact duplicates excluded,36,36,PASS,
+rows,FactOutcomes: exact duplicates excluded,26,26,PASS,
+rows,FactIntakes rows (analytic events),173776,173776,PASS,
+rows,FactOutcomes rows (analytic events),173749,173749,PASS,
+rows,FactIntakes: no is_exact_duplicate = 1 remains,0,0,PASS,
+rows,FactOutcomes: no is_exact_duplicate = 1 remains,0,0,PASS,
+rows,FactVisits rows (all statuses retained),174978,174978,PASS,
+rows,FactVisits: Matched visit,172547,172547,PASS,
+rows,FactVisits: Intake without matched outcome,1229,1229,PASS,
+rows,FactVisits: Outcome without matched intake,1202,1202,PASS,
+rows,FactVisits: no other visit_status values,[],[],PASS,
+rows,Reconciliation: matched + unmatched intake rows = FactIntakes rows,173776,173776,PASS,
+rows,Reconciliation: matched + unmatched outcome rows = FactOutcomes rows,173749,173749,PASS,
+keys,FactIntakes[intake_event_id] unique and non-null,True,True,PASS,
+keys,FactOutcomes[outcome_event_id] unique and non-null,True,True,PASS,
+keys,FactVisits[visit_id] unique and non-null,True,True,PASS,
+keys,Matched visits: intake_event_id unique,True,True,PASS,
+keys,Matched visits: outcome_event_id unique,True,True,PASS,
+keys,FactVisits intake_event_id values all exist in FactIntakes,0,0,PASS,
+keys,FactVisits outcome_event_id values all exist in FactOutcomes,0,0,PASS,
+keys,Every analytic intake appears exactly once in FactVisits,True,True,PASS,
+keys,Every analytic outcome appears exactly once in FactVisits,True,True,PASS,
+los,All matched visits have los_days,0,0,PASS,
+los,All matched los_days >= 0,0,0,PASS,
+los,Unmatched rows have no los_days,0,0,PASS,
+los,"Median LOS (days, matched)",6.0,6.0,PASS,MEDIAN; PERCENTILE.INC equivalent
+los,"P90 LOS (days, matched)",55.56,55.56,PASS,linear interpolation = PERCENTILE.INC
+los,Median/P90 agree with outputs/matching/matching_key_metrics.csv,"(6.0, 55.56)","(6.0, 55.56)",PASS,
+los,Primary visits = sensitivity scenario A_excl_reversed,172547,172547,PASS,
+dates,DimDate first date,2013-10-01,2013-10-01,PASS,
+dates,DimDate last date,2025-05-05,2025-05-05,PASS,
+dates,DimDate continuous day count,4235,4235,PASS,
+dates,DimDate.m bounds match,True,True,PASS,
+dates,FactIntakes[intake_date] within DimDate range,True,True,PASS,01-10-2013 to 04-05-2025
+dates,FactOutcomes[outcome_date] within DimDate range,True,True,PASS,01-10-2013 to 05-05-2025
+dates,FactVisits[intake_date] within DimDate range,True,True,PASS,01-10-2013 to 04-05-2025
+dates,FactVisits[outcome_date] within DimDate range,True,True,PASS,01-10-2013 to 05-05-2025
+dates,FactIntakes/FactOutcomes date keys have no blanks,"(0, 0)","(0, 0)",PASS,
+dates,FactVisits blank intake_date only on outcome-only rows,True,True,PASS,
+dates,FactVisits blank outcome_date only on intake-only rows,True,True,PASS,
+dates,Full calendar years,"[2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]","[2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]",PASS,
+dates,YoY-comparable full years,"[2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]","[2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]",PASS,
+dimensions,animal_type has no blanks in any fact,"(0, 0, 0)","(0, 0, 0)",PASS,
+dimensions,animal_type values identical across facts,True,True,PASS,"Bird, Cat, Dog, Livestock, Other"
+dimensions,DimAnimalType members,"['Bird', 'Cat', 'Dog', 'Livestock', 'Other']","['Bird', 'Cat', 'Dog', 'Livestock', 'Other']",PASS,
+visits,Unmatched reason files: one row per visit_id,True,True,PASS,
+visits,Every unmatched row has a reason; matched rows none,True,True,PASS,
+visits,All reasons map to a known code (no OTHER),0,0,PASS,
+visits,Reversed candidates: flagged rows,450,450,PASS,
+visits,Reversed candidates: none are matched visits,0,0,PASS,
+visits,Reversed candidate pairs (intake-only rows),225,225,PASS,
+visits,Flagged events = events in same_day_reversed_candidates.csv,True,True,PASS,
+artefacts,FactIntakes.m: filters is_exact_duplicate,True,True,PASS,
+artefacts,FactOutcomes.m: filters is_exact_duplicate,True,True,PASS,
+artefacts,FactVisits.m: no row filter (Table.SelectRows absent),False,False,PASS,
+artefacts,FactIntakes.m: UTF-8 + explicit ISO formats + RepoRoot path,True,True,PASS,
+artefacts,FactOutcomes.m: UTF-8 + explicit ISO formats + RepoRoot path,True,True,PASS,
+artefacts,FactVisits.m: UTF-8 + explicit ISO formats + RepoRoot path,True,True,PASS,
+artefacts,All required DAX measures defined,[],[],PASS,
+artefacts,No DAX measure defined twice,[],[],PASS,
+artefacts,DAX column references exist in the model,[],[],PASS,
+artefacts,Relationship spec has 7 relationships incl. inactive outcome_date,True,True,PASS,
+sources,raw file unchanged: data/raw/Austin_Animal_Center_Intakes__10_01_2013_to_05_05_2025_.csv,3473ac90f82fa2c159d49c8803f7e94286afc9388db21b939378c48238a4cabb,3473ac90f82fa2c159d49c8803f7e94286afc9388db21b939378c48238a4cabb,PASS,
+sources,raw file unchanged: data/raw/Austin_Animal_Center_Outcomes__10_01_2013_to_05_05_2025_.csv,54c34ab839ae1b2e5564293040930deb69f9ce098c2c903bc6a5b999f818499d,54c34ab839ae1b2e5564293040930deb69f9ce098c2c903bc6a5b999f818499d,PASS,
+sources,validated inputs and outputs unchanged vs git HEAD,,,PASS,
+sources,sha256 data/processed/intakes_clean.csv,,aef6b25a00a57a05fb0d1dab7d631679af6920a8a30a38af1040980075d68424,INFO,recorded for traceability
+sources,sha256 data/processed/outcomes_clean.csv,,e7c4424a9326e149fdd7702e6f51b4839a3d545ff1a7d2107518484404bc6dd8,INFO,recorded for traceability
+sources,sha256 outputs/matching/candidate_visits.csv,,f9955b929608761457d757529722f07e1c45daf05e3ae3f78d566676e77c714d,INFO,recorded for traceability
+sources,sha256 outputs/matching/unmatched_intakes.csv,,2e71f14b3b7812e16f5c15eabb5620f1701110c3cd5f2867e629f5c70c66eb67,INFO,recorded for traceability
+sources,sha256 outputs/matching/unmatched_outcomes.csv,,ca44a4be07f5e8af5adb4ee28fa080234e89874101d714780e606f81a23ff843,INFO,recorded for traceability
+sources,sha256 outputs/sensitivity/scenario_comparison.csv,,4e657455d4048db517a7e98a1dcea7bd6c1394d44d80eaddf929963cb689ac23,INFO,recorded for traceability
+dax_reference,Total Intakes,,173776,INFO,
+dax_reference,Total Outcomes,,173749,INFO,
+dax_reference,Distinct Animals Intake,156287,156287,PASS,audit unique IDs
+dax_reference,Distinct Animals Outcome,156237,156237,PASS,audit unique IDs
+dax_reference,Matched Visits,,172547,INFO,
+dax_reference,Unmatched Intake Events,,1229,INFO,
+dax_reference,Unmatched Outcome Events,,1202,INFO,via USERELATIONSHIP outcome_date
+dax_reference,Median LOS (Days),,6.0035,INFO,
+dax_reference,Average LOS (Days),,21.0324,INFO,
+dax_reference,P90 LOS (Days),,55.5581,INFO,
+dax_reference,Visits Over 30 Days,,33304,INFO,
+dax_reference,Visits Over 90 Days,7777,7777,PASS,analysis_key_metrics
+dax_reference,Visits Over 365 Days,577,577,PASS,analysis_key_metrics
+dax_reference,Same-Day Visits,,22149,INFO,
+dax_reference,Share of Matched Visits Over 30 Days,,0.193014,INFO,
+dax_reference,Adoption Outcomes,,84586,INFO,outcome events
+dax_reference,Return to Owner Outcomes,,26928,INFO,outcome events incl. Rto-Adopt
+dax_reference,Transfer Outcomes,,48683,INFO,outcome events
+dax_reference,Euthanasia Outcomes,,10832,INFO,outcome events
+dax_reference,Died Outcomes,,1670,INFO,outcome events
+dax_reference,Provisional Live Outcomes,,160226,INFO,"PROVISIONAL, not official live-release"
+dax_reference,Provisional Non-Live Outcomes,,12502,INFO,PROVISIONAL
+dax_reference,Indeterminate Outcomes,,1021,INFO,PROVISIONAL
+dax_reference,Provisional Live Share of Matched Visits,92.24,92.24,PASS,percent; analysis_key_metrics
+dax_reference,Adoption Share of Matched Visits,48.64,48.64,PASS,percent; analysis_key_metrics
+dax_reference,Open Intake Visits,,966,INFO,
+dax_reference,Long Stay Visits,,577,INFO,= Visits Over 365 Days
+dax_reference,Repeat Intake Visits,17489,17489,PASS,cross-check: 2nd+ analytic intakes per Animal ID
+dax_reference,Method-Dependent Visits,,76,INFO,
+dax_reference,Same-Day Reversed Candidates,225,225,PASS,"pairs, counted once"
+dax_reference,Intake Events YoY % (2014),,BLANK,INFO,BLANK expected (partial year)
+dax_reference,Outcome Events YoY % (2014),,BLANK,INFO,BLANK expected (partial year)
+dax_reference,Total Intakes (2014),18654,18654,PASS,annual_event_counts
+dax_reference,Intake Events YoY % (2019),16.21,16.21,PASS,annual_event_counts
+dax_reference,Outcome Events YoY % (2019),18.13,18.13,PASS,annual_event_counts
+dax_reference,Total Intakes (2019),19726,19726,PASS,annual_event_counts
+dax_reference,Intake Events YoY % (2020),-51.41,-51.41,PASS,annual_event_counts
+dax_reference,Outcome Events YoY % (2020),-50.56,-50.56,PASS,annual_event_counts
+dax_reference,Total Intakes (2020),9585,9585,PASS,annual_event_counts
+dax_reference,Intake Events YoY % (2025),,BLANK,INFO,BLANK expected (partial year)
+dax_reference,Outcome Events YoY % (2025),,BLANK,INFO,BLANK expected (partial year)
+dax_reference,Total Intakes (2025),3745,3745,PASS,annual_event_counts
+dax_reference,Intake Events (01-01 to 04-05) (2025),3745,3745,PASS,like_for_like_periods
+dax_reference,Intake Events (01-01 to 04-05) PY (2025),3991,3991,PASS,like_for_like_periods
+dax_reference,Intake Events (01-01 to 04-05) YoY % (2025),-6.16,-6.16,PASS,percent
