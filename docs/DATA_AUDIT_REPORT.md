@@ -160,14 +160,18 @@ from 2018. Category trends across 2020 therefore partly reflect coding changes.
 Full method: `docs/VISIT_MATCHING_METHODOLOGY.md`.
 
 * No sequence field exists in either file. The earlier "Animal ID + sequence" was a derived rank.
-* Recommended rule `adjacent_dp`: 172,772 matched visits; 1,004 unmatched intakes; 977 unmatched
-  outcomes; 0 reused intakes; 0 negative durations; 0 overlapping visits; 0 animal-type mismatches.
-* LOS (days): P25 2.00, P50 6.00, P75 19.89, P90 55.34, P95 84.72, P99 214.24; 577 visits > 365 days.
-* Sensitivity (`outputs/sensitivity/`, methodology §11): treating only the 3,583 offset-bearing midnight
-  outcomes as date-only, using strict timestamps, or excluding the 225 same-day time-reversed matches
-  changes matched visits by at most 634 and LOS P90 by at most 0.46 days; no candidate finding moves by
-  more than 0.05 percentage points or 0.04 days. The 225 reversed matches are reviewed record by record
-  (188 plausible, 37 ambiguous; none confirmed).
+* Primary dataset (`adjacent_dp`, chronological pass only; D-018): 172,547 matched visits; 1,229 unmatched
+  intakes; 1,202 unmatched outcomes; 0 reused intakes; 0 negative durations; 0 overlapping visits at date
+  and exact-timestamp level; 0 animal-type mismatches.
+* 225 same-day time-reversed pairs are excluded from the primary dataset and kept as flagged, unconfirmed
+  candidates (`outputs/matching/same_day_reversed_candidates.csv`).
+* LOS = intake to final recorded outcome (days): P25 2.01, P50 6.00, P75 19.93, P90 55.56, P95 84.81,
+  P99 214.46; 577 visits > 365 days. Foster placement dates are not recorded, so LOS is not kennel time
+  and its shelter/foster composition is unknown (methodology §7.1).
+* Sensitivity (`outputs/sensitivity/`, methodology §11): date-only rule for all vs offset-only midnight
+  outcomes vs strict timestamps, with and without the 225 candidates, changes matched visits by at most
+  634 and LOS P90 by at most 0.46 days; no candidate finding moves by more than 0.05 percentage points or
+  0.04 days. Scenarios A and B yield identical pairs (§11.6).
 
 ## 8. Time-series validation (summary)
 

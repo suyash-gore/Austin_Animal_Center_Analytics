@@ -1,152 +1,152 @@
 breakdown,intake_type,outcome_group,visits,denominator_visits,share_pct,animal_type,age_band_intake,intake_condition,intake_year,outcome_status_provisional
-intake_type x outcome_group,Abandoned,Adoption,1203,1874,64.19,,,,,
-intake_type x outcome_group,Abandoned,Died,7,1874,0.37,,,,,
-intake_type x outcome_group,Abandoned,Disposal,5,1874,0.27,,,,,
-intake_type x outcome_group,Abandoned,Euthanasia,12,1874,0.64,,,,,
-intake_type x outcome_group,Abandoned,Missing / Lost / Stolen,1,1874,0.05,,,,,
-intake_type x outcome_group,Abandoned,Not recorded,1,1874,0.05,,,,,
-intake_type x outcome_group,Abandoned,Return to Owner,187,1874,9.98,,,,,
-intake_type x outcome_group,Abandoned,Transfer,458,1874,24.44,,,,,
+intake_type x outcome_group,Abandoned,Adoption,1203,1873,64.23,,,,,
+intake_type x outcome_group,Abandoned,Died,7,1873,0.37,,,,,
+intake_type x outcome_group,Abandoned,Disposal,5,1873,0.27,,,,,
+intake_type x outcome_group,Abandoned,Euthanasia,12,1873,0.64,,,,,
+intake_type x outcome_group,Abandoned,Missing / Lost / Stolen,1,1873,0.05,,,,,
+intake_type x outcome_group,Abandoned,Not recorded,1,1873,0.05,,,,,
+intake_type x outcome_group,Abandoned,Return to Owner,186,1873,9.93,,,,,
+intake_type x outcome_group,Abandoned,Transfer,458,1873,24.45,,,,,
 intake_type x outcome_group,Euthanasia Request,Adoption,14,264,5.3,,,,,
 intake_type x outcome_group,Euthanasia Request,Died,3,264,1.14,,,,,
 intake_type x outcome_group,Euthanasia Request,Disposal,2,264,0.76,,,,,
 intake_type x outcome_group,Euthanasia Request,Euthanasia,207,264,78.41,,,,,
 intake_type x outcome_group,Euthanasia Request,Return to Owner,5,264,1.89,,,,,
 intake_type x outcome_group,Euthanasia Request,Transfer,33,264,12.5,,,,,
-intake_type x outcome_group,Owner Surrender,Adoption,23484,35331,66.47,,,,,
-intake_type x outcome_group,Owner Surrender,Died,227,35331,0.64,,,,,
-intake_type x outcome_group,Owner Surrender,Disposal,20,35331,0.06,,,,,
-intake_type x outcome_group,Owner Surrender,Euthanasia,900,35331,2.55,,,,,
-intake_type x outcome_group,Owner Surrender,Missing / Lost / Stolen,15,35331,0.04,,,,,
-intake_type x outcome_group,Owner Surrender,Not recorded,4,35331,0.01,,,,,
-intake_type x outcome_group,Owner Surrender,Return to Owner,1648,35331,4.66,,,,,
-intake_type x outcome_group,Owner Surrender,Transfer,9033,35331,25.57,,,,,
-intake_type x outcome_group,Public Assist,Adoption,1916,10356,18.5,,,,,
-intake_type x outcome_group,Public Assist,Died,54,10356,0.52,,,,,
-intake_type x outcome_group,Public Assist,Disposal,83,10356,0.8,,,,,
-intake_type x outcome_group,Public Assist,Euthanasia,506,10356,4.89,,,,,
-intake_type x outcome_group,Public Assist,Missing / Lost / Stolen,7,10356,0.07,,,,,
-intake_type x outcome_group,Public Assist,Not recorded,5,10356,0.05,,,,,
-intake_type x outcome_group,Public Assist,Relocate,2,10356,0.02,,,,,
-intake_type x outcome_group,Public Assist,Return to Owner,6495,10356,62.72,,,,,
-intake_type x outcome_group,Public Assist,Transfer,1288,10356,12.44,,,,,
-intake_type x outcome_group,Stray,Adoption,57314,118469,48.38,,,,,
-intake_type x outcome_group,Stray,Died,1205,118469,1.02,,,,,
-intake_type x outcome_group,Stray,Disposal,235,118469,0.2,,,,,
-intake_type x outcome_group,Stray,Euthanasia,3527,118469,2.98,,,,,
-intake_type x outcome_group,Stray,Missing / Lost / Stolen,73,118469,0.06,,,,,
-intake_type x outcome_group,Stray,Not recorded,27,118469,0.02,,,,,
-intake_type x outcome_group,Stray,Relocate,12,118469,0.01,,,,,
-intake_type x outcome_group,Stray,Return to Owner,18538,118469,15.65,,,,,
-intake_type x outcome_group,Stray,Transfer,37538,118469,31.69,,,,,
-intake_type x outcome_group,Wildlife,Adoption,8,6478,0.12,,,,,
-intake_type x outcome_group,Wildlife,Died,166,6478,2.56,,,,,
-intake_type x outcome_group,Wildlife,Disposal,530,6478,8.18,,,,,
-intake_type x outcome_group,Wildlife,Euthanasia,5643,6478,87.11,,,,,
-intake_type x outcome_group,Wildlife,Missing / Lost / Stolen,2,6478,0.03,,,,,
-intake_type x outcome_group,Wildlife,Not recorded,7,6478,0.11,,,,,
-intake_type x outcome_group,Wildlife,Relocate,14,6478,0.22,,,,,
-intake_type x outcome_group,Wildlife,Return to Owner,4,6478,0.06,,,,,
-intake_type x outcome_group,Wildlife,Transfer,104,6478,1.61,,,,,
-animal_type x outcome_group,,Adoption,323,877,36.83,Bird,,,,
-animal_type x outcome_group,,Died,33,877,3.76,Bird,,,,
-animal_type x outcome_group,,Disposal,34,877,3.88,Bird,,,,
-animal_type x outcome_group,,Euthanasia,155,877,17.67,Bird,,,,
-animal_type x outcome_group,,Missing / Lost / Stolen,2,877,0.23,Bird,,,,
-animal_type x outcome_group,,Not recorded,1,877,0.11,Bird,,,,
-animal_type x outcome_group,,Relocate,10,877,1.14,Bird,,,,
-animal_type x outcome_group,,Return to Owner,57,877,6.5,Bird,,,,
-animal_type x outcome_group,,Transfer,262,877,29.87,Bird,,,,
-animal_type x outcome_group,,Adoption,35433,68899,51.43,Cat,,,,
-animal_type x outcome_group,,Died,998,68899,1.45,Cat,,,,
-animal_type x outcome_group,,Disposal,164,68899,0.24,Cat,,,,
-animal_type x outcome_group,,Euthanasia,2555,68899,3.71,Cat,,,,
-animal_type x outcome_group,,Missing / Lost / Stolen,51,68899,0.07,Cat,,,,
-animal_type x outcome_group,,Not recorded,9,68899,0.01,Cat,,,,
-animal_type x outcome_group,,Relocate,6,68899,0.01,Cat,,,,
-animal_type x outcome_group,,Return to Owner,3106,68899,4.51,Cat,,,,
-animal_type x outcome_group,,Transfer,26577,68899,38.57,Cat,,,,
-animal_type x outcome_group,,Adoption,47166,94015,50.17,Dog,,,,
-animal_type x outcome_group,,Died,401,94015,0.43,Dog,,,,
-animal_type x outcome_group,,Disposal,96,94015,0.1,Dog,,,,
-animal_type x outcome_group,,Euthanasia,2187,94015,2.33,Dog,,,,
-animal_type x outcome_group,,Missing / Lost / Stolen,40,94015,0.04,Dog,,,,
-animal_type x outcome_group,,Not recorded,28,94015,0.03,Dog,,,,
-animal_type x outcome_group,,Relocate,2,94015,0.0,Dog,,,,
-animal_type x outcome_group,,Return to Owner,23633,94015,25.14,Dog,,,,
-animal_type x outcome_group,,Transfer,20462,94015,21.76,Dog,,,,
+intake_type x outcome_group,Owner Surrender,Adoption,23480,35295,66.53,,,,,
+intake_type x outcome_group,Owner Surrender,Died,218,35295,0.62,,,,,
+intake_type x outcome_group,Owner Surrender,Disposal,19,35295,0.05,,,,,
+intake_type x outcome_group,Owner Surrender,Euthanasia,895,35295,2.54,,,,,
+intake_type x outcome_group,Owner Surrender,Missing / Lost / Stolen,15,35295,0.04,,,,,
+intake_type x outcome_group,Owner Surrender,Not recorded,4,35295,0.01,,,,,
+intake_type x outcome_group,Owner Surrender,Return to Owner,1647,35295,4.67,,,,,
+intake_type x outcome_group,Owner Surrender,Transfer,9017,35295,25.55,,,,,
+intake_type x outcome_group,Public Assist,Adoption,1916,10350,18.51,,,,,
+intake_type x outcome_group,Public Assist,Died,53,10350,0.51,,,,,
+intake_type x outcome_group,Public Assist,Disposal,83,10350,0.8,,,,,
+intake_type x outcome_group,Public Assist,Euthanasia,505,10350,4.88,,,,,
+intake_type x outcome_group,Public Assist,Missing / Lost / Stolen,7,10350,0.07,,,,,
+intake_type x outcome_group,Public Assist,Not recorded,5,10350,0.05,,,,,
+intake_type x outcome_group,Public Assist,Relocate,2,10350,0.02,,,,,
+intake_type x outcome_group,Public Assist,Return to Owner,6491,10350,62.71,,,,,
+intake_type x outcome_group,Public Assist,Transfer,1288,10350,12.44,,,,,
+intake_type x outcome_group,Stray,Adoption,57313,118333,48.43,,,,,
+intake_type x outcome_group,Stray,Died,1199,118333,1.01,,,,,
+intake_type x outcome_group,Stray,Disposal,235,118333,0.2,,,,,
+intake_type x outcome_group,Stray,Euthanasia,3512,118333,2.97,,,,,
+intake_type x outcome_group,Stray,Missing / Lost / Stolen,73,118333,0.06,,,,,
+intake_type x outcome_group,Stray,Not recorded,26,118333,0.02,,,,,
+intake_type x outcome_group,Stray,Relocate,11,118333,0.01,,,,,
+intake_type x outcome_group,Stray,Return to Owner,18506,118333,15.64,,,,,
+intake_type x outcome_group,Stray,Transfer,37458,118333,31.65,,,,,
+intake_type x outcome_group,Wildlife,Adoption,8,6432,0.12,,,,,
+intake_type x outcome_group,Wildlife,Died,165,6432,2.57,,,,,
+intake_type x outcome_group,Wildlife,Disposal,524,6432,8.15,,,,,
+intake_type x outcome_group,Wildlife,Euthanasia,5604,6432,87.13,,,,,
+intake_type x outcome_group,Wildlife,Missing / Lost / Stolen,2,6432,0.03,,,,,
+intake_type x outcome_group,Wildlife,Not recorded,7,6432,0.11,,,,,
+intake_type x outcome_group,Wildlife,Relocate,14,6432,0.22,,,,,
+intake_type x outcome_group,Wildlife,Return to Owner,4,6432,0.06,,,,,
+intake_type x outcome_group,Wildlife,Transfer,104,6432,1.62,,,,,
+animal_type x outcome_group,,Adoption,322,872,36.93,Bird,,,,
+animal_type x outcome_group,,Died,33,872,3.78,Bird,,,,
+animal_type x outcome_group,,Disposal,34,872,3.9,Bird,,,,
+animal_type x outcome_group,,Euthanasia,154,872,17.66,Bird,,,,
+animal_type x outcome_group,,Missing / Lost / Stolen,2,872,0.23,Bird,,,,
+animal_type x outcome_group,,Not recorded,1,872,0.11,Bird,,,,
+animal_type x outcome_group,,Relocate,9,872,1.03,Bird,,,,
+animal_type x outcome_group,,Return to Owner,57,872,6.54,Bird,,,,
+animal_type x outcome_group,,Transfer,260,872,29.82,Bird,,,,
+animal_type x outcome_group,,Adoption,35432,68801,51.5,Cat,,,,
+animal_type x outcome_group,,Died,989,68801,1.44,Cat,,,,
+animal_type x outcome_group,,Disposal,163,68801,0.24,Cat,,,,
+animal_type x outcome_group,,Euthanasia,2541,68801,3.69,Cat,,,,
+animal_type x outcome_group,,Missing / Lost / Stolen,51,68801,0.07,Cat,,,,
+animal_type x outcome_group,,Not recorded,9,68801,0.01,Cat,,,,
+animal_type x outcome_group,,Relocate,6,68801,0.01,Cat,,,,
+animal_type x outcome_group,,Return to Owner,3100,68801,4.51,Cat,,,,
+animal_type x outcome_group,,Transfer,26510,68801,38.53,Cat,,,,
+animal_type x outcome_group,,Adoption,47163,93941,50.2,Dog,,,,
+animal_type x outcome_group,,Died,394,93941,0.42,Dog,,,,
+animal_type x outcome_group,,Disposal,96,93941,0.1,Dog,,,,
+animal_type x outcome_group,,Euthanasia,2181,93941,2.32,Dog,,,,
+animal_type x outcome_group,,Missing / Lost / Stolen,40,93941,0.04,Dog,,,,
+animal_type x outcome_group,,Not recorded,27,93941,0.03,Dog,,,,
+animal_type x outcome_group,,Relocate,2,93941,0.0,Dog,,,,
+animal_type x outcome_group,,Return to Owner,23601,93941,25.12,Dog,,,,
+animal_type x outcome_group,,Transfer,20437,93941,21.76,Dog,,,,
 animal_type x outcome_group,,Adoption,17,33,51.52,Livestock,,,,
 animal_type x outcome_group,,Died,1,33,3.03,Livestock,,,,
 animal_type x outcome_group,,Euthanasia,2,33,6.06,Livestock,,,,
 animal_type x outcome_group,,Return to Owner,6,33,18.18,Livestock,,,,
 animal_type x outcome_group,,Transfer,7,33,21.21,Livestock,,,,
-animal_type x outcome_group,,Adoption,1000,8948,11.18,Other,,,,
-animal_type x outcome_group,,Died,229,8948,2.56,Other,,,,
-animal_type x outcome_group,,Disposal,581,8948,6.49,Other,,,,
-animal_type x outcome_group,,Euthanasia,5896,8948,65.89,Other,,,,
-animal_type x outcome_group,,Missing / Lost / Stolen,5,8948,0.06,Other,,,,
-animal_type x outcome_group,,Not recorded,6,8948,0.07,Other,,,,
-animal_type x outcome_group,,Relocate,10,8948,0.11,Other,,,,
-animal_type x outcome_group,,Return to Owner,75,8948,0.84,Other,,,,
-animal_type x outcome_group,,Transfer,1146,8948,12.81,Other,,,,
-age_band x outcome_group,,Adoption,24007,55961,42.9,,1-2 years,,,
-age_band x outcome_group,,Died,371,55961,0.66,,1-2 years,,,
-age_band x outcome_group,,Disposal,591,55961,1.06,,1-2 years,,,
-age_band x outcome_group,,Euthanasia,6051,55961,10.81,,1-2 years,,,
-age_band x outcome_group,,Missing / Lost / Stolen,29,55961,0.05,,1-2 years,,,
-age_band x outcome_group,,Not recorded,19,55961,0.03,,1-2 years,,,
-age_band x outcome_group,,Relocate,13,55961,0.02,,1-2 years,,,
-age_band x outcome_group,,Return to Owner,10217,55961,18.26,,1-2 years,,,
-age_band x outcome_group,,Transfer,14663,55961,26.2,,1-2 years,,,
-age_band x outcome_group,,Adoption,30421,43023,70.71,,1-5 months,,,
-age_band x outcome_group,,Died,351,43023,0.82,,1-5 months,,,
-age_band x outcome_group,,Disposal,76,43023,0.18,,1-5 months,,,
-age_band x outcome_group,,Euthanasia,1136,43023,2.64,,1-5 months,,,
-age_band x outcome_group,,Missing / Lost / Stolen,27,43023,0.06,,1-5 months,,,
-age_band x outcome_group,,Not recorded,7,43023,0.02,,1-5 months,,,
-age_band x outcome_group,,Relocate,4,43023,0.01,,1-5 months,,,
-age_band x outcome_group,,Return to Owner,1450,43023,3.37,,1-5 months,,,
-age_band x outcome_group,,Transfer,9551,43023,22.2,,1-5 months,,,
-age_band x outcome_group,,Adoption,9363,23880,39.21,,3-6 years,,,
-age_band x outcome_group,,Died,119,23880,0.5,,3-6 years,,,
-age_band x outcome_group,,Disposal,52,23880,0.22,,3-6 years,,,
-age_band x outcome_group,,Euthanasia,1261,23880,5.28,,3-6 years,,,
-age_band x outcome_group,,Missing / Lost / Stolen,10,23880,0.04,,3-6 years,,,
-age_band x outcome_group,,Not recorded,6,23880,0.03,,3-6 years,,,
-age_band x outcome_group,,Relocate,2,23880,0.01,,3-6 years,,,
-age_band x outcome_group,,Return to Owner,7719,23880,32.32,,3-6 years,,,
-age_band x outcome_group,,Transfer,5348,23880,22.4,,3-6 years,,,
-age_band x outcome_group,,Adoption,7307,12894,56.67,,6-11 months,,,
-age_band x outcome_group,,Died,48,12894,0.37,,6-11 months,,,
-age_band x outcome_group,,Disposal,28,12894,0.22,,6-11 months,,,
-age_band x outcome_group,,Euthanasia,392,12894,3.04,,6-11 months,,,
-age_band x outcome_group,,Missing / Lost / Stolen,6,12894,0.05,,6-11 months,,,
-age_band x outcome_group,,Not recorded,7,12894,0.05,,6-11 months,,,
-age_band x outcome_group,,Relocate,5,12894,0.04,,6-11 months,,,
-age_band x outcome_group,,Return to Owner,1866,12894,14.47,,6-11 months,,,
-age_band x outcome_group,,Transfer,3235,12894,25.09,,6-11 months,,,
-age_band x outcome_group,,Adoption,4477,13911,32.18,,7+ years,,,
-age_band x outcome_group,,Died,126,13911,0.91,,7+ years,,,
-age_band x outcome_group,,Disposal,25,13911,0.18,,7+ years,,,
-age_band x outcome_group,,Euthanasia,1062,13911,7.63,,7+ years,,,
-age_band x outcome_group,,Missing / Lost / Stolen,5,13911,0.04,,7+ years,,,
-age_band x outcome_group,,Not recorded,2,13911,0.01,,7+ years,,,
-age_band x outcome_group,,Relocate,2,13911,0.01,,7+ years,,,
-age_band x outcome_group,,Return to Owner,5385,13911,38.71,,7+ years,,,
-age_band x outcome_group,,Transfer,2827,13911,20.32,,7+ years,,,
+animal_type x outcome_group,,Adoption,1000,8900,11.24,Other,,,,
+animal_type x outcome_group,,Died,228,8900,2.56,Other,,,,
+animal_type x outcome_group,,Disposal,575,8900,6.46,Other,,,,
+animal_type x outcome_group,,Euthanasia,5857,8900,65.81,Other,,,,
+animal_type x outcome_group,,Missing / Lost / Stolen,5,8900,0.06,Other,,,,
+animal_type x outcome_group,,Not recorded,6,8900,0.07,Other,,,,
+animal_type x outcome_group,,Relocate,10,8900,0.11,Other,,,,
+animal_type x outcome_group,,Return to Owner,75,8900,0.84,Other,,,,
+animal_type x outcome_group,,Transfer,1144,8900,12.85,Other,,,,
+age_band x outcome_group,,Adoption,24005,55865,42.97,,1-2 years,,,
+age_band x outcome_group,,Died,369,55865,0.66,,1-2 years,,,
+age_band x outcome_group,,Disposal,585,55865,1.05,,1-2 years,,,
+age_band x outcome_group,,Euthanasia,6008,55865,10.75,,1-2 years,,,
+age_band x outcome_group,,Missing / Lost / Stolen,29,55865,0.05,,1-2 years,,,
+age_band x outcome_group,,Not recorded,18,55865,0.03,,1-2 years,,,
+age_band x outcome_group,,Relocate,12,55865,0.02,,1-2 years,,,
+age_band x outcome_group,,Return to Owner,10200,55865,18.26,,1-2 years,,,
+age_band x outcome_group,,Transfer,14639,55865,26.2,,1-2 years,,,
+age_band x outcome_group,,Adoption,30418,42993,70.75,,1-5 months,,,
+age_band x outcome_group,,Died,345,42993,0.8,,1-5 months,,,
+age_band x outcome_group,,Disposal,76,42993,0.18,,1-5 months,,,
+age_band x outcome_group,,Euthanasia,1132,42993,2.63,,1-5 months,,,
+age_band x outcome_group,,Missing / Lost / Stolen,27,42993,0.06,,1-5 months,,,
+age_band x outcome_group,,Not recorded,7,42993,0.02,,1-5 months,,,
+age_band x outcome_group,,Relocate,4,42993,0.01,,1-5 months,,,
+age_band x outcome_group,,Return to Owner,1450,42993,3.37,,1-5 months,,,
+age_band x outcome_group,,Transfer,9534,42993,22.18,,1-5 months,,,
+age_band x outcome_group,,Adoption,9363,23860,39.24,,3-6 years,,,
+age_band x outcome_group,,Died,118,23860,0.49,,3-6 years,,,
+age_band x outcome_group,,Disposal,52,23860,0.22,,3-6 years,,,
+age_band x outcome_group,,Euthanasia,1258,23860,5.27,,3-6 years,,,
+age_band x outcome_group,,Missing / Lost / Stolen,10,23860,0.04,,3-6 years,,,
+age_band x outcome_group,,Not recorded,6,23860,0.03,,3-6 years,,,
+age_band x outcome_group,,Relocate,2,23860,0.01,,3-6 years,,,
+age_band x outcome_group,,Return to Owner,7710,23860,32.31,,3-6 years,,,
+age_band x outcome_group,,Transfer,5341,23860,22.38,,3-6 years,,,
+age_band x outcome_group,,Adoption,7307,12889,56.69,,6-11 months,,,
+age_band x outcome_group,,Died,48,12889,0.37,,6-11 months,,,
+age_band x outcome_group,,Disposal,28,12889,0.22,,6-11 months,,,
+age_band x outcome_group,,Euthanasia,391,12889,3.03,,6-11 months,,,
+age_band x outcome_group,,Missing / Lost / Stolen,6,12889,0.05,,6-11 months,,,
+age_band x outcome_group,,Not recorded,7,12889,0.05,,6-11 months,,,
+age_band x outcome_group,,Relocate,5,12889,0.04,,6-11 months,,,
+age_band x outcome_group,,Return to Owner,1864,12889,14.46,,6-11 months,,,
+age_band x outcome_group,,Transfer,3233,12889,25.08,,6-11 months,,,
+age_band x outcome_group,,Adoption,4477,13891,32.23,,7+ years,,,
+age_band x outcome_group,,Died,125,13891,0.9,,7+ years,,,
+age_band x outcome_group,,Disposal,25,13891,0.18,,7+ years,,,
+age_band x outcome_group,,Euthanasia,1055,13891,7.59,,7+ years,,,
+age_band x outcome_group,,Missing / Lost / Stolen,5,13891,0.04,,7+ years,,,
+age_band x outcome_group,,Not recorded,2,13891,0.01,,7+ years,,,
+age_band x outcome_group,,Relocate,2,13891,0.01,,7+ years,,,
+age_band x outcome_group,,Return to Owner,5375,13891,38.69,,7+ years,,,
+age_band x outcome_group,,Transfer,2825,13891,20.34,,7+ years,,,
 age_band x outcome_group,,Adoption,3,10,30.0,,Invalid / unknown,,,
 age_band x outcome_group,,Disposal,1,10,10.0,,Invalid / unknown,,,
 age_band x outcome_group,,Return to Owner,4,10,40.0,,Invalid / unknown,,,
 age_band x outcome_group,,Transfer,2,10,20.0,,Invalid / unknown,,,
-age_band x outcome_group,,Adoption,8361,23093,36.21,,Under 1 month,,,
-age_band x outcome_group,,Died,647,23093,2.8,,Under 1 month,,,
-age_band x outcome_group,,Disposal,102,23093,0.44,,Under 1 month,,,
-age_band x outcome_group,,Euthanasia,893,23093,3.87,,Under 1 month,,,
-age_band x outcome_group,,Missing / Lost / Stolen,21,23093,0.09,,Under 1 month,,,
-age_band x outcome_group,,Not recorded,3,23093,0.01,,Under 1 month,,,
-age_band x outcome_group,,Relocate,2,23093,0.01,,Under 1 month,,,
-age_band x outcome_group,,Return to Owner,236,23093,1.02,,Under 1 month,,,
-age_band x outcome_group,,Transfer,12828,23093,55.55,,Under 1 month,,,
+age_band x outcome_group,,Adoption,8361,23039,36.29,,Under 1 month,,,
+age_band x outcome_group,,Died,640,23039,2.78,,Under 1 month,,,
+age_band x outcome_group,,Disposal,101,23039,0.44,,Under 1 month,,,
+age_band x outcome_group,,Euthanasia,891,23039,3.87,,Under 1 month,,,
+age_band x outcome_group,,Missing / Lost / Stolen,21,23039,0.09,,Under 1 month,,,
+age_band x outcome_group,,Not recorded,3,23039,0.01,,Under 1 month,,,
+age_band x outcome_group,,Relocate,2,23039,0.01,,Under 1 month,,,
+age_band x outcome_group,,Return to Owner,236,23039,1.02,,Under 1 month,,,
+age_band x outcome_group,,Transfer,12784,23039,55.49,,Under 1 month,,,
 intake_condition x outcome_group,,Adoption,121,525,23.05,,,Aged,,
 intake_condition x outcome_group,,Died,6,525,1.14,,,Aged,,
 intake_condition x outcome_group,,Euthanasia,83,525,15.81,,,Aged,,
@@ -167,15 +167,15 @@ intake_condition x outcome_group,,Died,2,144,1.39,,,Feral,,
 intake_condition x outcome_group,,Euthanasia,6,144,4.17,,,Feral,,
 intake_condition x outcome_group,,Return to Owner,7,144,4.86,,,Feral,,
 intake_condition x outcome_group,,Transfer,90,144,62.5,,,Feral,,
-intake_condition x outcome_group,,Adoption,3288,10681,30.78,,,Injured,,
-intake_condition x outcome_group,,Died,330,10681,3.09,,,Injured,,
-intake_condition x outcome_group,,Disposal,228,10681,2.13,,,Injured,,
-intake_condition x outcome_group,,Euthanasia,2734,10681,25.6,,,Injured,,
-intake_condition x outcome_group,,Missing / Lost / Stolen,4,10681,0.04,,,Injured,,
-intake_condition x outcome_group,,Not recorded,4,10681,0.04,,,Injured,,
-intake_condition x outcome_group,,Relocate,11,10681,0.1,,,Injured,,
-intake_condition x outcome_group,,Return to Owner,1241,10681,11.62,,,Injured,,
-intake_condition x outcome_group,,Transfer,2841,10681,26.6,,,Injured,,
+intake_condition x outcome_group,,Adoption,3288,10664,30.83,,,Injured,,
+intake_condition x outcome_group,,Died,329,10664,3.09,,,Injured,,
+intake_condition x outcome_group,,Disposal,228,10664,2.14,,,Injured,,
+intake_condition x outcome_group,,Euthanasia,2723,10664,25.53,,,Injured,,
+intake_condition x outcome_group,,Missing / Lost / Stolen,4,10664,0.04,,,Injured,,
+intake_condition x outcome_group,,Not recorded,4,10664,0.04,,,Injured,,
+intake_condition x outcome_group,,Relocate,11,10664,0.1,,,Injured,,
+intake_condition x outcome_group,,Return to Owner,1240,10664,11.63,,,Injured,,
+intake_condition x outcome_group,,Transfer,2837,10664,26.6,,,Injured,,
 intake_condition x outcome_group,,Adoption,28,78,35.9,,,Med Attn,,
 intake_condition x outcome_group,,Died,3,78,3.85,,,Med Attn,,
 intake_condition x outcome_group,,Euthanasia,7,78,8.97,,,Med Attn,,
@@ -188,44 +188,44 @@ intake_condition x outcome_group,,Disposal,1,21,4.76,,,Med Urgent,,
 intake_condition x outcome_group,,Euthanasia,3,21,14.29,,,Med Urgent,,
 intake_condition x outcome_group,,Return to Owner,2,21,9.52,,,Med Urgent,,
 intake_condition x outcome_group,,Transfer,12,21,57.14,,,Med Urgent,,
-intake_condition x outcome_group,,Adoption,270,588,45.92,,,Medical,,
-intake_condition x outcome_group,,Died,13,588,2.21,,,Medical,,
-intake_condition x outcome_group,,Disposal,6,588,1.02,,,Medical,,
-intake_condition x outcome_group,,Euthanasia,43,588,7.31,,,Medical,,
-intake_condition x outcome_group,,Return to Owner,59,588,10.03,,,Medical,,
-intake_condition x outcome_group,,Transfer,197,588,33.5,,,Medical,,
-intake_condition x outcome_group,,Adoption,503,1916,26.25,,,Neonatal,,
-intake_condition x outcome_group,,Died,57,1916,2.97,,,Neonatal,,
-intake_condition x outcome_group,,Disposal,12,1916,0.63,,,Neonatal,,
-intake_condition x outcome_group,,Euthanasia,21,1916,1.1,,,Neonatal,,
-intake_condition x outcome_group,,Return to Owner,18,1916,0.94,,,Neonatal,,
-intake_condition x outcome_group,,Transfer,1305,1916,68.11,,,Neonatal,,
+intake_condition x outcome_group,,Adoption,270,587,46.0,,,Medical,,
+intake_condition x outcome_group,,Died,12,587,2.04,,,Medical,,
+intake_condition x outcome_group,,Disposal,6,587,1.02,,,Medical,,
+intake_condition x outcome_group,,Euthanasia,43,587,7.33,,,Medical,,
+intake_condition x outcome_group,,Return to Owner,59,587,10.05,,,Medical,,
+intake_condition x outcome_group,,Transfer,197,587,33.56,,,Medical,,
+intake_condition x outcome_group,,Adoption,503,1905,26.4,,,Neonatal,,
+intake_condition x outcome_group,,Died,53,1905,2.78,,,Neonatal,,
+intake_condition x outcome_group,,Disposal,12,1905,0.63,,,Neonatal,,
+intake_condition x outcome_group,,Euthanasia,21,1905,1.1,,,Neonatal,,
+intake_condition x outcome_group,,Return to Owner,18,1905,0.94,,,Neonatal,,
+intake_condition x outcome_group,,Transfer,1298,1905,68.14,,,Neonatal,,
 intake_condition x outcome_group,,Adoption,2,13,15.38,,,Neurologic,,
 intake_condition x outcome_group,,Euthanasia,2,13,15.38,,,Neurologic,,
 intake_condition x outcome_group,,Return to Owner,1,13,7.69,,,Neurologic,,
 intake_condition x outcome_group,,Transfer,8,13,61.54,,,Neurologic,,
-intake_condition x outcome_group,,Adoption,76454,146369,52.23,,,Normal,,
-intake_condition x outcome_group,,Died,854,146369,0.58,,,Normal,,
-intake_condition x outcome_group,,Disposal,412,146369,0.28,,,Normal,,
-intake_condition x outcome_group,,Euthanasia,5216,146369,3.56,,,Normal,,
-intake_condition x outcome_group,,Missing / Lost / Stolen,86,146369,0.06,,,Normal,,
-intake_condition x outcome_group,,Not recorded,35,146369,0.02,,,Normal,,
-intake_condition x outcome_group,,Relocate,17,146369,0.01,,,Normal,,
-intake_condition x outcome_group,,Return to Owner,24744,146369,16.91,,,Normal,,
-intake_condition x outcome_group,,Transfer,38551,146369,26.34,,,Normal,,
-intake_condition x outcome_group,,Adoption,1132,3878,29.19,,,Nursing,,
-intake_condition x outcome_group,,Died,120,3878,3.09,,,Nursing,,
-intake_condition x outcome_group,,Disposal,4,3878,0.1,,,Nursing,,
-intake_condition x outcome_group,,Euthanasia,94,3878,2.42,,,Nursing,,
-intake_condition x outcome_group,,Missing / Lost / Stolen,4,3878,0.1,,,Nursing,,
-intake_condition x outcome_group,,Return to Owner,104,3878,2.68,,,Nursing,,
-intake_condition x outcome_group,,Transfer,2420,3878,62.4,,,Nursing,,
-intake_condition x outcome_group,,Adoption,141,353,39.94,,,Other,,
-intake_condition x outcome_group,,Died,5,353,1.42,,,Other,,
-intake_condition x outcome_group,,Disposal,2,353,0.57,,,Other,,
-intake_condition x outcome_group,,Euthanasia,24,353,6.8,,,Other,,
-intake_condition x outcome_group,,Return to Owner,46,353,13.03,,,Other,,
-intake_condition x outcome_group,,Transfer,135,353,38.24,,,Other,,
+intake_condition x outcome_group,,Adoption,76449,146240,52.28,,,Normal,,
+intake_condition x outcome_group,,Died,852,146240,0.58,,,Normal,,
+intake_condition x outcome_group,,Disposal,407,146240,0.28,,,Normal,,
+intake_condition x outcome_group,,Euthanasia,5188,146240,3.55,,,Normal,,
+intake_condition x outcome_group,,Missing / Lost / Stolen,86,146240,0.06,,,Normal,,
+intake_condition x outcome_group,,Not recorded,34,146240,0.02,,,Normal,,
+intake_condition x outcome_group,,Relocate,16,146240,0.01,,,Normal,,
+intake_condition x outcome_group,,Return to Owner,24707,146240,16.89,,,Normal,,
+intake_condition x outcome_group,,Transfer,38501,146240,26.33,,,Normal,,
+intake_condition x outcome_group,,Adoption,1132,3867,29.27,,,Nursing,,
+intake_condition x outcome_group,,Died,118,3867,3.05,,,Nursing,,
+intake_condition x outcome_group,,Disposal,4,3867,0.1,,,Nursing,,
+intake_condition x outcome_group,,Euthanasia,94,3867,2.43,,,Nursing,,
+intake_condition x outcome_group,,Missing / Lost / Stolen,4,3867,0.1,,,Nursing,,
+intake_condition x outcome_group,,Return to Owner,104,3867,2.69,,,Nursing,,
+intake_condition x outcome_group,,Transfer,2411,3867,62.35,,,Nursing,,
+intake_condition x outcome_group,,Adoption,141,349,40.4,,,Other,,
+intake_condition x outcome_group,,Died,5,349,1.43,,,Other,,
+intake_condition x outcome_group,,Disposal,2,349,0.57,,,Other,,
+intake_condition x outcome_group,,Euthanasia,24,349,6.88,,,Other,,
+intake_condition x outcome_group,,Return to Owner,46,349,13.18,,,Other,,
+intake_condition x outcome_group,,Transfer,131,349,37.54,,,Other,,
 intake_condition x outcome_group,,Return to Owner,1,1,100.0,,,Panleuk,,
 intake_condition x outcome_group,,Euthanasia,1,11,9.09,,,Parvo,,
 intake_condition x outcome_group,,Transfer,10,11,90.91,,,Parvo,,
@@ -234,160 +234,160 @@ intake_condition x outcome_group,,Died,1,155,0.65,,,Pregnant,,
 intake_condition x outcome_group,,Disposal,6,155,3.87,,,Pregnant,,
 intake_condition x outcome_group,,Return to Owner,9,155,5.81,,,Pregnant,,
 intake_condition x outcome_group,,Transfer,77,155,49.68,,,Pregnant,,
-intake_condition x outcome_group,,Adoption,1844,7903,23.33,,,Sick,,
-intake_condition x outcome_group,,Died,268,7903,3.39,,,Sick,,
-intake_condition x outcome_group,,Disposal,202,7903,2.56,,,Sick,,
-intake_condition x outcome_group,,Euthanasia,2534,7903,32.06,,,Sick,,
-intake_condition x outcome_group,,Missing / Lost / Stolen,2,7903,0.03,,,Sick,,
-intake_condition x outcome_group,,Not recorded,4,7903,0.05,,,Sick,,
-intake_condition x outcome_group,,Return to Owner,418,7903,5.29,,,Sick,,
-intake_condition x outcome_group,,Transfer,2631,7903,33.29,,,Sick,,
+intake_condition x outcome_group,,Adoption,1844,7851,23.49,,,Sick,,
+intake_condition x outcome_group,,Died,261,7851,3.32,,,Sick,,
+intake_condition x outcome_group,,Disposal,200,7851,2.55,,,Sick,,
+intake_condition x outcome_group,,Euthanasia,2513,7851,32.01,,,Sick,,
+intake_condition x outcome_group,,Missing / Lost / Stolen,2,7851,0.03,,,Sick,,
+intake_condition x outcome_group,,Not recorded,4,7851,0.05,,,Sick,,
+intake_condition x outcome_group,,Return to Owner,418,7851,5.32,,,Sick,,
+intake_condition x outcome_group,,Transfer,2609,7851,33.23,,,Sick,,
 intake_condition x outcome_group,,Transfer,4,4,100.0,,,Space,,
 intake_condition x outcome_group,,Adoption,22,48,45.83,,,Unknown,,
 intake_condition x outcome_group,,Disposal,1,48,2.08,,,Unknown,,
 intake_condition x outcome_group,,Euthanasia,14,48,29.17,,,Unknown,,
 intake_condition x outcome_group,,Return to Owner,3,48,6.25,,,Unknown,,
 intake_condition x outcome_group,,Transfer,8,48,16.67,,,Unknown,,
-intake_year x outcome_group,,Adoption,1658,4182,39.65,,,,2013.0,
-intake_year x outcome_group,,Died,21,4182,0.5,,,,2013.0,
-intake_year x outcome_group,,Disposal,15,4182,0.36,,,,2013.0,
-intake_year x outcome_group,,Euthanasia,446,4182,10.66,,,,2013.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,2,4182,0.05,,,,2013.0,
-intake_year x outcome_group,,Return to Owner,740,4182,17.69,,,,2013.0,
-intake_year x outcome_group,,Transfer,1300,4182,31.09,,,,2013.0,
-intake_year x outcome_group,,Adoption,7099,18644,38.08,,,,2014.0,
-intake_year x outcome_group,,Died,123,18644,0.66,,,,2014.0,
-intake_year x outcome_group,,Disposal,105,18644,0.56,,,,2014.0,
-intake_year x outcome_group,,Euthanasia,1836,18644,9.85,,,,2014.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,4,18644,0.02,,,,2014.0,
-intake_year x outcome_group,,Not recorded,4,18644,0.02,,,,2014.0,
-intake_year x outcome_group,,Relocate,5,18644,0.03,,,,2014.0,
-intake_year x outcome_group,,Return to Owner,3300,18644,17.7,,,,2014.0,
-intake_year x outcome_group,,Transfer,6168,18644,33.08,,,,2014.0,
-intake_year x outcome_group,,Adoption,7504,18704,40.12,,,,2015.0,
-intake_year x outcome_group,,Died,184,18704,0.98,,,,2015.0,
-intake_year x outcome_group,,Disposal,25,18704,0.13,,,,2015.0,
-intake_year x outcome_group,,Euthanasia,1475,18704,7.89,,,,2015.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,16,18704,0.09,,,,2015.0,
-intake_year x outcome_group,,Relocate,4,18704,0.02,,,,2015.0,
-intake_year x outcome_group,,Return to Owner,3504,18704,18.73,,,,2015.0,
-intake_year x outcome_group,,Transfer,5992,18704,32.04,,,,2015.0,
-intake_year x outcome_group,,Adoption,8122,17667,45.97,,,,2016.0,
-intake_year x outcome_group,,Died,182,17667,1.03,,,,2016.0,
-intake_year x outcome_group,,Disposal,86,17667,0.49,,,,2016.0,
-intake_year x outcome_group,,Euthanasia,1158,17667,6.55,,,,2016.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,16,17667,0.09,,,,2016.0,
-intake_year x outcome_group,,Relocate,4,17667,0.02,,,,2016.0,
-intake_year x outcome_group,,Return to Owner,3305,17667,18.71,,,,2016.0,
-intake_year x outcome_group,,Transfer,4794,17667,27.14,,,,2016.0,
-intake_year x outcome_group,,Adoption,8021,17551,45.7,,,,2017.0,
-intake_year x outcome_group,,Died,158,17551,0.9,,,,2017.0,
-intake_year x outcome_group,,Disposal,65,17551,0.37,,,,2017.0,
-intake_year x outcome_group,,Euthanasia,1080,17551,6.15,,,,2017.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,8,17551,0.05,,,,2017.0,
-intake_year x outcome_group,,Relocate,2,17551,0.01,,,,2017.0,
-intake_year x outcome_group,,Return to Owner,3350,17551,19.09,,,,2017.0,
-intake_year x outcome_group,,Transfer,4867,17551,27.73,,,,2017.0,
-intake_year x outcome_group,,Adoption,8153,16971,48.04,,,,2018.0,
-intake_year x outcome_group,,Died,169,16971,1.0,,,,2018.0,
-intake_year x outcome_group,,Disposal,55,16971,0.32,,,,2018.0,
-intake_year x outcome_group,,Euthanasia,807,16971,4.76,,,,2018.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,6,16971,0.04,,,,2018.0,
-intake_year x outcome_group,,Relocate,3,16971,0.02,,,,2018.0,
-intake_year x outcome_group,,Return to Owner,3155,16971,18.59,,,,2018.0,
-intake_year x outcome_group,,Transfer,4623,16971,27.24,,,,2018.0,
-intake_year x outcome_group,,Adoption,9377,19723,47.54,,,,2019.0,
-intake_year x outcome_group,,Died,210,19723,1.06,,,,2019.0,
-intake_year x outcome_group,,Disposal,117,19723,0.59,,,,2019.0,
-intake_year x outcome_group,,Euthanasia,792,19723,4.02,,,,2019.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,13,19723,0.07,,,,2019.0,
-intake_year x outcome_group,,Relocate,1,19723,0.01,,,,2019.0,
-intake_year x outcome_group,,Return to Owner,3162,19723,16.03,,,,2019.0,
-intake_year x outcome_group,,Transfer,6051,19723,30.68,,,,2019.0,
-intake_year x outcome_group,,Adoption,4723,9583,49.29,,,,2020.0,
-intake_year x outcome_group,,Died,100,9583,1.04,,,,2020.0,
-intake_year x outcome_group,,Disposal,91,9583,0.95,,,,2020.0,
-intake_year x outcome_group,,Euthanasia,694,9583,7.24,,,,2020.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,2,9583,0.02,,,,2020.0,
-intake_year x outcome_group,,Not recorded,3,9583,0.03,,,,2020.0,
-intake_year x outcome_group,,Relocate,1,9583,0.01,,,,2020.0,
-intake_year x outcome_group,,Return to Owner,1491,9583,15.56,,,,2020.0,
-intake_year x outcome_group,,Transfer,2478,9583,25.86,,,,2020.0,
-intake_year x outcome_group,,Adoption,6928,12035,57.57,,,,2021.0,
-intake_year x outcome_group,,Died,125,12035,1.04,,,,2021.0,
-intake_year x outcome_group,,Disposal,61,12035,0.51,,,,2021.0,
-intake_year x outcome_group,,Euthanasia,598,12035,4.97,,,,2021.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,5,12035,0.04,,,,2021.0,
-intake_year x outcome_group,,Not recorded,14,12035,0.12,,,,2021.0,
-intake_year x outcome_group,,Relocate,4,12035,0.03,,,,2021.0,
-intake_year x outcome_group,,Return to Owner,1367,12035,11.36,,,,2021.0,
-intake_year x outcome_group,,Transfer,2933,12035,24.37,,,,2021.0,
-intake_year x outcome_group,,Adoption,6771,11886,56.97,,,,2022.0,
-intake_year x outcome_group,,Died,98,11886,0.82,,,,2022.0,
-intake_year x outcome_group,,Disposal,58,11886,0.49,,,,2022.0,
-intake_year x outcome_group,,Euthanasia,609,11886,5.12,,,,2022.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,4,11886,0.03,,,,2022.0,
-intake_year x outcome_group,,Not recorded,1,11886,0.01,,,,2022.0,
-intake_year x outcome_group,,Relocate,1,11886,0.01,,,,2022.0,
-intake_year x outcome_group,,Return to Owner,1280,11886,10.77,,,,2022.0,
-intake_year x outcome_group,,Transfer,3064,11886,25.78,,,,2022.0,
-intake_year x outcome_group,,Adoption,6719,11208,59.95,,,,2023.0,
-intake_year x outcome_group,,Died,107,11208,0.95,,,,2023.0,
-intake_year x outcome_group,,Disposal,92,11208,0.82,,,,2023.0,
-intake_year x outcome_group,,Euthanasia,500,11208,4.46,,,,2023.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,14,11208,0.12,,,,2023.0,
-intake_year x outcome_group,,Not recorded,8,11208,0.07,,,,2023.0,
-intake_year x outcome_group,,Relocate,1,11208,0.01,,,,2023.0,
-intake_year x outcome_group,,Return to Owner,942,11208,8.4,,,,2023.0,
-intake_year x outcome_group,,Transfer,2825,11208,25.21,,,,2023.0,
-intake_year x outcome_group,,Adoption,7281,11685,62.31,,,,2024.0,
-intake_year x outcome_group,,Died,151,11685,1.29,,,,2024.0,
-intake_year x outcome_group,,Disposal,79,11685,0.68,,,,2024.0,
-intake_year x outcome_group,,Euthanasia,576,11685,4.93,,,,2024.0,
-intake_year x outcome_group,,Missing / Lost / Stolen,8,11685,0.07,,,,2024.0,
-intake_year x outcome_group,,Not recorded,10,11685,0.09,,,,2024.0,
-intake_year x outcome_group,,Return to Owner,955,11685,8.17,,,,2024.0,
-intake_year x outcome_group,,Transfer,2625,11685,22.46,,,,2024.0,
-intake_year x outcome_group,,Adoption,1583,2933,53.97,,,,2025.0,
-intake_year x outcome_group,,Died,34,2933,1.16,,,,2025.0,
-intake_year x outcome_group,,Disposal,26,2933,0.89,,,,2025.0,
-intake_year x outcome_group,,Euthanasia,224,2933,7.64,,,,2025.0,
-intake_year x outcome_group,,Not recorded,4,2933,0.14,,,,2025.0,
-intake_year x outcome_group,,Relocate,2,2933,0.07,,,,2025.0,
-intake_year x outcome_group,,Return to Owner,326,2933,11.11,,,,2025.0,
-intake_year x outcome_group,,Transfer,734,2933,25.03,,,,2025.0,
-animal_type x intake_type x outcome_group,Abandoned,Adoption,469,746,62.87,Cat,,,,
-animal_type x intake_type x outcome_group,Abandoned,Died,3,746,0.4,Cat,,,,
-animal_type x intake_type x outcome_group,Abandoned,Disposal,1,746,0.13,Cat,,,,
-animal_type x intake_type x outcome_group,Abandoned,Euthanasia,5,746,0.67,Cat,,,,
-animal_type x intake_type x outcome_group,Abandoned,Return to Owner,44,746,5.9,Cat,,,,
-animal_type x intake_type x outcome_group,Abandoned,Transfer,224,746,30.03,Cat,,,,
+intake_year x outcome_group,,Adoption,1658,4180,39.67,,,,2013.0,
+intake_year x outcome_group,,Died,21,4180,0.5,,,,2013.0,
+intake_year x outcome_group,,Disposal,15,4180,0.36,,,,2013.0,
+intake_year x outcome_group,,Euthanasia,446,4180,10.67,,,,2013.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,2,4180,0.05,,,,2013.0,
+intake_year x outcome_group,,Return to Owner,740,4180,17.7,,,,2013.0,
+intake_year x outcome_group,,Transfer,1298,4180,31.05,,,,2013.0,
+intake_year x outcome_group,,Adoption,7099,18604,38.16,,,,2014.0,
+intake_year x outcome_group,,Died,123,18604,0.66,,,,2014.0,
+intake_year x outcome_group,,Disposal,105,18604,0.56,,,,2014.0,
+intake_year x outcome_group,,Euthanasia,1833,18604,9.85,,,,2014.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,4,18604,0.02,,,,2014.0,
+intake_year x outcome_group,,Not recorded,4,18604,0.02,,,,2014.0,
+intake_year x outcome_group,,Relocate,5,18604,0.03,,,,2014.0,
+intake_year x outcome_group,,Return to Owner,3298,18604,17.73,,,,2014.0,
+intake_year x outcome_group,,Transfer,6133,18604,32.97,,,,2014.0,
+intake_year x outcome_group,,Adoption,7504,18696,40.14,,,,2015.0,
+intake_year x outcome_group,,Died,184,18696,0.98,,,,2015.0,
+intake_year x outcome_group,,Disposal,25,18696,0.13,,,,2015.0,
+intake_year x outcome_group,,Euthanasia,1473,18696,7.88,,,,2015.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,16,18696,0.09,,,,2015.0,
+intake_year x outcome_group,,Relocate,4,18696,0.02,,,,2015.0,
+intake_year x outcome_group,,Return to Owner,3501,18696,18.73,,,,2015.0,
+intake_year x outcome_group,,Transfer,5989,18696,32.03,,,,2015.0,
+intake_year x outcome_group,,Adoption,8122,17657,46.0,,,,2016.0,
+intake_year x outcome_group,,Died,181,17657,1.03,,,,2016.0,
+intake_year x outcome_group,,Disposal,86,17657,0.49,,,,2016.0,
+intake_year x outcome_group,,Euthanasia,1153,17657,6.53,,,,2016.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,16,17657,0.09,,,,2016.0,
+intake_year x outcome_group,,Relocate,4,17657,0.02,,,,2016.0,
+intake_year x outcome_group,,Return to Owner,3304,17657,18.71,,,,2016.0,
+intake_year x outcome_group,,Transfer,4791,17657,27.13,,,,2016.0,
+intake_year x outcome_group,,Adoption,8019,17518,45.78,,,,2017.0,
+intake_year x outcome_group,,Died,157,17518,0.9,,,,2017.0,
+intake_year x outcome_group,,Disposal,65,17518,0.37,,,,2017.0,
+intake_year x outcome_group,,Euthanasia,1074,17518,6.13,,,,2017.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,8,17518,0.05,,,,2017.0,
+intake_year x outcome_group,,Relocate,1,17518,0.01,,,,2017.0,
+intake_year x outcome_group,,Return to Owner,3339,17518,19.06,,,,2017.0,
+intake_year x outcome_group,,Transfer,4855,17518,27.71,,,,2017.0,
+intake_year x outcome_group,,Adoption,8153,16952,48.09,,,,2018.0,
+intake_year x outcome_group,,Died,166,16952,0.98,,,,2018.0,
+intake_year x outcome_group,,Disposal,55,16952,0.32,,,,2018.0,
+intake_year x outcome_group,,Euthanasia,804,16952,4.74,,,,2018.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,6,16952,0.04,,,,2018.0,
+intake_year x outcome_group,,Relocate,3,16952,0.02,,,,2018.0,
+intake_year x outcome_group,,Return to Owner,3144,16952,18.55,,,,2018.0,
+intake_year x outcome_group,,Transfer,4621,16952,27.26,,,,2018.0,
+intake_year x outcome_group,,Adoption,9375,19696,47.6,,,,2019.0,
+intake_year x outcome_group,,Died,207,19696,1.05,,,,2019.0,
+intake_year x outcome_group,,Disposal,115,19696,0.58,,,,2019.0,
+intake_year x outcome_group,,Euthanasia,782,19696,3.97,,,,2019.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,13,19696,0.07,,,,2019.0,
+intake_year x outcome_group,,Relocate,1,19696,0.01,,,,2019.0,
+intake_year x outcome_group,,Return to Owner,3158,19696,16.03,,,,2019.0,
+intake_year x outcome_group,,Transfer,6045,19696,30.69,,,,2019.0,
+intake_year x outcome_group,,Adoption,4723,9548,49.47,,,,2020.0,
+intake_year x outcome_group,,Died,98,9548,1.03,,,,2020.0,
+intake_year x outcome_group,,Disposal,90,9548,0.94,,,,2020.0,
+intake_year x outcome_group,,Euthanasia,681,9548,7.13,,,,2020.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,2,9548,0.02,,,,2020.0,
+intake_year x outcome_group,,Not recorded,3,9548,0.03,,,,2020.0,
+intake_year x outcome_group,,Relocate,1,9548,0.01,,,,2020.0,
+intake_year x outcome_group,,Return to Owner,1489,9548,15.59,,,,2020.0,
+intake_year x outcome_group,,Transfer,2461,9548,25.78,,,,2020.0,
+intake_year x outcome_group,,Adoption,6928,12026,57.61,,,,2021.0,
+intake_year x outcome_group,,Died,122,12026,1.01,,,,2021.0,
+intake_year x outcome_group,,Disposal,61,12026,0.51,,,,2021.0,
+intake_year x outcome_group,,Euthanasia,593,12026,4.93,,,,2021.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,5,12026,0.04,,,,2021.0,
+intake_year x outcome_group,,Not recorded,14,12026,0.12,,,,2021.0,
+intake_year x outcome_group,,Relocate,4,12026,0.03,,,,2021.0,
+intake_year x outcome_group,,Return to Owner,1367,12026,11.37,,,,2021.0,
+intake_year x outcome_group,,Transfer,2932,12026,24.38,,,,2021.0,
+intake_year x outcome_group,,Adoption,6770,11869,57.04,,,,2022.0,
+intake_year x outcome_group,,Died,96,11869,0.81,,,,2022.0,
+intake_year x outcome_group,,Disposal,58,11869,0.49,,,,2022.0,
+intake_year x outcome_group,,Euthanasia,601,11869,5.06,,,,2022.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,4,11869,0.03,,,,2022.0,
+intake_year x outcome_group,,Not recorded,1,11869,0.01,,,,2022.0,
+intake_year x outcome_group,,Relocate,1,11869,0.01,,,,2022.0,
+intake_year x outcome_group,,Return to Owner,1279,11869,10.78,,,,2022.0,
+intake_year x outcome_group,,Transfer,3059,11869,25.77,,,,2022.0,
+intake_year x outcome_group,,Adoption,6719,11197,60.01,,,,2023.0,
+intake_year x outcome_group,,Died,107,11197,0.96,,,,2023.0,
+intake_year x outcome_group,,Disposal,89,11197,0.79,,,,2023.0,
+intake_year x outcome_group,,Euthanasia,497,11197,4.44,,,,2023.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,14,11197,0.13,,,,2023.0,
+intake_year x outcome_group,,Not recorded,8,11197,0.07,,,,2023.0,
+intake_year x outcome_group,,Relocate,1,11197,0.01,,,,2023.0,
+intake_year x outcome_group,,Return to Owner,941,11197,8.4,,,,2023.0,
+intake_year x outcome_group,,Transfer,2821,11197,25.19,,,,2023.0,
+intake_year x outcome_group,,Adoption,7281,11674,62.37,,,,2024.0,
+intake_year x outcome_group,,Died,149,11674,1.28,,,,2024.0,
+intake_year x outcome_group,,Disposal,78,11674,0.67,,,,2024.0,
+intake_year x outcome_group,,Euthanasia,574,11674,4.92,,,,2024.0,
+intake_year x outcome_group,,Missing / Lost / Stolen,8,11674,0.07,,,,2024.0,
+intake_year x outcome_group,,Not recorded,9,11674,0.08,,,,2024.0,
+intake_year x outcome_group,,Return to Owner,955,11674,8.18,,,,2024.0,
+intake_year x outcome_group,,Transfer,2620,11674,22.44,,,,2024.0,
+intake_year x outcome_group,,Adoption,1583,2930,54.03,,,,2025.0,
+intake_year x outcome_group,,Died,34,2930,1.16,,,,2025.0,
+intake_year x outcome_group,,Disposal,26,2930,0.89,,,,2025.0,
+intake_year x outcome_group,,Euthanasia,224,2930,7.65,,,,2025.0,
+intake_year x outcome_group,,Not recorded,4,2930,0.14,,,,2025.0,
+intake_year x outcome_group,,Relocate,2,2930,0.07,,,,2025.0,
+intake_year x outcome_group,,Return to Owner,324,2930,11.06,,,,2025.0,
+intake_year x outcome_group,,Transfer,733,2930,25.02,,,,2025.0,
+animal_type x intake_type x outcome_group,Abandoned,Adoption,469,745,62.95,Cat,,,,
+animal_type x intake_type x outcome_group,Abandoned,Died,3,745,0.4,Cat,,,,
+animal_type x intake_type x outcome_group,Abandoned,Disposal,1,745,0.13,Cat,,,,
+animal_type x intake_type x outcome_group,Abandoned,Euthanasia,5,745,0.67,Cat,,,,
+animal_type x intake_type x outcome_group,Abandoned,Return to Owner,43,745,5.77,Cat,,,,
+animal_type x intake_type x outcome_group,Abandoned,Transfer,224,745,30.07,Cat,,,,
 animal_type x intake_type x outcome_group,Euthanasia Request,Adoption,9,60,15.0,Cat,,,,
 animal_type x intake_type x outcome_group,Euthanasia Request,Euthanasia,40,60,66.67,Cat,,,,
 animal_type x intake_type x outcome_group,Euthanasia Request,Return to Owner,1,60,1.67,Cat,,,,
 animal_type x intake_type x outcome_group,Euthanasia Request,Transfer,10,60,16.67,Cat,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Adoption,9605,13398,71.69,Cat,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Died,117,13398,0.87,Cat,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Disposal,5,13398,0.04,Cat,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Euthanasia,208,13398,1.55,Cat,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Missing / Lost / Stolen,11,13398,0.08,Cat,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Return to Owner,516,13398,3.85,Cat,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Transfer,2936,13398,21.91,Cat,,,,
-animal_type x intake_type x outcome_group,Public Assist,Adoption,489,1442,33.91,Cat,,,,
-animal_type x intake_type x outcome_group,Public Assist,Died,16,1442,1.11,Cat,,,,
-animal_type x intake_type x outcome_group,Public Assist,Disposal,2,1442,0.14,Cat,,,,
-animal_type x intake_type x outcome_group,Public Assist,Euthanasia,26,1442,1.8,Cat,,,,
-animal_type x intake_type x outcome_group,Public Assist,Return to Owner,591,1442,40.98,Cat,,,,
-animal_type x intake_type x outcome_group,Public Assist,Transfer,318,1442,22.05,Cat,,,,
-animal_type x intake_type x outcome_group,Stray,Adoption,24861,53253,46.68,Cat,,,,
-animal_type x intake_type x outcome_group,Stray,Died,862,53253,1.62,Cat,,,,
-animal_type x intake_type x outcome_group,Stray,Disposal,156,53253,0.29,Cat,,,,
-animal_type x intake_type x outcome_group,Stray,Euthanasia,2276,53253,4.27,Cat,,,,
-animal_type x intake_type x outcome_group,Stray,Missing / Lost / Stolen,40,53253,0.08,Cat,,,,
-animal_type x intake_type x outcome_group,Stray,Not recorded,9,53253,0.02,Cat,,,,
-animal_type x intake_type x outcome_group,Stray,Relocate,6,53253,0.01,Cat,,,,
-animal_type x intake_type x outcome_group,Stray,Return to Owner,1954,53253,3.67,Cat,,,,
-animal_type x intake_type x outcome_group,Stray,Transfer,23089,53253,43.36,Cat,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Adoption,9605,13391,71.73,Cat,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Died,113,13391,0.84,Cat,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Disposal,4,13391,0.03,Cat,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Euthanasia,206,13391,1.54,Cat,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Missing / Lost / Stolen,11,13391,0.08,Cat,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Return to Owner,516,13391,3.85,Cat,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Transfer,2936,13391,21.93,Cat,,,,
+animal_type x intake_type x outcome_group,Public Assist,Adoption,489,1441,33.93,Cat,,,,
+animal_type x intake_type x outcome_group,Public Assist,Died,16,1441,1.11,Cat,,,,
+animal_type x intake_type x outcome_group,Public Assist,Disposal,2,1441,0.14,Cat,,,,
+animal_type x intake_type x outcome_group,Public Assist,Euthanasia,26,1441,1.8,Cat,,,,
+animal_type x intake_type x outcome_group,Public Assist,Return to Owner,590,1441,40.94,Cat,,,,
+animal_type x intake_type x outcome_group,Public Assist,Transfer,318,1441,22.07,Cat,,,,
+animal_type x intake_type x outcome_group,Stray,Adoption,24860,53164,46.76,Cat,,,,
+animal_type x intake_type x outcome_group,Stray,Died,857,53164,1.61,Cat,,,,
+animal_type x intake_type x outcome_group,Stray,Disposal,156,53164,0.29,Cat,,,,
+animal_type x intake_type x outcome_group,Stray,Euthanasia,2264,53164,4.26,Cat,,,,
+animal_type x intake_type x outcome_group,Stray,Missing / Lost / Stolen,40,53164,0.08,Cat,,,,
+animal_type x intake_type x outcome_group,Stray,Not recorded,9,53164,0.02,Cat,,,,
+animal_type x intake_type x outcome_group,Stray,Relocate,6,53164,0.01,Cat,,,,
+animal_type x intake_type x outcome_group,Stray,Return to Owner,1950,53164,3.67,Cat,,,,
+animal_type x intake_type x outcome_group,Stray,Transfer,23022,53164,43.3,Cat,,,,
 animal_type x intake_type x outcome_group,Abandoned,Adoption,714,1081,66.05,Dog,,,,
 animal_type x intake_type x outcome_group,Abandoned,Died,4,1081,0.37,Dog,,,,
 animal_type x intake_type x outcome_group,Abandoned,Disposal,4,1081,0.37,Dog,,,,
@@ -400,160 +400,160 @@ animal_type x intake_type x outcome_group,Euthanasia Request,Died,3,183,1.64,Dog
 animal_type x intake_type x outcome_group,Euthanasia Request,Euthanasia,148,183,80.87,Dog,,,,
 animal_type x intake_type x outcome_group,Euthanasia Request,Return to Owner,4,183,2.19,Dog,,,,
 animal_type x intake_type x outcome_group,Euthanasia Request,Transfer,23,183,12.57,Dog,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Adoption,13320,20856,63.87,Dog,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Died,97,20856,0.47,Dog,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Disposal,13,20856,0.06,Dog,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Euthanasia,682,20856,3.27,Dog,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Missing / Lost / Stolen,4,20856,0.02,Dog,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Not recorded,4,20856,0.02,Dog,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Return to Owner,1124,20856,5.39,Dog,,,,
-animal_type x intake_type x outcome_group,Owner Surrender,Transfer,5612,20856,26.91,Dog,,,,
-animal_type x intake_type x outcome_group,Public Assist,Adoption,1285,8350,15.39,Dog,,,,
-animal_type x intake_type x outcome_group,Public Assist,Died,16,8350,0.19,Dog,,,,
-animal_type x intake_type x outcome_group,Public Assist,Disposal,22,8350,0.26,Dog,,,,
-animal_type x intake_type x outcome_group,Public Assist,Euthanasia,294,8350,3.52,Dog,,,,
-animal_type x intake_type x outcome_group,Public Assist,Missing / Lost / Stolen,6,8350,0.07,Dog,,,,
-animal_type x intake_type x outcome_group,Public Assist,Not recorded,5,8350,0.06,Dog,,,,
-animal_type x intake_type x outcome_group,Public Assist,Relocate,2,8350,0.02,Dog,,,,
-animal_type x intake_type x outcome_group,Public Assist,Return to Owner,5865,8350,70.24,Dog,,,,
-animal_type x intake_type x outcome_group,Public Assist,Transfer,855,8350,10.24,Dog,,,,
-animal_type x intake_type x outcome_group,Stray,Adoption,31842,63544,50.11,Dog,,,,
-animal_type x intake_type x outcome_group,Stray,Died,281,63544,0.44,Dog,,,,
-animal_type x intake_type x outcome_group,Stray,Disposal,57,63544,0.09,Dog,,,,
-animal_type x intake_type x outcome_group,Stray,Euthanasia,1056,63544,1.66,Dog,,,,
-animal_type x intake_type x outcome_group,Stray,Missing / Lost / Stolen,30,63544,0.05,Dog,,,,
-animal_type x intake_type x outcome_group,Stray,Not recorded,18,63544,0.03,Dog,,,,
-animal_type x intake_type x outcome_group,Stray,Return to Owner,16500,63544,25.97,Dog,,,,
-animal_type x intake_type x outcome_group,Stray,Transfer,13760,63544,21.65,Dog,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Adoption,13317,20828,63.94,Dog,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Died,92,20828,0.44,Dog,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Disposal,13,20828,0.06,Dog,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Euthanasia,679,20828,3.26,Dog,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Missing / Lost / Stolen,4,20828,0.02,Dog,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Not recorded,4,20828,0.02,Dog,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Return to Owner,1123,20828,5.39,Dog,,,,
+animal_type x intake_type x outcome_group,Owner Surrender,Transfer,5596,20828,26.87,Dog,,,,
+animal_type x intake_type x outcome_group,Public Assist,Adoption,1285,8346,15.4,Dog,,,,
+animal_type x intake_type x outcome_group,Public Assist,Died,15,8346,0.18,Dog,,,,
+animal_type x intake_type x outcome_group,Public Assist,Disposal,22,8346,0.26,Dog,,,,
+animal_type x intake_type x outcome_group,Public Assist,Euthanasia,294,8346,3.52,Dog,,,,
+animal_type x intake_type x outcome_group,Public Assist,Missing / Lost / Stolen,6,8346,0.07,Dog,,,,
+animal_type x intake_type x outcome_group,Public Assist,Not recorded,5,8346,0.06,Dog,,,,
+animal_type x intake_type x outcome_group,Public Assist,Relocate,2,8346,0.02,Dog,,,,
+animal_type x intake_type x outcome_group,Public Assist,Return to Owner,5862,8346,70.24,Dog,,,,
+animal_type x intake_type x outcome_group,Public Assist,Transfer,855,8346,10.24,Dog,,,,
+animal_type x intake_type x outcome_group,Stray,Adoption,31842,63502,50.14,Dog,,,,
+animal_type x intake_type x outcome_group,Stray,Died,280,63502,0.44,Dog,,,,
+animal_type x intake_type x outcome_group,Stray,Disposal,57,63502,0.09,Dog,,,,
+animal_type x intake_type x outcome_group,Stray,Euthanasia,1053,63502,1.66,Dog,,,,
+animal_type x intake_type x outcome_group,Stray,Missing / Lost / Stolen,30,63502,0.05,Dog,,,,
+animal_type x intake_type x outcome_group,Stray,Not recorded,17,63502,0.03,Dog,,,,
+animal_type x intake_type x outcome_group,Stray,Return to Owner,16472,63502,25.94,Dog,,,,
+animal_type x intake_type x outcome_group,Stray,Transfer,13751,63502,21.65,Dog,,,,
 animal_type x intake_type x outcome_group,Wildlife,Return to Owner,1,1,100.0,Dog,,,,
-animal_type x provisional status,,,652,877,74.34,Bird,,,,Live outcome
-animal_type x provisional status,,,188,877,21.44,Bird,,,,Non-live outcome
-animal_type x provisional status,,,37,877,4.22,Bird,,,,Other / indeterminate
-animal_type x provisional status,,,65122,68899,94.52,Cat,,,,Live outcome
-animal_type x provisional status,,,3553,68899,5.16,Cat,,,,Non-live outcome
-animal_type x provisional status,,,224,68899,0.33,Cat,,,,Other / indeterminate
-animal_type x provisional status,,,91263,94015,97.07,Dog,,,,Live outcome
-animal_type x provisional status,,,2588,94015,2.75,Dog,,,,Non-live outcome
-animal_type x provisional status,,,164,94015,0.17,Dog,,,,Other / indeterminate
+animal_type x provisional status,,,648,872,74.31,Bird,,,,Live outcome
+animal_type x provisional status,,,187,872,21.44,Bird,,,,Non-live outcome
+animal_type x provisional status,,,37,872,4.24,Bird,,,,Other / indeterminate
+animal_type x provisional status,,,65048,68801,94.55,Cat,,,,Live outcome
+animal_type x provisional status,,,3530,68801,5.13,Cat,,,,Non-live outcome
+animal_type x provisional status,,,223,68801,0.32,Cat,,,,Other / indeterminate
+animal_type x provisional status,,,91203,93941,97.09,Dog,,,,Live outcome
+animal_type x provisional status,,,2575,93941,2.74,Dog,,,,Non-live outcome
+animal_type x provisional status,,,163,93941,0.17,Dog,,,,Other / indeterminate
 animal_type x provisional status,,,30,33,90.91,Livestock,,,,Live outcome
 animal_type x provisional status,,,3,33,9.09,Livestock,,,,Non-live outcome
-animal_type x provisional status,,,2231,8948,24.93,Other,,,,Live outcome
-animal_type x provisional status,,,6125,8948,68.45,Other,,,,Non-live outcome
-animal_type x provisional status,,,592,8948,6.62,Other,,,,Other / indeterminate
-intake_year x provisional status,,,3698,4182,88.43,,,,2013.0,Live outcome
-intake_year x provisional status,,,467,4182,11.17,,,,2013.0,Non-live outcome
-intake_year x provisional status,,,17,4182,0.41,,,,2013.0,Other / indeterminate
-intake_year x provisional status,,,16572,18644,88.89,,,,2014.0,Live outcome
-intake_year x provisional status,,,1959,18644,10.51,,,,2014.0,Non-live outcome
-intake_year x provisional status,,,113,18644,0.61,,,,2014.0,Other / indeterminate
-intake_year x provisional status,,,17004,18704,90.91,,,,2015.0,Live outcome
-intake_year x provisional status,,,1659,18704,8.87,,,,2015.0,Non-live outcome
-intake_year x provisional status,,,41,18704,0.22,,,,2015.0,Other / indeterminate
-intake_year x provisional status,,,16225,17667,91.84,,,,2016.0,Live outcome
-intake_year x provisional status,,,1340,17667,7.58,,,,2016.0,Non-live outcome
-intake_year x provisional status,,,102,17667,0.58,,,,2016.0,Other / indeterminate
-intake_year x provisional status,,,16240,17551,92.53,,,,2017.0,Live outcome
-intake_year x provisional status,,,1238,17551,7.05,,,,2017.0,Non-live outcome
-intake_year x provisional status,,,73,17551,0.42,,,,2017.0,Other / indeterminate
-intake_year x provisional status,,,15934,16971,93.89,,,,2018.0,Live outcome
-intake_year x provisional status,,,976,16971,5.75,,,,2018.0,Non-live outcome
-intake_year x provisional status,,,61,16971,0.36,,,,2018.0,Other / indeterminate
-intake_year x provisional status,,,18591,19723,94.26,,,,2019.0,Live outcome
-intake_year x provisional status,,,1002,19723,5.08,,,,2019.0,Non-live outcome
-intake_year x provisional status,,,130,19723,0.66,,,,2019.0,Other / indeterminate
-intake_year x provisional status,,,8693,9583,90.71,,,,2020.0,Live outcome
-intake_year x provisional status,,,794,9583,8.29,,,,2020.0,Non-live outcome
-intake_year x provisional status,,,96,9583,1.0,,,,2020.0,Other / indeterminate
-intake_year x provisional status,,,11232,12035,93.33,,,,2021.0,Live outcome
-intake_year x provisional status,,,723,12035,6.01,,,,2021.0,Non-live outcome
-intake_year x provisional status,,,80,12035,0.66,,,,2021.0,Other / indeterminate
-intake_year x provisional status,,,11116,11886,93.52,,,,2022.0,Live outcome
-intake_year x provisional status,,,707,11886,5.95,,,,2022.0,Non-live outcome
-intake_year x provisional status,,,63,11886,0.53,,,,2022.0,Other / indeterminate
-intake_year x provisional status,,,10487,11208,93.57,,,,2023.0,Live outcome
-intake_year x provisional status,,,607,11208,5.42,,,,2023.0,Non-live outcome
-intake_year x provisional status,,,114,11208,1.02,,,,2023.0,Other / indeterminate
-intake_year x provisional status,,,10861,11685,92.95,,,,2024.0,Live outcome
-intake_year x provisional status,,,727,11685,6.22,,,,2024.0,Non-live outcome
-intake_year x provisional status,,,97,11685,0.83,,,,2024.0,Other / indeterminate
-intake_year x provisional status,,,2645,2933,90.18,,,,2025.0,Live outcome
-intake_year x provisional status,,,258,2933,8.8,,,,2025.0,Non-live outcome
-intake_year x provisional status,,,30,2933,1.02,,,,2025.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,1206,1309,92.13,Cat,,,2013.0,Live outcome
-dog/cat x intake_year x provisional status,,,102,1309,7.79,Cat,,,2013.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,1,1309,0.08,Cat,,,2013.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,6423,6929,92.7,Cat,,,2014.0,Live outcome
-dog/cat x intake_year x provisional status,,,503,6929,7.26,Cat,,,2014.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,3,6929,0.04,Cat,,,2014.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,6922,7481,92.53,Cat,,,2015.0,Live outcome
-dog/cat x intake_year x provisional status,,,550,7481,7.35,Cat,,,2015.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,9,7481,0.12,Cat,,,2015.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,6278,6629,94.71,Cat,,,2016.0,Live outcome
-dog/cat x intake_year x provisional status,,,331,6629,4.99,Cat,,,2016.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,20,6629,0.3,Cat,,,2016.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,6131,6484,94.56,Cat,,,2017.0,Live outcome
-dog/cat x intake_year x provisional status,,,345,6484,5.32,Cat,,,2017.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,8,6484,0.12,Cat,,,2017.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,5757,6018,95.66,Cat,,,2018.0,Live outcome
-dog/cat x intake_year x provisional status,,,259,6018,4.3,Cat,,,2018.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,2,6018,0.03,Cat,,,2018.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,7518,7878,95.43,Cat,,,2019.0,Live outcome
-dog/cat x intake_year x provisional status,,,324,7878,4.11,Cat,,,2019.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,36,7878,0.46,Cat,,,2019.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,3223,3448,93.47,Cat,,,2020.0,Live outcome
-dog/cat x intake_year x provisional status,,,194,3448,5.63,Cat,,,2020.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,31,3448,0.9,Cat,,,2020.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,4856,5112,94.99,Cat,,,2021.0,Live outcome
-dog/cat x intake_year x provisional status,,,239,5112,4.68,Cat,,,2021.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,17,5112,0.33,Cat,,,2021.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,4476,4684,95.56,Cat,,,2022.0,Live outcome
-dog/cat x intake_year x provisional status,,,193,4684,4.12,Cat,,,2022.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,15,4684,0.32,Cat,,,2022.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,5391,5596,96.34,Cat,,,2023.0,Live outcome
-dog/cat x intake_year x provisional status,,,172,5596,3.07,Cat,,,2023.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,33,5596,0.59,Cat,,,2023.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,5742,6032,95.19,Cat,,,2024.0,Live outcome
-dog/cat x intake_year x provisional status,,,249,6032,4.13,Cat,,,2024.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,41,6032,0.68,Cat,,,2024.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,1199,1299,92.3,Cat,,,2025.0,Live outcome
-dog/cat x intake_year x provisional status,,,92,1299,7.08,Cat,,,2025.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,8,1299,0.62,Cat,,,2025.0,Other / indeterminate
+animal_type x provisional status,,,2229,8900,25.04,Other,,,,Live outcome
+animal_type x provisional status,,,6085,8900,68.37,Other,,,,Non-live outcome
+animal_type x provisional status,,,586,8900,6.58,Other,,,,Other / indeterminate
+intake_year x provisional status,,,3696,4180,88.42,,,,2013.0,Live outcome
+intake_year x provisional status,,,467,4180,11.17,,,,2013.0,Non-live outcome
+intake_year x provisional status,,,17,4180,0.41,,,,2013.0,Other / indeterminate
+intake_year x provisional status,,,16535,18604,88.88,,,,2014.0,Live outcome
+intake_year x provisional status,,,1956,18604,10.51,,,,2014.0,Non-live outcome
+intake_year x provisional status,,,113,18604,0.61,,,,2014.0,Other / indeterminate
+intake_year x provisional status,,,16998,18696,90.92,,,,2015.0,Live outcome
+intake_year x provisional status,,,1657,18696,8.86,,,,2015.0,Non-live outcome
+intake_year x provisional status,,,41,18696,0.22,,,,2015.0,Other / indeterminate
+intake_year x provisional status,,,16221,17657,91.87,,,,2016.0,Live outcome
+intake_year x provisional status,,,1334,17657,7.56,,,,2016.0,Non-live outcome
+intake_year x provisional status,,,102,17657,0.58,,,,2016.0,Other / indeterminate
+intake_year x provisional status,,,16214,17518,92.56,,,,2017.0,Live outcome
+intake_year x provisional status,,,1231,17518,7.03,,,,2017.0,Non-live outcome
+intake_year x provisional status,,,73,17518,0.42,,,,2017.0,Other / indeterminate
+intake_year x provisional status,,,15921,16952,93.92,,,,2018.0,Live outcome
+intake_year x provisional status,,,970,16952,5.72,,,,2018.0,Non-live outcome
+intake_year x provisional status,,,61,16952,0.36,,,,2018.0,Other / indeterminate
+intake_year x provisional status,,,18579,19696,94.33,,,,2019.0,Live outcome
+intake_year x provisional status,,,989,19696,5.02,,,,2019.0,Non-live outcome
+intake_year x provisional status,,,128,19696,0.65,,,,2019.0,Other / indeterminate
+intake_year x provisional status,,,8674,9548,90.85,,,,2020.0,Live outcome
+intake_year x provisional status,,,779,9548,8.16,,,,2020.0,Non-live outcome
+intake_year x provisional status,,,95,9548,0.99,,,,2020.0,Other / indeterminate
+intake_year x provisional status,,,11231,12026,93.39,,,,2021.0,Live outcome
+intake_year x provisional status,,,715,12026,5.95,,,,2021.0,Non-live outcome
+intake_year x provisional status,,,80,12026,0.67,,,,2021.0,Other / indeterminate
+intake_year x provisional status,,,11109,11869,93.6,,,,2022.0,Live outcome
+intake_year x provisional status,,,697,11869,5.87,,,,2022.0,Non-live outcome
+intake_year x provisional status,,,63,11869,0.53,,,,2022.0,Other / indeterminate
+intake_year x provisional status,,,10482,11197,93.61,,,,2023.0,Live outcome
+intake_year x provisional status,,,604,11197,5.39,,,,2023.0,Non-live outcome
+intake_year x provisional status,,,111,11197,0.99,,,,2023.0,Other / indeterminate
+intake_year x provisional status,,,10856,11674,92.99,,,,2024.0,Live outcome
+intake_year x provisional status,,,723,11674,6.19,,,,2024.0,Non-live outcome
+intake_year x provisional status,,,95,11674,0.81,,,,2024.0,Other / indeterminate
+intake_year x provisional status,,,2642,2930,90.17,,,,2025.0,Live outcome
+intake_year x provisional status,,,258,2930,8.81,,,,2025.0,Non-live outcome
+intake_year x provisional status,,,30,2930,1.02,,,,2025.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,1204,1307,92.12,Cat,,,2013.0,Live outcome
+dog/cat x intake_year x provisional status,,,102,1307,7.8,Cat,,,2013.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,1,1307,0.08,Cat,,,2013.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,6398,6902,92.7,Cat,,,2014.0,Live outcome
+dog/cat x intake_year x provisional status,,,501,6902,7.26,Cat,,,2014.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,3,6902,0.04,Cat,,,2014.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,6919,7477,92.54,Cat,,,2015.0,Live outcome
+dog/cat x intake_year x provisional status,,,549,7477,7.34,Cat,,,2015.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,9,7477,0.12,Cat,,,2015.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,6276,6625,94.73,Cat,,,2016.0,Live outcome
+dog/cat x intake_year x provisional status,,,329,6625,4.97,Cat,,,2016.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,20,6625,0.3,Cat,,,2016.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,6119,6470,94.57,Cat,,,2017.0,Live outcome
+dog/cat x intake_year x provisional status,,,343,6470,5.3,Cat,,,2017.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,8,6470,0.12,Cat,,,2017.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,5755,6012,95.73,Cat,,,2018.0,Live outcome
+dog/cat x intake_year x provisional status,,,255,6012,4.24,Cat,,,2018.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,2,6012,0.03,Cat,,,2018.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,7513,7867,95.5,Cat,,,2019.0,Live outcome
+dog/cat x intake_year x provisional status,,,318,7867,4.04,Cat,,,2019.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,36,7867,0.46,Cat,,,2019.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,3209,3433,93.48,Cat,,,2020.0,Live outcome
+dog/cat x intake_year x provisional status,,,193,3433,5.62,Cat,,,2020.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,31,3433,0.9,Cat,,,2020.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,4856,5111,95.01,Cat,,,2021.0,Live outcome
+dog/cat x intake_year x provisional status,,,238,5111,4.66,Cat,,,2021.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,17,5111,0.33,Cat,,,2021.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,4471,4677,95.6,Cat,,,2022.0,Live outcome
+dog/cat x intake_year x provisional status,,,191,4677,4.08,Cat,,,2022.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,15,4677,0.32,Cat,,,2022.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,5389,5593,96.35,Cat,,,2023.0,Live outcome
+dog/cat x intake_year x provisional status,,,171,5593,3.06,Cat,,,2023.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,33,5593,0.59,Cat,,,2023.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,5742,6030,95.22,Cat,,,2024.0,Live outcome
+dog/cat x intake_year x provisional status,,,248,6030,4.11,Cat,,,2024.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,40,6030,0.66,Cat,,,2024.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,1197,1297,92.29,Cat,,,2025.0,Live outcome
+dog/cat x intake_year x provisional status,,,92,1297,7.09,Cat,,,2025.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,8,1297,0.62,Cat,,,2025.0,Other / indeterminate
 dog/cat x intake_year x provisional status,,,2455,2634,93.2,Dog,,,2013.0,Live outcome
 dog/cat x intake_year x provisional status,,,178,2634,6.76,Dog,,,2013.0,Non-live outcome
 dog/cat x intake_year x provisional status,,,1,2634,0.04,Dog,,,2013.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,9928,10565,93.97,Dog,,,2014.0,Live outcome
-dog/cat x intake_year x provisional status,,,636,10565,6.02,Dog,,,2014.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,1,10565,0.01,Dog,,,2014.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,9861,10324,95.52,Dog,,,2015.0,Live outcome
-dog/cat x intake_year x provisional status,,,453,10324,4.39,Dog,,,2015.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,10,10324,0.1,Dog,,,2015.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,9697,9929,97.66,Dog,,,2016.0,Live outcome
-dog/cat x intake_year x provisional status,,,226,9929,2.28,Dog,,,2016.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,6,9929,0.06,Dog,,,2016.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,9808,9934,98.73,Dog,,,2017.0,Live outcome
-dog/cat x intake_year x provisional status,,,118,9934,1.19,Dog,,,2017.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,8,9934,0.08,Dog,,,2017.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,9880,9997,98.83,Dog,,,2018.0,Live outcome
-dog/cat x intake_year x provisional status,,,114,9997,1.14,Dog,,,2018.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,3,9997,0.03,Dog,,,2018.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,10728,10928,98.17,Dog,,,2019.0,Live outcome
-dog/cat x intake_year x provisional status,,,180,10928,1.65,Dog,,,2019.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,20,10928,0.18,Dog,,,2019.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,5282,5417,97.51,Dog,,,2020.0,Live outcome
-dog/cat x intake_year x provisional status,,,118,5417,2.18,Dog,,,2020.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,17,5417,0.31,Dog,,,2020.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,6076,6221,97.67,Dog,,,2021.0,Live outcome
-dog/cat x intake_year x provisional status,,,118,6221,1.9,Dog,,,2021.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,27,6221,0.43,Dog,,,2021.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,6341,6485,97.78,Dog,,,2022.0,Live outcome
-dog/cat x intake_year x provisional status,,,129,6485,1.99,Dog,,,2022.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,15,6485,0.23,Dog,,,2022.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,4936,5072,97.32,Dog,,,2023.0,Live outcome
-dog/cat x intake_year x provisional status,,,111,5072,2.19,Dog,,,2023.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,25,5072,0.49,Dog,,,2023.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,4893,5072,96.47,Dog,,,2024.0,Live outcome
-dog/cat x intake_year x provisional status,,,156,5072,3.08,Dog,,,2024.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,23,5072,0.45,Dog,,,2024.0,Other / indeterminate
-dog/cat x intake_year x provisional status,,,1378,1437,95.89,Dog,,,2025.0,Live outcome
-dog/cat x intake_year x provisional status,,,51,1437,3.55,Dog,,,2025.0,Non-live outcome
-dog/cat x intake_year x provisional status,,,8,1437,0.56,Dog,,,2025.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,9916,10552,93.97,Dog,,,2014.0,Live outcome
+dog/cat x intake_year x provisional status,,,635,10552,6.02,Dog,,,2014.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,1,10552,0.01,Dog,,,2014.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,9859,10321,95.52,Dog,,,2015.0,Live outcome
+dog/cat x intake_year x provisional status,,,452,10321,4.38,Dog,,,2015.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,10,10321,0.1,Dog,,,2015.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,9695,9926,97.67,Dog,,,2016.0,Live outcome
+dog/cat x intake_year x provisional status,,,225,9926,2.27,Dog,,,2016.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,6,9926,0.06,Dog,,,2016.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,9796,9921,98.74,Dog,,,2017.0,Live outcome
+dog/cat x intake_year x provisional status,,,117,9921,1.18,Dog,,,2017.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,8,9921,0.08,Dog,,,2017.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,9869,9985,98.84,Dog,,,2018.0,Live outcome
+dog/cat x intake_year x provisional status,,,113,9985,1.13,Dog,,,2018.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,3,9985,0.03,Dog,,,2018.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,10723,10921,98.19,Dog,,,2019.0,Live outcome
+dog/cat x intake_year x provisional status,,,178,10921,1.63,Dog,,,2019.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,20,10921,0.18,Dog,,,2019.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,5277,5410,97.54,Dog,,,2020.0,Live outcome
+dog/cat x intake_year x provisional status,,,116,5410,2.14,Dog,,,2020.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,17,5410,0.31,Dog,,,2020.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,6075,6218,97.7,Dog,,,2021.0,Live outcome
+dog/cat x intake_year x provisional status,,,116,6218,1.87,Dog,,,2021.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,27,6218,0.43,Dog,,,2021.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,6340,6483,97.79,Dog,,,2022.0,Live outcome
+dog/cat x intake_year x provisional status,,,128,6483,1.97,Dog,,,2022.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,15,6483,0.23,Dog,,,2022.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,4933,5069,97.32,Dog,,,2023.0,Live outcome
+dog/cat x intake_year x provisional status,,,111,5069,2.19,Dog,,,2023.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,25,5069,0.49,Dog,,,2023.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,4888,5065,96.51,Dog,,,2024.0,Live outcome
+dog/cat x intake_year x provisional status,,,155,5065,3.06,Dog,,,2024.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,22,5065,0.43,Dog,,,2024.0,Other / indeterminate
+dog/cat x intake_year x provisional status,,,1377,1436,95.89,Dog,,,2025.0,Live outcome
+dog/cat x intake_year x provisional status,,,51,1436,3.55,Dog,,,2025.0,Non-live outcome
+dog/cat x intake_year x provisional status,,,8,1436,0.56,Dog,,,2025.0,Other / indeterminate

@@ -740,6 +740,10 @@ them stamped midnight) --- typically same-day returns to owner.
 
 ### D-012 --- Same-day, time-reversed second pass
 
+> **Superseded for the primary dataset by D-018 (23-11-2026):** the
+> second pass is retained only to identify flagged candidate pairs; its
+> 225 pairs are no longer counted as matched visits.
+
 **Decision:** After the primary pass, an unmatched outcome and unmatched
 intake for the same animal on the same calendar date, with the intake
 time later than the outcome time and no event between them, are paired
@@ -756,7 +760,10 @@ visits are included (LOS < 1 day). Unmatched intakes (open or missing
 outcome) and unmatched outcomes are excluded from LOS and shown
 separately. Long stays are retained and flagged (`long_stay_365plus`).\
 **Limitation:** LOS is time in the shelter's custody, including foster
-care --- 75% of 365+ day visits end with outcome subtype `Foster`.
+care --- 75% of 365+ day visits end with outcome subtype `Foster`.\
+> **Wording superseded by D-019:** the data do not show that LOS
+> includes foster time; LOS is intake to final recorded outcome, of
+> unknown shelter/foster composition.
 
 ### D-014 --- Categorical labels and provisional outcome grouping
 
@@ -827,13 +834,65 @@ that window). Superseded for director-facing use; values retained in
 averages of annual intake-cohort medians; pooled medians are 5.11 /
 12.07. Both are reported.
 
+### D-018 --- Primary dataset excludes same-day time-reversed pairs (23-11-2026)
+
+**Decision:** The primary (confirmed-match) visit dataset is the
+chronological pass of `adjacent_dp` (D-010 + D-011): 172,547 matched
+visits, 1,229 unmatched intakes, 1,202 unmatched outcomes. The 225
+pairs from the D-012 second pass are written to
+`outputs/matching/same_day_reversed_candidates.csv` and their 450 events
+are unmatched rows in `candidate_visits.csv` flagged
+`same_day_reversed_candidate` with `candidate_partner_event_id`.\
+**Previous approach:** the 225 pairs were counted as matched visits
+(172,772).\
+**Why:** No source field links an outcome recorded earlier on the same
+day to a later intake; 37 of the 225 are ambiguous on review. Confirmed
+matches must not rest on an inference.\
+**Impact:** LOS P50 6.00 (unchanged), P75 19.89 → 19.93, P90 55.34 →
+55.56, P99 214.24 → 214.46; all findings move ≤ 0.04 pp / 0.03 days
+(e.g. dog median 2023--2024 12.35 → 12.38; owner surrenders after any
+adoption 24.45% → 24.46%). The previous figures remain in
+`outputs/sensitivity/scenario_comparison.csv` (scenario A).
+
+### D-019 --- Meaning of `Outcome Subtype = Foster` and LOS wording (23-11-2026)
+
+**Decision:** Treat `Adoption / Foster` (and `Died` / `Missing` with
+`In Foster`) as **final** outcomes recorded at the final event, not as
+the date of transfer into foster care. Foster placement creates no
+record and has no date in either file. LOS is described as "intake to
+final recorded outcome"; it is not kennel time and its shelter/foster
+split is unknown.\
+**Evidence:** `outputs/sensitivity/foster_subtype_evidence.csv` --- only
+3 of 17,945 `Adoption / Foster` outcomes are followed by another outcome
+without a new intake; `In Foster` occurs only as a subtype of Died and
+Missing; no Transfer subtype denotes foster. The City portal
+documentation could not be reached from this environment (network
+policy), so this is inferred from the data only.\
+**Impact:** wording in methodology, audit report and Finding 1
+corrected; the finding is now led by intake-to-final-outcome medians and
+non-foster-subtype proxies. No metric changes.
+
+### D-020 --- Exact-timestamp overlap validation and interval guard (23-11-2026)
+
+Exact interval check added (date-only outcomes start at intake; upper
+bound end-of-day): 0 certain and 0 possible overlaps in all scenarios;
+no overlap missed by the date-level check. Owner-surrender elapsed days
+verified ≥ 0 before 7/30-day counts: 0 records affected; denominators
+unchanged. Scenario B vs A: identical pair sets (79 non-offset midnight
+outcomes are paired by the second pass in B instead of the primary pass
+in A, with the same intake).
+
 ### Assumptions still requiring approval
 
 1.  D-010 adjacent-event visit rule.
-2.  D-011 date-only treatment of *all* midnight outcomes (B, offset-only,
-    gives the same final totals via the second pass).
-3.  D-012 same-day time-reversed pass (225 visits; 37 ambiguous).
-4.  D-013 LOS definition including foster custody time.
+2.  D-011 date-only treatment of *all* midnight outcomes. Under the
+    primary dataset this rule alone matches 79 non-offset midnight
+    outcomes (offset-only would leave them unmatched: 172,468 visits).
+3.  D-018 exclusion of the 225 time-reversed pairs from the primary
+    dataset (replaces approval of D-012 as a matching rule).
+4.  D-019 interpretation of the Foster subtype and the resulting LOS
+    wording (to be checked against the City's data dictionary when
+    accessible).
 5.  D-017 adoption-return definition (immediately preceding matched
     visit) and the 30-day window for the director headline.
 6.  Choice of averaged-annual vs pooled baselines for findings 1 and 3.

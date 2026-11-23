@@ -14,8 +14,8 @@ Outputs (outputs/sensitivity/):
 
 Scenarios (adjacent-event rule in every case; only the timestamp assumption and
 the second pass vary):
-    A_all_midnight_dateonly            date-only rule for all 3,788 midnight outcomes (+ second pass) = CURRENT
-    A_excl_reversed                    as A without the same-day time-reversed second pass
+    A_all_midnight_dateonly            date-only rule for all 3,788 midnight outcomes (+ second pass)
+    A_excl_reversed                    as A without the second pass = PRIMARY dataset (D-018)
     B_offset_only_dateonly             date-only rule only for 3,584 offset-bearing outcomes (+ second pass)
     B_offset_only_excl_reversed        as B without the second pass
     C_strict                           strict source timestamps, no adjustment, no second pass
@@ -72,7 +72,8 @@ def run_scenario(I, O, mode, second_pass):
 def visits_frame(p, ie, oe, I, O):
     v = attach_times(p, ie, oe)
     v = v.merge(I[["intake_event_id", "intake_type", "animal_type"]], on="intake_event_id") \
-         .merge(O[["outcome_event_id", "outcome_group", "outcome_subtype"]], on="outcome_event_id")
+         .merge(O[["outcome_event_id", "outcome_group", "outcome_subtype", "outcome_is_midnight",
+                   "outcome_time_is_date_only"]], on="outcome_event_id")
     v["los_raw"] = v["los_days"]
     v["los_days"] = v["los_raw"].clip(lower=0)
     v["intake_year"] = v["intake_dt"].dt.year
@@ -81,10 +82,49 @@ def visits_frame(p, ie, oe, I, O):
 
 
 def overlaps(v):
+    """Date-level check (original): next intake date earlier than previous outcome date."""
     s = v.sort_values(["animal_id", "intake_dt"])
     prev = s.groupby("animal_id")["outcome_dt"].shift()
     ok = prev.notna()
     return int((s.loc[ok, "intake_dt"].dt.normalize() < prev[ok].dt.normalize()).sum())
+
+
+def exact_overlaps(v, date_only_col):
+    """Timestamp-level interval check.
+
+    Each visit is the interval [start, end] with start = min(intake, outcome) and end = max(intake, outcome),
+    so time-reversed pairs keep their recorded extent. For date-only outcomes (per the scenario's rule)
+    the true end is unknown within the day, so an upper bound end_upper = 23:59:59 that day is also used.
+    Every visit is compared with the running maximum end of all earlier visits of the animal (not only
+    the immediately preceding one).
+      certain  : start < previous max end (exact recorded timestamps)
+      possible : not certain, but start < previous max end_upper (only because of date-only precision)
+    """
+    s = v[["animal_id", "intake_event_id", "outcome_event_id", "intake_dt", "outcome_dt", "match_rule"]].copy()
+    do = v[date_only_col].astype(bool) if date_only_col else pd.Series(False, index=v.index)
+    # naive exact interval: recorded timestamps only, no date-only handling (reported for transparency)
+    s["naive_start"] = s[["intake_dt", "outcome_dt"]].min(axis=1)
+    # date-only outcomes carry no time, so they cannot start a visit: start at the intake
+    s["start"] = s["naive_start"].where(~do, s["intake_dt"])
+    s["end"] = s[["intake_dt", "outcome_dt"]].max(axis=1)
+    s["end_upper"] = s["end"].where(~do, s["outcome_dt"].dt.normalize() + EOD).where(lambda x: x >= s["end"], s["end"])
+    s = s.sort_values(["animal_id", "start", "end", "intake_event_id"])
+    g = s.groupby("animal_id")
+    s["cm_end"] = g["end"].cummax()
+    s["cm_end_upper"] = g["end_upper"].cummax()
+    g = s.groupby("animal_id")
+    s["prev_max_end"] = g["cm_end"].shift()
+    s["prev_max_end_upper"] = g["cm_end_upper"].shift()
+    # naive check on recorded timestamps (min/max), same running-max logic
+    n = s.sort_values(["animal_id", "naive_start", "end", "intake_event_id"])
+    n_prev = n.groupby("animal_id")["end"].cummax().groupby(n["animal_id"]).shift()
+    s["naive_exact_overlap"] = (n["naive_start"] < n_prev).reindex(s.index)
+    s = s.drop(columns=["cm_end", "cm_end_upper"])
+    s["certain_overlap"] = s["start"] < s["prev_max_end"]
+    s["possible_overlap"] = ~s["certain_overlap"] & (s["start"] < s["prev_max_end_upper"])
+    prev_out = g["outcome_dt"].shift()
+    s["date_level_flag"] = s["intake_dt"].dt.normalize() < prev_out.dt.normalize()
+    return s
 
 
 def dog_los(v):
@@ -124,18 +164,24 @@ def owner_surrender(v):
     os_ = s[s["intake_type"] == "Owner Surrender"].copy()
     os_["after_adoption"] = os_["prev_outcome_group"] == "Adoption"
     os_["days"] = (os_["intake_dt"] - os_["prev_outcome_dt"]).dt.total_seconds() / 86400
+    # elapsed time must be non-negative; negative intervals are excluded from the timed metrics
+    os_["valid_interval"] = os_["days"] >= 0
     w = os_[os_["intake_year"].isin(OS_YEARS)]
     n, a = len(w), int(w["after_adoption"].sum())
-    a7 = int((w["after_adoption"] & (w["days"] <= 7)).sum())
-    a30 = int((w["after_adoption"] & (w["days"] <= 30)).sum())
-    all_a = os_[os_["after_adoption"]]
+    ok = w["after_adoption"] & w["valid_interval"]
+    a_valid = int(ok.sum())
+    a7 = int((ok & (w["days"] <= 7)).sum())
+    a30 = int((ok & (w["days"] <= 30)).sum())
+    all_a = os_[os_["after_adoption"] & os_["valid_interval"]]
     return {
+        "adoption_returns_negative_interval_2016_2024": a - a_valid,
+        "adoption_returns_negative_interval_all_years": int((os_["after_adoption"] & ~os_["valid_interval"]).sum()),
         "os_visits_2016_2024": n, "os_after_any_adoption_2016_2024": a,
         "os_after_any_adoption_pct_2016_2024": round(a / n * 100, 2),
         "os_within_7d_of_adoption_2016_2024": a7, "os_within_7d_pct_of_os_2016_2024": round(a7 / n * 100, 2),
         "os_within_30d_of_adoption_2016_2024": a30, "os_within_30d_pct_of_os_2016_2024": round(a30 / n * 100, 2),
-        "returns_within_7d_pct_of_returns_2016_2024": round(a7 / a * 100, 2),
-        "returns_within_30d_pct_of_returns_2016_2024": round(a30 / a * 100, 2),
+        "returns_within_7d_pct_of_returns_2016_2024": round(a7 / a_valid * 100, 2),
+        "returns_within_30d_pct_of_returns_2016_2024": round(a30 / a_valid * 100, 2),
         "adoption_returns_all_years": len(all_a),
         "returns_within_7d_pct_of_returns_all_years": round((all_a["days"] <= 7).mean() * 100, 2),
         "returns_within_30d_pct_of_returns_all_years": round((all_a["days"] <= 30).mean() * 100, 2),
@@ -145,6 +191,8 @@ def owner_surrender(v):
 def scenario_metrics(name, mode, second_pass, I, O):
     p, ie, oe = run_scenario(I, O, mode, second_pass)
     v = visits_frame(p, ie, oe, I, O)
+    dcol = {"all_midnight": "outcome_is_midnight", "offset_only": "outcome_time_is_date_only", "strict": None}[mode]
+    ex = exact_overlaps(v, dcol)
     q = v["los_days"].quantile(PCTS)
     r = {
         "scenario": name, "date_only_rule": mode, "same_day_reversed_pass": second_pass,
@@ -155,6 +203,9 @@ def scenario_metrics(name, mode, second_pass, I, O):
         "zero_day_stays": int((v["los_days"] == 0).sum()),
         "same_day_visits": int((v["intake_dt"].dt.normalize() == v["outcome_dt"].dt.normalize()).sum()),
         "overlapping_visits": overlaps(v),
+        "exact_certain_overlaps": int(ex["certain_overlap"].sum()),
+        "naive_exact_overlaps_no_date_only_handling": int(ex["naive_exact_overlap"].sum()),
+        "exact_possible_overlaps_date_precision": int(ex["possible_overlap"].sum()),
         "intake_reused": int(v["intake_event_id"].duplicated().sum()),
         **{f"los_p{int(k * 100)}": round(float(x), 2) for k, x in q.items()},
         "los_mean": round(float(v["los_days"].mean()), 2),
@@ -163,7 +214,7 @@ def scenario_metrics(name, mode, second_pass, I, O):
     r.update(dog_los(v))
     r.update(stray_rto(v))
     r.update(owner_surrender(v))
-    return r, v
+    return r, v, ex
 
 
 def review_reversed(v, I, O):
@@ -229,8 +280,8 @@ def dog_los_detail(vA, vX, I, matched_ids_A):
     tot = di.groupby(di["intake_datetime"].dt.year).size()
     unm = di[~di["intake_event_id"].isin(matched_ids_A)]
     um = unm.groupby(unm["intake_datetime"].dt.year).size()
-    comp = pd.DataFrame({"dog_intake_events": tot, "dog_intakes_unmatched_current": um}).fillna(0).astype(int)
-    comp["unmatched_pct"] = (comp["dog_intakes_unmatched_current"] / comp["dog_intake_events"] * 100).round(2)
+    comp = pd.DataFrame({"dog_intake_events": tot, "dog_intakes_unmatched_primary": um}).fillna(0).astype(int)
+    comp["unmatched_pct"] = (comp["dog_intakes_unmatched_primary"] / comp["dog_intake_events"] * 100).round(2)
     comp.index.name = "intake_year"
     return t.merge(comp.reset_index(), on="intake_year", how="left")
 
@@ -255,13 +306,79 @@ def main():
             f"{k}={v}" for k, v in mid.loc[m, "outcome_type"].value_counts().head(3).items())
     write_csv(split, OUT / "midnight_outcome_split.csv")
 
-    rows, vis = [], {}
+    rows, vis, exs = [], {}, {}
     for name, (mode, sp) in SCENARIOS.items():
-        r, v = scenario_metrics(name, mode, sp, I, O)
+        r, v, ex = scenario_metrics(name, mode, sp, I, O)
         rows.append(r)
         vis[name] = v
+        exs[name] = ex
     comp = pd.DataFrame(rows)
     write_csv(comp, OUT / "scenario_comparison.csv")
+
+    # A vs B record-level reconciliation
+    ka = vis["A_all_midnight_dateonly"].set_index(["intake_event_id", "outcome_event_id"])["match_rule"]
+    kb = vis["B_offset_only_dateonly"].set_index(["intake_event_id", "outcome_event_id"])["match_rule"]
+    ab = pd.concat([ka.rename("rule_A"), kb.rename("rule_B")], axis=1).reset_index()
+    ab["pair_in_A"], ab["pair_in_B"] = ab["rule_A"].notna(), ab["rule_B"].notna()
+    ab = ab[ab["rule_A"].fillna("-") != ab["rule_B"].fillna("-")]
+    ab = ab.merge(O[["outcome_event_id", "animal_id", "outcome_datetime", "outcome_datetime_raw", "outcome_tz_offset",
+                     "outcome_is_midnight", "outcome_time_is_date_only", "outcome_type"]], on="outcome_event_id") \
+           .merge(I[["intake_event_id", "intake_datetime", "intake_datetime_raw", "intake_type"]], on="intake_event_id")
+    ab["outcome_before_intake_hours"] = ((ab["intake_datetime"] - ab["outcome_datetime"]).dt.total_seconds() / 3600).round(2)
+    ab["difference_class"] = np.select(
+        [ab["pair_in_A"] & ab["pair_in_B"] & (ab["rule_A"] == "chronological"),
+         ab["pair_in_A"] & ab["pair_in_B"]],
+        ["Same pair: primary pass in A, reversed pass in B", "Same pair: different rule"],
+        default=np.where(ab["pair_in_A"], "Pair only in A", "Pair only in B"))
+    write_csv(ab, OUT / "scenario_a_vs_b_differences.csv")
+    nm = O[O["outcome_is_midnight"] & ~O["outcome_time_is_date_only"]][["outcome_event_id", "animal_id",
+                                                                       "outcome_datetime", "outcome_type"]]
+    for sc, col in (("A_all_midnight_dateonly", "A"), ("B_offset_only_dateonly", "B")):
+        pv = vis[sc].set_index("outcome_event_id")
+        nm[f"intake_event_id_{col}"] = nm["outcome_event_id"].map(pv["intake_event_id"])
+        nm[f"match_rule_{col}"] = nm["outcome_event_id"].map(pv["match_rule"]).fillna("unmatched")
+    nm["same_assignment"] = nm["intake_event_id_A"].fillna("-") == nm["intake_event_id_B"].fillna("-")
+    write_csv(nm, OUT / "nonoffset_midnight_outcomes_a_vs_b.csv")
+
+    # exact-timestamp overlap listing (all scenarios)
+    exl = []
+    for sc, e in exs.items():
+        e = e[e["certain_overlap"] | e["possible_overlap"] | e["date_level_flag"] | e["naive_exact_overlap"]] \
+            .assign(scenario=sc)
+        exl.append(e)
+    exl = pd.concat(exl, ignore_index=True)
+    exl["missed_by_date_level_check"] = (exl["certain_overlap"] | exl["possible_overlap"]) & ~exl["date_level_flag"]
+    write_csv(exl, OUT / "exact_overlap_check.csv")
+
+    # Foster subtype semantics: evidence from source fields only (no foster-start field exists)
+    fo = O[O["outcome_subtype"].isin(["Foster", "In Foster"])]
+    fe = fo.groupby(["outcome_type", "outcome_subtype"]).size().rename("outcome_events").reset_index()
+    os_sorted = O.sort_values(["animal_id", "outcome_datetime", "outcome_event_id"])
+    nxt_out = os_sorted.groupby("animal_id")["outcome_datetime"].shift(-1)
+    nxt_in = I.sort_values("intake_datetime").groupby("animal_id")["intake_datetime"].apply(list)
+    followed = []
+    for oid, aid, odt, nd in zip(os_sorted["outcome_event_id"], os_sorted["animal_id"],
+                                 os_sorted["outcome_datetime"], nxt_out):
+        if pd.isna(nd):
+            followed.append(False)
+            continue
+        ins = nxt_in.get(aid, [])
+        followed.append(not any(odt < t <= nd for t in ins))
+    os_sorted["followed_by_outcome_without_new_intake"] = followed
+    fol = os_sorted.set_index("outcome_event_id")["followed_by_outcome_without_new_intake"]
+    fe["followed_by_another_outcome_without_new_intake"] = [
+        int(fol.reindex(fo.loc[(fo["outcome_type"] == t) & (fo["outcome_subtype"] == st), "outcome_event_id"]).sum())
+        for t, st in zip(fe["outcome_type"], fe["outcome_subtype"])]
+    pv = vis["A_excl_reversed"]
+    for col, f in (("matched_visits_primary", len), ("median_los_days_primary", lambda d: round(d["los_days"].median(), 2)),
+                   ("same_day_pct_primary", lambda d: round((d["los_days"] < 1).mean() * 100, 2))):
+        fe[col] = [f(pv[(pv["outcome_group"].eq("Return to Owner") if t in ("Return to Owner",) else
+                        pv["outcome_group"].eq({"Adoption": "Adoption", "Died": "Died",
+                                                 "Missing": "Missing / Lost / Stolen"}[t]))
+                        & (pv["outcome_subtype"] == st)]) for t, st in zip(fe["outcome_type"], fe["outcome_subtype"])]
+    fe["transfer_subtypes_in_source"] = "; ".join(sorted(O.loc[O["outcome_type"] == "Transfer", "outcome_subtype"]
+                                                         .dropna().unique()))
+    write_csv(fe, OUT / "foster_subtype_evidence.csv")
 
     review = review_reversed(vis["A_all_midnight_dateonly"], I, O)
     write_csv(review, OUT / "same_day_reversed_review.csv")
@@ -269,11 +386,15 @@ def main():
     osv = comp[["scenario"] + [c for c in comp.columns if c.startswith(("os_", "returns_", "adoption_returns"))]]
     write_csv(osv, OUT / "owner_surrender_verification.csv")
     write_csv(dog_los_detail(vis["A_all_midnight_dateonly"], vis["A_excl_reversed"], I,
-                             set(vis["A_all_midnight_dateonly"]["intake_event_id"])),
+                             set(vis["A_excl_reversed"]["intake_event_id"])),
               OUT / "dog_los_verification.csv")
     print(comp.T.to_string())
     print(review["review_assessment"].value_counts().to_string())
     print(split.to_string())
+    print(ab["difference_class"].value_counts().to_string())
+    print(nm.groupby(["match_rule_A", "match_rule_B", "same_assignment"]).size().to_string())
+    print(exl.groupby("scenario")[["certain_overlap", "possible_overlap", "date_level_flag", "naive_exact_overlap",
+                                   "missed_by_date_level_check"]].sum().to_string())
 
 
 if __name__ == "__main__":

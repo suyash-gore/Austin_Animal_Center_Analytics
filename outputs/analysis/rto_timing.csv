@@ -1,6 +1,6 @@
 animal_type,rto_visits,median_days,within_3_days_pct,same_day_pct
 Bird,57,2.95,57.9,29.8
-Cat,3106,2.76,52.4,28.5
-Dog,23633,1.81,63.6,36.4
+Cat,3100,2.78,52.4,28.3
+Dog,23601,1.82,63.5,36.3
 Livestock,6,1.41,66.7,33.3
 Other,75,1.78,74.7,37.3

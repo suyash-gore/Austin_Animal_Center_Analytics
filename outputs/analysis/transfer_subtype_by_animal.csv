@@ -1,16 +1,16 @@
 breakdown,animal_type,outcome_subtype,visits,denominator_visits,share_pct
-transfer subtype by animal,Bird,Partner,262,262,100.0
-transfer subtype by animal,Cat,Barn,12,26577,0.05
-transfer subtype by animal,Cat,Emer,2,26577,0.01
-transfer subtype by animal,Cat,Out State,15,26577,0.06
-transfer subtype by animal,Cat,Partner,19254,26577,72.45
-transfer subtype by animal,Cat,SCRP,3196,26577,12.03
-transfer subtype by animal,Cat,Snr,4098,26577,15.42
-transfer subtype by animal,Dog,Barn,1,20462,0.0
-transfer subtype by animal,Dog,Emer,9,20462,0.04
-transfer subtype by animal,Dog,In State,12,20462,0.06
-transfer subtype by animal,Dog,Out State,916,20462,4.48
-transfer subtype by animal,Dog,Partner,19522,20462,95.41
-transfer subtype by animal,Dog,Snr,2,20462,0.01
+transfer subtype by animal,Bird,Partner,260,260,100.0
+transfer subtype by animal,Cat,Barn,12,26510,0.05
+transfer subtype by animal,Cat,Emer,2,26510,0.01
+transfer subtype by animal,Cat,Out State,15,26510,0.06
+transfer subtype by animal,Cat,Partner,19213,26510,72.47
+transfer subtype by animal,Cat,SCRP,3170,26510,11.96
+transfer subtype by animal,Cat,Snr,4098,26510,15.46
+transfer subtype by animal,Dog,Barn,1,20437,0.0
+transfer subtype by animal,Dog,Emer,9,20437,0.04
+transfer subtype by animal,Dog,In State,12,20437,0.06
+transfer subtype by animal,Dog,Out State,916,20437,4.48
+transfer subtype by animal,Dog,Partner,19497,20437,95.4
+transfer subtype by animal,Dog,Snr,2,20437,0.01
 transfer subtype by animal,Livestock,Partner,7,7,100.0
-transfer subtype by animal,Other,Partner,1146,1146,100.0
+transfer subtype by animal,Other,Partner,1144,1144,100.0

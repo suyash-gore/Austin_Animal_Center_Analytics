@@ -1,7 +1,7 @@
-scenario,os_visits_2016_2024,os_after_any_adoption_2016_2024,os_after_any_adoption_pct_2016_2024,os_within_7d_of_adoption_2016_2024,os_within_7d_pct_of_os_2016_2024,os_within_30d_of_adoption_2016_2024,os_within_30d_pct_of_os_2016_2024,returns_within_7d_pct_of_returns_2016_2024,returns_within_30d_pct_of_returns_2016_2024,adoption_returns_all_years,returns_within_7d_pct_of_returns_all_years,returns_within_30d_pct_of_returns_all_years
-A_all_midnight_dateonly,27281,6669,24.45,2441,8.95,4058,14.87,36.6,60.85,8066,37.21,61.68
-A_excl_reversed,27256,6668,24.46,2441,8.96,4058,14.89,36.61,60.86,8065,37.21,61.69
-B_offset_only_dateonly,27281,6669,24.45,2441,8.95,4058,14.87,36.6,60.85,8066,37.21,61.68
-B_offset_only_excl_reversed,27241,6668,24.48,2441,8.96,4058,14.9,36.61,60.86,8065,37.21,61.69
-C_strict,27204,6662,24.49,2437,8.96,4054,14.9,36.58,60.85,8059,37.19,61.68
-C_strict_with_reversed,27280,6670,24.45,2442,8.95,4059,14.88,36.61,60.85,8067,37.21,61.68
+scenario,adoption_returns_negative_interval_2016_2024,adoption_returns_negative_interval_all_years,os_visits_2016_2024,os_after_any_adoption_2016_2024,os_after_any_adoption_pct_2016_2024,os_within_7d_of_adoption_2016_2024,os_within_7d_pct_of_os_2016_2024,os_within_30d_of_adoption_2016_2024,os_within_30d_pct_of_os_2016_2024,returns_within_7d_pct_of_returns_2016_2024,returns_within_30d_pct_of_returns_2016_2024,adoption_returns_all_years,returns_within_7d_pct_of_returns_all_years,returns_within_30d_pct_of_returns_all_years
+A_all_midnight_dateonly,0,0,27281,6669,24.45,2441,8.95,4058,14.87,36.6,60.85,8066,37.21,61.68
+A_excl_reversed,0,0,27256,6668,24.46,2441,8.96,4058,14.89,36.61,60.86,8065,37.21,61.69
+B_offset_only_dateonly,0,0,27281,6669,24.45,2441,8.95,4058,14.87,36.6,60.85,8066,37.21,61.68
+B_offset_only_excl_reversed,0,0,27241,6668,24.48,2441,8.96,4058,14.9,36.61,60.86,8065,37.21,61.69
+C_strict,0,0,27204,6662,24.49,2437,8.96,4054,14.9,36.58,60.85,8059,37.19,61.68
+C_strict_with_reversed,0,0,27280,6670,24.45,2442,8.95,4059,14.88,36.61,60.85,8067,37.21,61.68

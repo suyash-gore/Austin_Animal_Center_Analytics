@@ -1,0 +1,5 @@
+animal_id,intake_event_id,outcome_event_id,intake_dt,outcome_dt,match_rule,naive_start,start,end,end_upper,prev_max_end,prev_max_end_upper,naive_exact_overlap,certain_overlap,possible_overlap,date_level_flag,scenario,missed_by_date_level_check
+A790461,IN096639,OUT096799,2019-03-11 07:55:00,2019-03-11 16:15:00,chronological,2019-03-11 07:55:00,2019-03-11 07:55:00,2019-03-11 16:15:00,2019-03-11 16:15:00,,,1,0,0,0,A_all_midnight_dateonly,0
+A790461,IN096639,OUT096799,2019-03-11 07:55:00,2019-03-11 16:15:00,chronological,2019-03-11 07:55:00,2019-03-11 07:55:00,2019-03-11 16:15:00,2019-03-11 16:15:00,,,1,0,0,0,A_excl_reversed,0
+A790461,IN096639,OUT096799,2019-03-11 07:55:00,2019-03-11 16:15:00,chronological,2019-03-11 07:55:00,2019-03-11 07:55:00,2019-03-11 16:15:00,2019-03-11 16:15:00,,,1,0,0,0,B_offset_only_dateonly,0
+A790461,IN096639,OUT096799,2019-03-11 07:55:00,2019-03-11 16:15:00,chronological,2019-03-11 07:55:00,2019-03-11 07:55:00,2019-03-11 16:15:00,2019-03-11 16:15:00,,,1,0,0,0,B_offset_only_excl_reversed,0

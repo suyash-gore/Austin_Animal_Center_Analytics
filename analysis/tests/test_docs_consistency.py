@@ -21,7 +21,7 @@ def metrics(path: Path) -> pd.Series:
 
 @pytest.mark.parametrize("doc,keys", [
     ("VISIT_MATCHING_METHODOLOGY.md", ["matched_visits", "unmatched_intakes", "unmatched_outcomes",
-                                        "matched_same_day_reversed_rule", "los_floored_to_zero",
+                                        "same_day_reversed_candidates_excluded", "los_floored_to_zero",
                                         "long_stays_365plus", "los_p50", "los_p75", "los_p90", "los_p95",
                                         "los_p99"]),
     ("DATA_AUDIT_REPORT.md", ["matched_visits", "unmatched_intakes", "unmatched_outcomes", "los_p99"]),

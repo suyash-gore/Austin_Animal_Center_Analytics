@@ -6,6 +6,23 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 23-11-2026 — Matching edge-case validation
+#### Changed
+- **Primary dataset (D-018):** 225 same-day time-reversed pairs excluded from matched visits and kept as
+  flagged candidates (`outputs/matching/same_day_reversed_candidates.csv`; `same_day_reversed_candidate`,
+  `candidate_partner_event_id` in `candidate_visits.csv`). Matched 172,772 → 172,547; unmatched intakes
+  1,004 → 1,229; outcomes 977 → 1,202; LOS P90 55.34 → 55.56. Regenerated `outputs/matching/` and
+  `outputs/analysis/` files that depend on matched visits; method comparison, reconciliation and audit
+  outputs are byte-identical.
+- **Foster semantics (D-019):** LOS described as intake to final recorded outcome; "LOS includes foster
+  time" withdrawn; Finding 1 reworded.
+- `owner_surrender()` requires non-negative adoption-to-surrender intervals (0 records affected).
+- `exact_overlaps()` added: timestamp-level intervals with date-only handling (0 overlaps; none missed).
+#### Added
+- `outputs/sensitivity/`: `scenario_a_vs_b_differences.csv`, `nonoffset_midnight_outcomes_a_vs_b.csv`,
+  `exact_overlap_check.csv`, `foster_subtype_evidence.csv`.
+- Tests for the primary-dataset exclusion, exact overlaps, interval guard and A/B equivalence (51 total).
+
 ### 23-11-2026 — Visit-matching and business-finding sensitivities
 #### Added
 - `analysis/sensitivity_analysis.py` → `outputs/sensitivity/`: record-level review of the 225

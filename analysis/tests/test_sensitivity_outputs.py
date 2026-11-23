@@ -14,12 +14,12 @@ def comp():
     return pd.read_csv(SENS / "scenario_comparison.csv").set_index("scenario")
 
 
-def test_current_scenario_reproduces_published_results(comp):
+def test_primary_dataset_equals_scenario_a_excluding_reversed(comp):
     km = pd.read_csv(OUT_MATCH / "matching_key_metrics.csv").set_index("metric")["value"].astype(float)
     ev = pd.read_csv(OUT_ANALYSIS / "analysis_key_metrics.csv").set_index("metric")["value"].astype(float)
-    a = comp.loc["A_all_midnight_dateonly"]
+    a = comp.loc["A_excl_reversed"]
     assert a["matched_visits"] == km["matched_visits"]
-    assert a["matched_by_reversed_pass"] == km["matched_same_day_reversed_rule"] == 225
+    assert comp.loc["A_all_midnight_dateonly", "matched_by_reversed_pass"] == km["same_day_reversed_candidates_excluded"] == 225
     assert a["unmatched_intakes"] == km["unmatched_intakes"] and a["unmatched_outcomes"] == km["unmatched_outcomes"]
     for p in ("p50", "p90", "p99"):
         assert a[f"los_{p}"] == km[f"los_{p}"]
@@ -27,6 +27,21 @@ def test_current_scenario_reproduces_published_results(comp):
     assert a["returns_within_30d_pct_of_returns_all_years"] == ev["adoption_returns_within_30d_pct"]
     assert a["dog_median_avg_of_annual_2014_2019"] == ev["dog_median_2014_2019"]
     assert a["stray_dog_rto_2024"] == ev["stray_dog_rto_pct_2024"]
+
+
+def test_exact_interval_overlaps_and_intervals(comp):
+    assert (comp["exact_certain_overlaps"] == 0).all()
+    assert (comp["exact_possible_overlaps_date_precision"] == 0).all()
+    assert (comp["adoption_returns_negative_interval_all_years"] == 0).all()
+    ex = pd.read_csv(SENS / "exact_overlap_check.csv")
+    assert ex["missed_by_date_level_check"].sum() == 0
+
+
+def test_scenario_a_and_b_have_identical_pairs():
+    d = pd.read_csv(SENS / "scenario_a_vs_b_differences.csv")
+    assert d["pair_in_A"].all() and d["pair_in_B"].all()  # differences are rule labels only
+    nm = pd.read_csv(SENS / "nonoffset_midnight_outcomes_a_vs_b.csv")
+    assert len(nm) == 204 and nm["same_assignment"].all()
 
 
 def test_every_scenario_is_one_to_one_and_non_overlapping(comp):
@@ -47,7 +62,7 @@ def test_reversed_review_is_complete_and_not_marked_confirmed():
 def test_sensitivity_figures_quoted_correctly(comp):
     reg = (REPO_ROOT / "docs" / "BUSINESS_OPPORTUNITY_REGISTER.md").read_text()
     meth = (REPO_ROOT / "docs" / "VISIT_MATCHING_METHODOLOGY.md").read_text()
-    a, x = comp.loc["A_all_midnight_dateonly"], comp.loc["A_excl_reversed"]
+    a = x = comp.loc["A_excl_reversed"]  # primary dataset (D-018)
     for k in ("os_after_any_adoption_pct_2016_2024", "os_within_30d_pct_of_os_2016_2024",
               "os_within_7d_pct_of_os_2016_2024", "returns_within_30d_pct_of_returns_2016_2024",
               "dog_median_pooled_2014_2019", "dog_median_pooled_2023_2024",

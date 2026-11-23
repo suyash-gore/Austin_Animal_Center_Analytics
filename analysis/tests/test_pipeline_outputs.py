@@ -82,10 +82,24 @@ def test_key_metrics_reproducible_from_source(key_metrics):
     I, O = load_clean()
     I, O = I[~I["is_exact_duplicate"]], O[~O["is_exact_duplicate"]]
     ie, oe, oe_seq = event_frames(I, O)
-    p = run_config("adjacent_dp", ie, oe, oe_seq)
+    p_all = run_config("adjacent_dp", ie, oe, oe_seq)
+    p = p_all[p_all["match_rule"] == "chronological"]  # primary dataset excludes reversed candidates (D-018)
     assert len(p) == key_metrics["matched_visits"]
-    assert (p["match_rule"] == "same_day_time_reversed").sum() == key_metrics["matched_same_day_reversed_rule"]
+    assert (p_all["match_rule"] == "same_day_time_reversed").sum() == key_metrics["same_day_reversed_candidates_excluded"]
     from matching_engine import attach_times
     los = attach_times(p, ie, oe)["los_days"].clip(lower=0)
     assert round(los.median(), 2) == key_metrics["los_p50"]
     assert round(los.quantile(0.9), 2) == key_metrics["los_p90"]
+
+
+@needs_outputs
+def test_reversed_candidates_excluded_from_primary_and_flagged(visits):
+    c = pd.read_csv(OUT_MATCH / "same_day_reversed_candidates.csv")
+    assert len(c) == 225
+    m = visits[visits["visit_status"] == "Matched visit"]
+    assert not m["intake_event_id"].isin(c["intake_event_id"]).any()
+    assert not m["outcome_event_id"].isin(c["outcome_event_id"]).any()
+    assert (m["match_rule"] == "chronological").all()
+    flagged = visits[visits["same_day_reversed_candidate"] == 1]
+    assert len(flagged) == 450 and (flagged["visit_status"] != "Matched visit").all()
+    assert set(flagged["candidate_partner_event_id"]) == set(c["intake_event_id"]) | set(c["outcome_event_id"])

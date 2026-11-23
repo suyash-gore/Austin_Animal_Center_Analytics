@@ -33,6 +33,9 @@ from matching_engine import (  # noqa: E402
 )
 
 RECOMMENDED = "adjacent_dp"
+# Primary (confirmed-match) dataset = chronological pass of adjacent_dp only. Pairs from the
+# same-day time-reversed pass are kept as flagged candidates, not as matched visits (D-018).
+PRIMARY_LABEL = "adjacent_dp_primary"
 PCTS = [0.25, 0.5, 0.75, 0.9, 0.95, 0.99]
 LOS_BANDS = [
     (-np.inf, 1, "Under 1 day"),
@@ -189,7 +192,7 @@ def build_visits(pairs, intakes, outcomes, ie, ambiguous_animals) -> pd.DataFram
     v["days_open_at_extract_end"] = np.where(
         v["visit_status"] == "Intake without matched outcome",
         (EXTRACT_END.normalize() - v["intake_date"]).dt.days, np.nan)
-    v["matching_method"] = RECOMMENDED
+    v["matching_method"] = PRIMARY_LABEL
     order = ["visit_id", "visit_status", "matching_method", "match_rule", "animal_id",
              "intake_event_id", "outcome_event_id", "intake_datetime", "outcome_datetime",
              "intake_date", "outcome_date", "los_days", "los_days_raw",
@@ -200,6 +203,7 @@ def build_visits(pairs, intakes, outcomes, ie, ambiguous_animals) -> pd.DataFram
              "animal_intake_ordinal", "is_return_intake", "multiple_open_intakes", "n_eligible",
              "assignment_method_dependent", "intake_id_timestamp_conflict", "outcome_is_midnight",
              "outcome_time_is_date_only", "intake_age_dob_gap_days", "days_open_at_extract_end"]
+    # (same_day_reversed_candidate and candidate_partner_event_id are appended in main)
     return v[order].sort_values(["animal_id", "intake_datetime", "outcome_datetime"],
                                 na_position="last", kind="mergesort").reset_index(drop=True)
 
@@ -322,9 +326,25 @@ def main() -> dict:
     amb_stream = ambiguous_stream(sorted(amb), ie, oe, cand, intakes, outcomes)
     write_csv(amb_stream, OUT_MATCH / "ambiguous_matches.csv")
 
-    rec = results[(st, RECOMMENDED)]
+    rec_all = results[(st, RECOMMENDED)]
+    rec = rec_all[rec_all["match_rule"] == "chronological"]
+    cands = rec_all[rec_all["match_rule"] == "same_day_time_reversed"]
     visits = build_visits(rec, I_an, O_an, ie, amb)
+    partner = {**dict(zip(cands["intake_event_id"], cands["outcome_event_id"])),
+               **dict(zip(cands["outcome_event_id"], cands["intake_event_id"]))}
+    own = visits["intake_event_id"].fillna(visits["outcome_event_id"])
+    visits["same_day_reversed_candidate"] = (visits["visit_status"] != "Matched visit") & own.isin(partner)
+    visits["candidate_partner_event_id"] = own.map(partner).where(visits["same_day_reversed_candidate"])
     ui, uo = classify_unmatched(visits, ie, oe_seq, rec)
+    for d in (ui, uo):
+        d.loc[d["same_day_reversed_candidate"], "unmatched_reason"] = \
+            "Same-day time-reversed candidate pair (excluded from primary; see same_day_reversed_candidates.csv)"
+    cv = attach_times(cands, ie, oe).rename(columns={"intake_dt": "intake_datetime", "outcome_dt": "outcome_datetime"})
+    cv["outcome_before_intake_hours"] = (-cv["los_days"] * 24).round(2)
+    cv = cv.drop(columns=["los_days", "outcome_animal_id", "n_eligible"]).assign(
+        status="Candidate - unconfirmed; excluded from primary matched visits")
+    write_csv(cv, OUT_MATCH / "same_day_reversed_candidates.csv")
+    full_mv = build_visits(rec_all, I_an, O_an, ie, amb).query("visit_status == 'Matched visit'")
     # breed/sex/name live in data/processed/*_clean.csv, joined by event ID
     write_csv(visits, OUT_MATCH / "candidate_visits.csv")
     write_csv(ui, OUT_MATCH / "unmatched_intakes.csv")
@@ -334,7 +354,7 @@ def main() -> dict:
     mv = visits[visits["visit_status"] == "Matched visit"]
     scopes = {
         "All matched visits": mv,
-        "Primary chronological rule only": mv[mv["match_rule"] == "chronological"],
+        "Including 225 same-day reversed candidates (sensitivity)": full_mv,
         "Excluding same-day visits": mv[~mv["same_day_visit"]],
         "Excluding method-dependent assignments": mv[~mv["assignment_method_dependent"]],
     }
@@ -397,8 +417,7 @@ def main() -> dict:
         "intake_rows": len(I_raw), "outcome_rows": len(O_raw),
         "analytic_intake_events": len(I_an), "analytic_outcome_events": len(O_an),
         "matched_visits": int((visits["visit_status"] == "Matched visit").sum()),
-        "matched_primary_rule": int((mv["match_rule"] == "chronological").sum()),
-        "matched_same_day_reversed_rule": int((mv["match_rule"] == "same_day_time_reversed").sum()),
+        "same_day_reversed_candidates_excluded": len(cands),
         "unmatched_intakes": len(ui), "unmatched_outcomes": len(uo),
         "method_dependent_matched_visits": int(mv["assignment_method_dependent"].sum()),
         "ambiguous_animals": len(amb),

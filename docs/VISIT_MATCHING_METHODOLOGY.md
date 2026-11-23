@@ -5,6 +5,13 @@ D-010 to D-013). **Code:** `analysis/matching_engine.py` (pure functions), `anal
 (comparison and outputs). **Outputs:** `outputs/matching/`. **Tests:** `analysis/tests/test_matching.py`,
 `analysis/tests/test_pipeline_outputs.py`.
 
+> **Update D-018 (23-11-2026):** the primary (confirmed-match) dataset is the *chronological pass* of
+> `adjacent_dp` only — 172,547 matched visits. The 225 pairs found by the same-day time-reversed second
+> pass are **not** treated as matched visits: they are kept, flagged, in
+> `outputs/matching/same_day_reversed_candidates.csv`, and their 450 events appear in `candidate_visits.csv`
+> as unmatched rows with `same_day_reversed_candidate = 1` and `candidate_partner_event_id`. Results with
+> the 225 included remain available as a sensitivity (§7, §11).
+
 ---
 
 ## 1. The problem
@@ -22,6 +29,8 @@ from intake to outcome — must be reconstructed. Neither file has a visit or se
 > If an animal is recorded as taken in twice without an outcome in between, the first intake is treated
 > as having no recorded outcome. If an outcome has no open intake before it, it is left unmatched.
 > When an outcome only has a date (no time), it counts as happening later that same day.
+> An outcome logged *earlier* on the same day than the intake is not matched; such pairs are listed
+> separately as unconfirmed candidates.
 
 Every intake and every outcome is used at most once, durations are never negative, and an animal can
 never be in two visits at the same time.
@@ -93,44 +102,47 @@ No method produces an animal-type mismatch between intake and outcome (0 in ever
 3. **Recovers genuine same-day visits.** 621 outcomes were unmatched under strict timestamps although
    an unmatched intake for the same animal existed later that day — 403 stamped midnight (date-only).
    The date-precision rule recovers them inside the event sequence (so later visits stay correct, e.g.
-   A554047, returned to owner on the day of intake on 14-05-2016 and again on 26-05-2016), and the second pass recovers 225 more.
+   A554047, returned to owner on the day of intake on 14-05-2016 and again on 26-05-2016). The second pass
+   identifies 225 further candidate pairs, which are kept separate and unconfirmed (D-018).
 4. **Small cost.** 35 fewer matches than `lifo_dp` (0.02%), and those are precisely the ambiguous
    overlap cases, which are listed for review rather than forced.
 5. **Explainable** in one sentence (§2).
 
 ## 5. Rules for the edge cases
 
-| Situation | Rule | Count (adjacent_dp) | Flag / file |
+| Situation | Rule | Count (primary dataset) | Flag / file |
 |---|---|---:|---|
-| Intake and outcome on the same calendar date | Matched normally; LOS from timestamps (< 1 day) | 22,374 same-day visits; 32,642 < 24 h | `same_day_visit` |
+| Intake and outcome on the same calendar date | Matched normally; LOS from timestamps (< 1 day) | 22,149 same-day visits; 32,417 < 24 h | `same_day_visit` |
 | Equal intake and outcome timestamps | Eligible (intake sorts first); LOS = 0 | included above | |
 | Outcome stamped 00:00:00 (date-only) | Sequenced at end of its day (D-011); stored value unchanged | 3,787 matched visits (3,583 with `-05:00` offset) | `outcome_is_midnight`, `outcome_time_is_date_only` |
-| Same-date outcome time earlier than intake | Second pass pairs both if unmatched and nothing between (D-012); LOS = 0 | 225 | `match_rule = same_day_time_reversed` |
-| Negative raw duration (same date only) | Floored to 0 | 641 | `los_floored_to_zero`, `los_days_raw` |
+| Same-date outcome time earlier than intake | Second pass identifies a candidate pair if both unmatched and nothing between (D-012); **excluded from primary** (D-018) | 225 candidate pairs (450 unmatched events) | `same_day_reversed_candidate`, `same_day_reversed_candidates.csv` |
+| Negative raw duration (date-only outcome on the intake date) | Floored to 0 | 416 | `los_floored_to_zero`, `los_days_raw` |
 | Multiple open intakes before an outcome | Latest intake is used; earlier ones become "superseded" unmatched intakes | 46 outcomes; 38 superseded intakes | `multiple_open_intakes`, `unmatched_intakes.csv` |
-| Outcome with no eligible preceding intake | Left unmatched with a reason | 977 | `unmatched_outcomes.csv` |
-| Intake with no subsequent outcome | Left unmatched (open or missing outcome) | 1,004 | `unmatched_intakes.csv`, `days_open_at_extract_end` |
+| Outcome with no eligible preceding intake | Left unmatched with a reason | 1,202 | `unmatched_outcomes.csv` |
+| Intake with no subsequent outcome | Left unmatched (open or missing outcome) | 1,229 | `unmatched_intakes.csv`, `days_open_at_extract_end` |
 | Long stays | Retained; flagged | 577 > 365 d; 7,777 > 90 d | `long_stay_365plus`, `outputs/analysis/long_stay_visits_365plus.csv` |
-| Assignment differs between FIFO/LIFO/adjacent, or > 1 open intake | Kept with recommended assignment; flagged for review | 45 animals; 84 matched visits | `assignment_method_dependent`, `ambiguous_matches.csv` |
+| Assignment differs between FIFO/LIFO/adjacent, or > 1 open intake | Kept with recommended assignment; flagged for review | 45 animals; 76 matched visits | `assignment_method_dependent`, `ambiguous_matches.csv` |
 
 ### 5.1 Unmatched records
 
-| Unmatched intakes (1,004) | Rows |
+| Unmatched intakes (1,229) | Rows |
 |---|---:|
+| Same-day time-reversed candidate pair (excluded from primary) | 225 |
 | Animal ID has no outcome records (743 dated 2025, 106 dated 2024 — mostly animals still in care at extract end) | 864 |
 | No outcome recorded after this intake (open at extract end or outcome not recorded) | 102 |
 | Superseded: animal has a later intake before any outcome | 38 |
 
-| Unmatched outcomes (977) | Rows |
+| Unmatched outcomes (1,202) | Rows |
 |---|---:|
+| Same-day time-reversed candidate pair (excluded from primary) | 225 |
 | Animal ID has no intake records (704 dated 2013 — intake likely before 01-10-2013) | 814 |
 | No intake recorded before this outcome (110 dated 2013–2014) | 112 |
 | Preceding intake already closed by an earlier outcome (extra / duplicate outcome) | 51 |
 
-Median days open at extract end for unmatched intakes: 35 (`days_open_at_extract_end`). Unmatched
+Unmatched
 records appear in `candidate_visits.csv` with `visit_status` "Intake without matched outcome" /
 "Outcome without matched intake" so that visit-table totals reconcile to event totals:
-172,772 + 1,004 = 173,776 intake events; 172,772 + 977 = 173,749 outcome events.
+172,547 + 1,229 = 173,776 intake events; 172,547 + 1,202 = 173,749 outcome events.
 
 ### 5.2 Ambiguous records
 
@@ -139,8 +151,8 @@ pairing depends on the method, with the partner event assigned by `fifo_dp`, `li
 `adjacent_dp` side by side. Typical patterns: two intakes on the same day (one probably a data
 correction, e.g. A672744 recorded as both Public Assist and Owner Surrender at the same minute); an
 intake whose outcome was never recorded followed months later by a new intake; two outcomes minutes
-apart (e.g. A680834, two Transfers on 13-06-2014). Excluding these 84 method-dependent visits does
-not change any LOS percentile by more than 0.04 days (`los_percentiles.csv`).
+apart (e.g. A680834, two Transfers on 13-06-2014). Excluding these 76 method-dependent visits does
+not change any LOS percentile by more than 0.08 days (`los_percentiles.csv`).
 
 ## 6. Reconciliation with preliminary runs
 
@@ -173,38 +185,59 @@ floored at 0 only under D-011/D-012. In Power BI implement as a measure, e.g.
 
 | Scope | Visits | P25 | P50 | P75 | P90 | P95 | P99 | Mean | > 365 d |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| All matched visits (recommended) | 172,772 | 2.00 | **6.00** | **19.89** | **55.34** | **84.72** | **214.24** | 21.01 | 577 |
-| Primary rule only (excl. 225 same-day reversed) | 172,547 | 2.01 | 6.00 | 19.93 | 55.56 | 84.81 | 214.46 | 21.03 | 577 |
+| **Primary matched visits (D-018)** | 172,547 | 2.01 | **6.00** | **19.93** | **55.56** | **84.81** | **214.46** | 21.03 | 577 |
+| Including 225 same-day reversed candidates (sensitivity) | 172,772 | 2.00 | 6.00 | 19.89 | 55.34 | 84.72 | 214.24 | 21.01 | 577 |
 | Excluding same-day visits | 150,398 | 3.97 | 7.25 | 25.06 | 60.96 | 91.83 | 231.85 | 24.11 | 577 |
-| Excluding method-dependent visits | 172,688 | 2.00 | 6.00 | 19.89 | 55.38 | 84.75 | 214.24 | 21.01 | 577 |
-| Dogs | 94,015 | 2.71 | 5.99 | 15.20 | 50.33 | 87.12 | 253.11 | 20.93 | 445 |
-| Cats | 68,899 | 2.14 | 7.18 | 31.09 | 62.91 | 86.38 | 174.78 | 23.24 | 123 |
+| Excluding method-dependent visits | 172,471 | 2.01 | 6.00 | 19.93 | 55.64 | 84.81 | 214.39 | 21.04 | 577 |
+| Dogs | 93,941 | 2.74 | 5.99 | 15.21 | 50.44 | 87.15 | 253.18 | 20.95 | 445 |
+| Cats | 68,801 | 2.16 | 7.19 | 31.11 | 62.94 | 86.70 | 174.85 | 23.27 | 123 |
 
-LOS bands: < 1 day 18.89%; 1–6 days 35.53%; 7–29 days 26.30%; 30–89 days 14.77%; 90–179 days 3.13%;
-180–364 days 1.03%; 365+ days 0.33%.
+LOS bands: < 1 day 18.79%; 1–6 days 35.58%; 7–29 days 26.34%; 30–89 days 14.79%; 90–179 days 3.14%;
+180–364 days 1.04%; 365+ days 0.33%.
 
-Versus the preliminary distribution, the median moves from 6.02 to 6.00 days and the upper
-percentiles fall slightly (P90 55.81 → 55.34) because 634 additional visits (net), almost all
-same-day, are now matched. The conclusions are not sensitive to the matching variant: every one-to-one chronological
+Versus the preliminary distribution, the median moves from 6.02 to 6.00 days and P90 from 55.81 to
+55.56 because 409 additional visits (net), almost all same-day under the date-only rule, are matched. The conclusions are not sensitive to the matching variant: every one-to-one chronological
 method gives P50 6.00–6.02 and P90 55.3–55.8.
 
-**Interpretation limits.** LOS is time in the shelter's custody, not necessarily kennel time:
-the 18,136 visits ending with subtype `Foster` / `In Foster` have median LOS 54.05 days vs 5.03 for all
-other visits (`outputs/analysis/los_by_foster_subtype.csv`), and 75.2% of 365+ day visits end with a
-foster subtype. Intake cohorts near 05-05-2025 are right-censored (long stays still open).
+**Interpretation limits.** LOS is the elapsed time from intake to the **final recorded outcome**. It is
+not kennel time, and it is not possible to say how much of it was spent in foster care (§7.1). The 18,136
+visits ending with subtype `Foster` / `In Foster` have median LOS 54.05 days vs 5.03 for all other visits
+(`outputs/analysis/los_by_foster_subtype.csv`), and 75.2% of 365+ day visits end with a foster subtype.
+Intake cohorts near 05-05-2025 are right-censored (long stays still open).
+
+### 7.1 What `Outcome Subtype = Foster` represents (D-019)
+
+The dataset documentation on the City portal could not be consulted from this environment (network
+policy blocks data.austintexas.gov), so the semantics were established from the source fields only
+(`outputs/sensitivity/foster_subtype_evidence.csv`):
+
+| Evidence (analytic outcome events) | Finding |
+|---|---|
+| `Foster` occurs only as `Adoption` (17,945) and `Return to Owner` (2) subtype; `In Foster` only with `Died` (377) and `Missing` (39) | "In Foster" describes where the animal was when a final outcome occurred, so placement in foster does **not** itself create an outcome record |
+| No Transfer subtype denotes foster; foster placement has no event type in either file | No foster-start date is recorded anywhere |
+| Only 3 of 17,945 `Adoption / Foster` outcomes are followed by another outcome for the animal without a new intake in between (0 of the 416 `In Foster` outcomes) | The recorded `Adoption / Foster` timestamp is a terminal outcome, not a transfer into foster |
+| `Adoption / Foster` primary visits (17,723): median LOS 54.92 days; 0.07% under one day | Consistent with a final adoption recorded after a period of care, not with a transfer on intake |
+
+**Conclusion.** For foster-subtype outcomes the outcome date is the final outcome (e.g. adoption by or via
+a foster), not the date the animal went into foster care. The data cannot show *whether* or *for how long*
+the animal was in foster before that date; earlier wording that "LOS includes foster time" overstated
+what the data show and is withdrawn. LOS for these visits is intake-to-final-outcome, of unknown
+composition. Kennel-time conclusions should use non-foster-subtype visits or be stated as custody time.
 
 ## 8. Candidate visit dataset
 
-`outputs/matching/candidate_visits.csv` — 174,753 rows = 172,772 matched + 1,004 intake-only + 977
-outcome-only. Column definitions: `docs/DATA_DICTIONARY.md`. Key traceability fields: `visit_id`
+`outputs/matching/candidate_visits.csv` — 174,978 rows = 172,547 matched + 1,229 intake-only + 1,202
+outcome-only (of which 225 + 225 are flagged same-day reversed candidates). Column definitions: `docs/DATA_DICTIONARY.md`. Key traceability fields: `visit_id`
 (`V-` + intake event ID, or outcome event ID for outcome-only rows), `intake_event_id`,
-`outcome_event_id`, `matching_method` (`adjacent_dp`), `match_rule`.
+`outcome_event_id`, `matching_method` (`adjacent_dp_primary`), `match_rule`, `same_day_reversed_candidate`,
+`candidate_partner_event_id`.
 
 ## 9. Validation performed
 
 * One-to-one: every intake and outcome event ID appears at most once (test).
 * Non-negative: all accepted `los_days` ≥ 0; flooring only on same-date events (test).
-* No overlapping visits for any animal (test).
+* No overlapping visits for any animal, at calendar-date level and at exact-timestamp level with
+  date-only handling (tests; §11.7).
 * Totals reconcile to event counts, and unmatched files equal unmatched rows (test).
 * Key metrics recomputed from the raw files inside the test suite (test).
 * Pipeline run twice: all outputs byte-identical.
@@ -216,13 +249,15 @@ outcome-only. Column definitions: `docs/DATA_DICTIONARY.md`. Key traceability fi
 * Outcomes before 01-10-2013 intakes cannot be matched (data starts mid-stream).
 * The same-day reversed rule assumes recording lag (median reversal 4.0 hours; outcomes mostly Transfer,
   Euthanasia, RTO). A genuine leave-and-return within one day would be mis-paired; this cannot be
-  verified from the extract, so the 225 visits are flagged for sensitivity analysis.
+  verified from the extract, so the 225 pairs are excluded from the primary dataset and kept as
+  unconfirmed candidates (D-018).
 * Approval of D-010 to D-013 is pending (DECISION_LOG Stage 2).
 
 ## 11. Sensitivity validation (added 23-11-2026)
 
 Script: `analysis/sensitivity_analysis.py` → `outputs/sensitivity/`. The current outputs in
-`outputs/matching/` are unchanged; every scenario below uses the same adjacent-event rule and analytic
+`outputs/matching/` correspond to scenario "A excluding reversed" (primary, D-018); every scenario below
+uses the same adjacent-event rule and analytic
 events (exact duplicates removed). Test: `analysis/tests/test_sensitivity_outputs.py`.
 
 ### 11.1 Midnight outcomes split (`midnight_outcome_split.csv`)
@@ -239,8 +274,8 @@ Original timestamps and offsets are untouched (`outcome_datetime`, `outcome_tz_o
 
 | Scenario | Matched | Unmatched intakes / outcomes | By reversed pass | Negative raw (floored) | Zero-day stays | P50 | P75 | P90 | P95 | P99 | > 365 d |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| **A** all midnight date-only + reversed pass (**current**) | 172,772 | 1,004 / 977 | 225 | 641 | 664 | 6.00 | 19.89 | 55.34 | 84.72 | 214.24 | 577 |
-| A excluding the 225 reversed matches | 172,547 | 1,229 / 1,202 | 0 | 416 | 439 | 6.00 | 19.93 | 55.56 | 84.81 | 214.46 | 577 |
+| **A** all midnight date-only + reversed pass (previous primary) | 172,772 | 1,004 / 977 | 225 | 641 | 664 | 6.00 | 19.89 | 55.34 | 84.72 | 214.24 | 577 |
+| **A excluding the 225 reversed matches (primary, D-018)** | 172,547 | 1,229 / 1,202 | 0 | 416 | 439 | 6.00 | 19.93 | 55.56 | 84.81 | 214.46 | 577 |
 | **B** offset-only date-only + reversed pass | 172,772 | 1,004 / 977 | 304 | 641 | 664 | 6.00 | 19.89 | 55.34 | 84.72 | 214.24 | 577 |
 | B without reversed pass | 172,468 | 1,308 / 1,281 | 0 | 337 | 360 | 6.00 | 19.94 | 55.65 | 84.83 | 214.62 | 577 |
 | **C** strict source timestamps | 172,138 | 1,638 / 1,611 | 0 | 0 | 23 | 6.02 | 19.98 | 55.80 | 84.90 | 215.05 | 577 |
@@ -256,7 +291,7 @@ B does not treat as date-only are recovered by the second pass instead (304 vs 2
 
 ### 11.3 Effect on the three candidate findings
 
-| Metric | A (current) | A excl. 225 reversed | B | C strict | Max spread |
+| Metric | A (previous primary) | A excl. 225 reversed (**primary**) | B | C strict | Max spread |
 |---|---:|---:|---:|---:|---:|
 | Dog median LOS, 2014–2019 (avg of annual medians) | 5.12 | 5.12 | 5.12 | 5.13 | 0.01 |
 | Dog median LOS, 2023–2024 (avg of annual medians) | 12.35 | 12.38 | 12.35 | 12.39 | 0.04 |
@@ -287,6 +322,47 @@ day. None is a midnight outcome. Excluding all 225 changes no headline by more t
 
 ### 11.5 Conclusion
 
-No sensitivity reveals a material problem; the recommended method (`adjacent_dp`, scenario A) is
-retained. D-011 and D-012 remain **pending approval** (DECISION_LOG D-016). For conservative reporting,
-filter `match_rule <> "same_day_time_reversed"` (scenario "A excluding") — results in §11.2–11.3.
+No sensitivity reveals a material problem with the adjacent-event rule or the date-only rule. Because
+no source field establishes that a time-reversed pair is the same visit, the primary dataset now excludes
+the 225 pairs (scenario "A excluding", D-018); they remain available as flagged candidates. D-011 remains
+pending approval.
+
+### 11.6 Scenario B vs A reconciliation (`scenario_a_vs_b_differences.csv`, `nonoffset_midnight_outcomes_a_vs_b.csv`)
+
+A and B produce **identical pair sets**; only the rule that creates 79 of the pairs differs.
+
+| 204 non-offset midnight outcomes | Records | A | B |
+|---|---:|---|---|
+| Intake on an earlier date | 125 | chronological pass | chronological pass, same intake |
+| Intake later on the same date | 79 | chronological pass (midnight sequenced to end of day) | not eligible in the primary pass (strict 00:00 precedes the intake); paired by the reversed pass with the **same** intake |
+
+Mechanism: under B those 79 outcomes keep a strict 00:00 time, so in the primary pass their same-day intake
+is not yet open, so the outcome stays unmatched. In all 79 cases the same-day intake is not consumed by
+any later outcome either (verified record by record), so both events reach the reversed pass, which joins
+exactly the pair A formed. Reversed-pass counts: A 225, B 225 + 79 = 304; matched totals both 172,772. Without the
+reversed pass B loses those 79 (172,468 vs 172,547). Under the primary definition (no reversed pass) the 79
+are therefore matched only because of D-011's all-midnight rule.
+
+### 11.7 Exact-timestamp overlap validation (`exact_overlap_check.csv`)
+
+`overlaps()` compared calendar dates. `exact_overlaps()` adds an interval check on recorded timestamps:
+each visit is [start, end] with end = max(intake, outcome); start = intake for date-only outcomes (their
+00:00 is not a real time) and min(intake, outcome) otherwise (time-reversed pairs keep their recorded
+span); date-only outcomes also get an upper-bound end of 23:59:59. Each visit is tested against the
+running maximum end of all earlier visits of the animal.
+
+| Scenario | Date-level | Exact certain | Possible (date precision) | Naive exact (no date-only handling) |
+|---|---:|---:|---:|---:|
+| All six scenarios | 0 | 0 | 0 | 1 in A/B variants, 0 in C |
+
+The single naive hit (A790461, 11-03-2019) is a second visit whose outcome is a date-only midnight stamp:
+treating 00:00 as a real start time makes it overlap the animal's earlier same-day visit (07:55–16:15);
+with date-only handling the second visit starts at its 16:36 intake and there is no overlap. **No overlap
+is missed by the date-level check.**
+
+### 11.8 Owner-surrender interval guard
+
+`owner_surrender()` now requires adoption-to-surrender elapsed time ≥ 0 before counting 7- and 30-day
+returns, and uses only valid intervals as the denominator of return shares. Records affected: **0** in
+every scenario (`adoption_returns_negative_interval_*` in `scenario_comparison.csv`); no denominator
+changed.

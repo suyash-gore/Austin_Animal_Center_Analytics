@@ -1,23 +1,23 @@
 animal_type,outcome_group,visits_with_365d_followup,returned_within_365d,return_within_365d_pct
-Bird,Adoption,294,0,0.0
-Bird,Euthanasia,141,0,0.0
+Bird,Adoption,293,0,0.0
+Bird,Euthanasia,140,0,0.0
 Bird,Return to Owner,56,0,0.0
-Bird,Transfer,244,0,0.0
-Cat,Adoption,31515,1689,5.36
-Cat,Died,895,0,0.0
+Bird,Transfer,242,0,0.0
+Cat,Adoption,31514,1689,5.36
+Cat,Died,887,0,0.0
 Cat,Disposal,128,0,0.0
-Cat,Euthanasia,2368,1,0.04
-Cat,Return to Owner,2919,158,5.41
-Cat,Transfer,25008,361,1.44
-Dog,Adoption,43878,6582,15.0
-Dog,Died,367,1,0.27
+Cat,Euthanasia,2354,1,0.04
+Cat,Return to Owner,2914,156,5.35
+Cat,Transfer,24942,361,1.45
+Dog,Adoption,43875,6582,15.0
+Dog,Died,360,1,0.28
 Dog,Disposal,79,0,0.0
-Dog,Euthanasia,2050,3,0.15
-Dog,Return to Owner,22894,3984,17.4
-Dog,Transfer,19606,314,1.6
+Dog,Euthanasia,2044,2,0.1
+Dog,Return to Owner,22863,3971,17.37
+Dog,Transfer,19586,313,1.6
 Other,Adoption,894,27,3.02
-Other,Died,225,0,0.0
-Other,Disposal,544,0,0.0
-Other,Euthanasia,5617,1,0.02
+Other,Died,224,0,0.0
+Other,Disposal,538,0,0.0
+Other,Euthanasia,5580,1,0.02
 Other,Return to Owner,73,2,2.74
-Other,Transfer,1075,0,0.0
+Other,Transfer,1073,0,0.0

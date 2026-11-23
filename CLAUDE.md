@@ -23,7 +23,9 @@ visit matching, KPI definitions, dashboard scope or presentation claims.
 
 ## Analytical conventions (see DECISION_LOG.md D-008 onward)
 - `Animal ID` is not a visit key. Visits come from `outputs/matching/candidate_visits.csv`
-  (method `adjacent_dp`, D-011/D-012).
+  (primary dataset: `adjacent_dp` chronological pass, D-010/D-011/D-018; the 225 same-day time-reversed
+  pairs are flagged candidates, not matched visits).
+- LOS = intake to final recorded outcome; not kennel time (foster placement is unrecorded, D-019).
 - Event counts (intake rows / outcome rows) and visit-level rates are separate; never divide one by the other
   or call event shares "conversion rates".
 - Timestamps are source-local wall-clock, timezone-naive. Do not convert using the outcome `-05:00` offset.

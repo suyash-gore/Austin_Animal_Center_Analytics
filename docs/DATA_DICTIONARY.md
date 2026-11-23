@@ -93,22 +93,23 @@ blank = missing. Import as genuine date/datetime types and apply `DD-MM-YYYY` as
 | age_from_dob_days | integer | outcome_date − date_of_birth, in days. |
 | is_exact_duplicate, is_same_id_timestamp_conflict | flag | As intakes. |
 
-## 4. `outputs/matching/candidate_visits.csv` — visit fact table (174,753 rows)
+## 4. `outputs/matching/candidate_visits.csv` — visit fact table (174,978 rows)
 
-One row per matched visit (172,772), per unmatched intake (1,004) and per unmatched outcome (977).
-Exact duplicate copies are excluded. Method `adjacent_dp` (D-010 to D-012).
+One row per primary matched visit (172,547), per unmatched intake (1,229) and per unmatched outcome (1,202).
+Exact duplicate copies are excluded. Method `adjacent_dp`, chronological pass only (D-010, D-011, D-018);
+225 same-day time-reversed candidate pairs appear as 450 flagged unmatched rows.
 
 | Column | Type | Definition |
 |---|---|---|
 | visit_id | text | `V-` + intake_event_id (or + outcome_event_id for outcome-only rows). Primary key. |
 | visit_status | category | Matched visit · Intake without matched outcome · Outcome without matched intake. |
-| matching_method | text | `adjacent_dp` for every row. |
-| match_rule | category | chronological · same_day_time_reversed (D-012) · unmatched. |
+| matching_method | text | `adjacent_dp_primary` for every row. |
+| match_rule | category | chronological (matched rows) · unmatched. |
 | animal_id | text | Animal ID. |
 | intake_event_id / outcome_event_id | text | Foreign keys to the cleaned event tables. |
 | intake_datetime / outcome_datetime | datetime | Event timestamps as stored. |
 | intake_date / outcome_date | date | Event dates. |
-| los_days | number | Length of stay in days, ≥ 0; blank unless matched. **Basis for the LOS measure.** |
+| los_days | number | Intake to final recorded outcome in days, ≥ 0; blank unless matched. Not kennel time (foster periods unrecorded). **Basis for the LOS measure.** |
 | los_days_raw | number | Raw (negative) duration, populated only where floored. |
 | los_floored_to_zero | flag | Raw duration < 0 (same-date events only) and set to 0. |
 | los_band | category | Under 1 day, 1-6, 7-29, 30-89, 90-179, 180-364, 365+ days. |
@@ -127,6 +128,8 @@ Exact duplicate copies are excluded. Method `adjacent_dp` (D-010 to D-012).
 | outcome_is_midnight / outcome_time_is_date_only | flag | From the outcome event. |
 | intake_age_dob_gap_days | number | \|intake age − (intake date − DOB)\|; diagnostic only. |
 | days_open_at_extract_end | integer | For intake-only rows: days from intake date to 05-05-2025. |
+| same_day_reversed_candidate | flag | Unmatched event belonging to a same-day time-reversed candidate pair (D-018). |
+| candidate_partner_event_id | text | The other event of that candidate pair. |
 
 Breed, sex, name and color are not repeated here; join on `intake_event_id` / `outcome_event_id`.
 
