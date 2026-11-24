@@ -202,6 +202,50 @@ complete day is 04-05-2025.
 * DimDate flags: `Is Full Calendar Year`, `Is Partial Extract Year`, `Is YoY Comparable Year`,
   `Is Complete Extract Day`, `Is Jan to 04-May Window`, `Is Oct to Dec Window`.
 
+### 9.1 Report YoY measures (`DAX_Measures`)
+
+`Total Intakes Previous Year`, `Total Intakes YoY Change`, `Total Intakes YoY Change %` and the three
+`Total Outcomes …` equivalents (`powerbi/dax/02_Time_Intelligence.dax`) are the measures for the report. They
+apply the same comparability rule as the `Intake/Outcome Events PY` family, but are self-contained and add
+`REMOVEFILTERS ( DimDate )`, so a filter on any DimDate column (e.g. `DimDate[Year]`) is replaced by the
+shifted dates. Use one family per visual.
+
+* **Date roles:** intakes follow `DimDate[Date] → FactIntakes[intake_date]`, outcomes
+  `DimDate[Date] → FactOutcomes[outcome_date]` (both active). No relationship changes.
+* **Filters kept:** DimAnimalType (both facts) and DimIntakeType (intakes only). An intake-type slicer does
+  **not** filter outcome YoY: FactOutcomes has no intake type.
+* **BLANK:** 2013 (first year, no prior data), 2014 (prior year 2013 is partial), 2025 (partial), and any
+  period with no prior-year events. `DIVIDE` prevents division by zero.
+* **Formats:** Previous Year `#,0`; YoY Change `+#,0;-#,0;0`; YoY Change % Percentage with 1 decimal.
+
+Expected annual values (all animal and intake types), from `outputs/powerbi/yoy_reference.csv`:
+
+| Year | Total Intakes | PY | YoY Change | YoY % | Total Outcomes | PY | YoY Change | YoY % |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2013 | 4,182 | | | | 4,504 | | | |
+| 2014 | 18,654 | | | | 18,706 | | | |
+| 2015 | 18,709 | 18,654 | +55 | +0.3% | 18,504 | 18,706 | −202 | −1.1% |
+| 2018 | 16,975 | 17,559 | −584 | −3.3% | 16,739 | 17,653 | −914 | −5.2% |
+| 2019 | 19,726 | 16,975 | +2,751 | +16.2% | 19,773 | 16,739 | +3,034 | +18.1% |
+| 2020 | 9,585 | 19,726 | −10,141 | −51.4% | 9,775 | 19,773 | −9,998 | −50.6% |
+| 2021 | 12,039 | 9,585 | +2,454 | +25.6% | 11,965 | 9,775 | +2,190 | +22.4% |
+| 2024 | 11,815 | 11,223 | +592 | +5.3% | 11,822 | 11,149 | +673 | +6.0% |
+| 2025 | 3,745 | | | | 3,607 | | | |
+
+All years, plus Dog, Cat and Stray scopes, are in `outputs/powerbi/yoy_reference.csv`. Example with an
+animal-type filter: Dog intakes 2020 = 5,417 vs 10,929 (−50.4%).
+
+**Visual configuration.** Table or matrix with rows `DimDate[Year]` (the model column, **not** the auto
+`Date Hierarchy > Year`), values `Total Intakes`, `Total Intakes Previous Year`, `Total Intakes YoY Change`,
+`Total Intakes YoY Change %` (and the outcome equivalents). For a chart, use a clustered column of
+`Total Intakes` by `DimDate[Year]` with `Total Intakes YoY Change %` on the secondary axis (line). Slicers:
+`DimAnimalType[Animal Type]`, `DimIntakeType[intake_type]`, `DimDate[Year]`. Label 2025 "partial (to 05-05)".
+
+**Date table requirement.** `DimDate` must be marked as the date table and Auto date/time switched off. The
+working PBIX's visuals currently use `DimDate.Date.Variation.Date Hierarchy` (the auto date/time hierarchy),
+which exists only when DimDate is **not** marked; on that hierarchy the filter comes from a hidden local date
+table, so prior-year measures can return BLANK. Read-only metadata check only — the model was not inspected.
+
 ## 10. Measures and validation
 
 ### Measure library (display folders)
@@ -211,6 +255,7 @@ complete day is 04-05-2025.
 | 01 Core\Event Counts | Total Intakes, Total Outcomes, Distinct Animals Intake, Distinct Animals Outcome |
 | 01 Core\Visit Counts | Matched Visits, Matched Visits (by Outcome Date), Unmatched Intake Events, Unmatched Outcome Events |
 | 02 Length of Stay | Median LOS (Days), Average LOS (Days), P90 LOS (Days), Visits Over 30/90/365 Days, Same-Day Visits, Visits Under 24 Hours, Share of Matched Visits Over 30 Days |
+| 03 Time Intelligence\YoY (`DAX_Measures`) | Total Intakes / Total Outcomes Previous Year, YoY Change, YoY Change % (report measures, §9.1) |
 | 03 Time Intelligence | Is Comparable YoY Period (helper); Intake/Outcome Events PY, YoY Change, YoY %, (Full Calendar Years); like-for-like (01-01 to 04-05) and (01-10 to 31-12) with PY and YoY % |
 | 04 Visit Operations | Open Intake Visits, Long Stay Visits, Repeat Intake Visits, Repeat Intake Share, Method-Dependent Visits, Same-Day Reversed Candidates |
 | 05 Outcomes | Adoption / Return to Owner / Transfer / Euthanasia / Died Outcomes; Provisional Live / Non-Live / Indeterminate Outcomes; Adoption, Return to Owner and Provisional Live Share of Matched Visits |
@@ -238,6 +283,9 @@ not both events (450).
 | Same-Day Visits / Visits Under 24 Hours | 22,149 / 32,417 |
 | Zero-Duration / LOS Floored to Zero / Identical Timestamp (Diagnostic) | 439 / 416 / 23 |
 | Intake Events YoY % (2019 / 2020) | +16.21% / −51.41% |
+| Total Intakes YoY Change % (2019 / 2020) | +16.2% / −51.4% |
+| Total Outcomes YoY Change % (2020 / 2024) | −50.6% / +6.0% |
+| YoY measures in 2013 / 2014 / 2025 | BLANK |
 
 The complete list (every measure, plus cross-checks against `outputs/analysis` and `outputs/matching`) is
 in `outputs/powerbi/model_validation_summary.csv`, `check_group = dax_reference`. These are targets to

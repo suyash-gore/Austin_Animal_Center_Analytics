@@ -158,3 +158,45 @@ def test_zero_duration_reconciles(checks):
     assert int(ref["Zero-Duration Visits (Diagnostic)"]) == int(ref["LOS Floored to Zero (Diagnostic)"]) + \
         int(ref["Identical Timestamp Visits (Diagnostic)"])
     assert int(ref["Blank-trap check: rows matching los_days = 0 if unmatched rows were not excluded"]) == 2_870
+
+
+YOY_MEASURES = ["Total Intakes Previous Year", "Total Intakes YoY Change", "Total Intakes YoY Change %",
+                "Total Outcomes Previous Year", "Total Outcomes YoY Change", "Total Outcomes YoY Change %"]
+
+
+def test_report_yoy_measures_defined_on_dax_measures_table():
+    defs = v.dax_definitions()
+    for m in YOY_MEASURES:
+        assert defs[m] == [("DAX_Measures", "02_Time_Intelligence.dax")], m
+
+
+def test_report_yoy_measure_logic():
+    b = measure_bodies()
+    for fam, base in (("Total Intakes", "[Total Intakes]"), ("Total Outcomes", "[Total Outcomes]")):
+        py = b[f"{fam} Previous Year"]
+        assert base in py and "SAMEPERIODLASTYEAR ( DimDate[Date] )" in py and "REMOVEFILTERS ( DimDate )" in py
+        assert "Is Complete Extract Day" in py and "EDATE ( _first, -12 )" in py  # partial-year guard
+        assert "NOT ISBLANK ( _py )" in b[f"{fam} YoY Change"]
+        assert b[f"{fam} YoY Change %"].strip().startswith("DIVIDE")
+
+
+def test_time_intelligence_checks_pass(checks):
+    ti = checks[checks["check_group"] == "time_intelligence"]
+    assert len(ti) >= 14 and not (ti["status"] == "FAIL").any()
+
+
+@pytest.mark.parametrize("fam,year,cy,py,pct", [
+    ("Intakes", 2019, 19_726, 16_975, 0.162062), ("Intakes", 2020, 9_585, 19_726, -0.514093),
+    ("Outcomes", 2020, 9_775, 19_773, -0.505639), ("Outcomes", 2024, 11_822, 11_149, 0.060364),
+])
+def test_yoy_reference_values(fam, year, cy, py, pct):
+    y = pd.read_csv(v.YOY_REFERENCE).set_index(["measure_family", "scope", "year"])
+    row = y.loc[(fam, "All", year)]
+    assert row["current_year"] == cy and row["previous_year"] == py and row["yoy_change_pct"] == pct
+
+
+def test_yoy_blank_years():
+    y = pd.read_csv(v.YOY_REFERENCE)
+    blank = y[y["yoy_change_pct"].isna()]
+    assert set(blank["year"]) == {2013, 2014, 2025}
+    assert not y.loc[y["year"].between(2015, 2024), "yoy_change_pct"].isna().any()

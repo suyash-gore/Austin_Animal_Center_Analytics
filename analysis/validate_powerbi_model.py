@@ -61,7 +61,11 @@ REQUIRED_MEASURES = [
     "Same-Day Reversed Candidates",
     "Visits Under 24 Hours", "Zero-Duration Visits (Diagnostic)", "LOS Floored to Zero (Diagnostic)",
     "Identical Timestamp Visits (Diagnostic)",
+    "Total Intakes Previous Year", "Total Intakes YoY Change", "Total Intakes YoY Change %",
+    "Total Outcomes Previous Year", "Total Outcomes YoY Change", "Total Outcomes YoY Change %",
 ]
+YOY_REFERENCE = OUT_DIR / "yoy_reference.csv"
+PBIX_WORKING = REPO_ROOT / "powerbi" / "Austin_Animal_Center_Analytics_Working.pbix"
 MATCHED, U_IN, U_OUT = "Matched visit", "Intake without matched outcome", "Outcome without matched intake"
 REASON_CODES = [  # mirrors FactVisits.m
     ("Same-day time-reversed candidate", "REVERSED_CANDIDATE"), ("Animal ID has no outcome records", "NO_OUTCOME_RECORDS"),
@@ -371,6 +375,54 @@ def run_checks() -> pd.DataFrame:
          and "`DimIntakeType[intake_type]` | `FactIntakes[intake_type]` | 1 : * | Single | Yes" in rel
          and "`DimIntakeType[intake_type]` | `FactVisits[intake_type]` | 1 : * | Single | Yes" in rel and "`FactVisits[outcome_date]` | 1 : * | Single | **No**" in rel)
 
+    # 10b. report YoY measures (DAX_Measures) ----------------------------------------------
+    t2 = (DAX_DIR / "02_Time_Intelligence.dax").read_text(encoding="utf-8").split("EVALUATE")[0]
+    for base, fam in (("Total Intakes", "Total Intakes"), ("Total Outcomes", "Total Outcomes")):
+        body = t2.split(f"MEASURE DAX_Measures[{fam} Previous Year] =")[1].split("MEASURE ")[0]
+        c.eq("time_intelligence", f"{fam} Previous Year: uses [{base}], DimDate[Date], REMOVEFILTERS, guard", True,
+             f"[{base}]" in body and "SAMEPERIODLASTYEAR ( DimDate[Date] )" in body
+             and "REMOVEFILTERS ( DimDate )" in body and "_isComparable" in body)
+        pct = t2.split(f"MEASURE DAX_Measures[{fam} YoY Change %] =")[1].split("MEASURE ")[0]
+        c.eq("time_intelligence", f"{fam} YoY Change %: uses DIVIDE", True, "DIVIDE (" in pct)
+    D2 = dimdate_frame()
+    c.eq("time_intelligence", "DimDate[Date] unique and continuous (no gaps)", True,
+         bool(D2["Date"].is_unique and D2["Date"].diff().dropna().dt.days.eq(1).all()))
+    yref = yoy_reference(I, O)
+    yref.to_csv(YOY_REFERENCE, index=False, lineterminator="\n")
+    y = yref.set_index(["measure_family", "scope", "year"])
+    for fam in ("Intakes", "Outcomes"):
+        blanks = [yr for yr in (2013, 2014, 2025) if pd.isna(y.loc[(fam, "All", yr), "yoy_change_pct"])]
+        c.eq("time_intelligence", f"{fam}: YoY BLANK for first year 2013, partial-PY 2014 and partial 2025",
+             [2013, 2014, 2025], blanks)
+        c.eq("time_intelligence", f"{fam}: YoY populated for 2015-2024", list(range(2015, 2025)),
+             [yr for yr in range(2013, 2026) if pd.notna(y.loc[(fam, "All", yr), "yoy_change_pct"])])
+    ann = pd.read_csv(REPO_ROOT / "outputs" / "analysis" / "annual_event_counts.csv").set_index("year")
+    for fam, col in (("Intakes", "intake_events"), ("Outcomes", "outcome_events")):
+        ok = all(int(y.loc[(fam, "All", yr), "current_year"]) == int(ann.loc[yr, col])
+                 and round(float(y.loc[(fam, "All", yr), "yoy_change_pct"]) * 100, 2) == float(ann.loc[yr, f"{col}_yoy_pct"])
+                 for yr in range(2015, 2025))
+        c.eq("time_intelligence", f"{fam} All: annual totals and YoY % = outputs/analysis/annual_event_counts.csv", True, ok)
+    for scope, csvname, colname in (("Animal type = Dog", "annual_intakes_by_animal_type.csv", "Dog"),
+                                    ("Animal type = Cat", "annual_intakes_by_animal_type.csv", "Cat"),
+                                    ("Intake type = Stray", "annual_intakes_by_type.csv", "Stray")):
+        ref = pd.read_csv(REPO_ROOT / "outputs" / "analysis" / csvname).set_index("year")[colname]
+        ok = all(int(y.loc[("Intakes", scope, yr), "current_year"]) == int(ref[yr])
+                 and abs(float(y.loc[("Intakes", scope, yr), "yoy_change_pct"]) - (ref[yr] - ref[yr - 1]) / ref[yr - 1]) < 5e-7  # reference stored to 6 dp
+                 for yr in range(2015, 2025))
+        c.eq("time_intelligence", f"Intakes {scope}: filtered totals and YoY = outputs/analysis/{csvname}", True, ok)
+    c.add("time_intelligence", "Outcomes with an intake-type filter", "", "not applicable", None,
+          "DimIntakeType has no relationship to FactOutcomes; outcome YoY ignores intake-type slicers")
+    if PBIX_WORKING.exists():
+        import zipfile
+        with zipfile.ZipFile(PBIX_WORKING) as z:
+            txt = " ".join(z.read(n).decode("utf-8", "replace") for n in z.namelist()
+                           if n.startswith("Report/") and n.endswith(".json") and "BaseThemes" not in n)
+        auto = "DimDate.Date.Variation.Date Hierarchy" in txt
+        c.add("time_intelligence", "Working PBIX visuals use the auto date/time hierarchy on DimDate[Date]",
+              "False (use DimDate[Year] / [Month-Year Display])", auto, None,
+              "True implies DimDate is not marked as a date table; PY/YoY can return BLANK on that hierarchy - "
+              "mark DimDate and rebuild the axis (read-only metadata check; model not inspected)")
+
     # 11. sources not modified ----------------------------------------------------------------
     ref = pd.read_csv(CHECKSUM_FILE).set_index("file")["sha256"]
     for f, h in ref.items():
@@ -481,6 +533,40 @@ def dax_reference(I, O, V, Vr, D) -> dict:
     r["Intake Events (01-01 to 04-05) YoY % (2025)"] = (round((c25 - c24) / c24 * 100, 2),
                                                         float(lfl.loc[2025, "intake_events_yoy_pct"]), "percent")
     return r
+
+
+def yoy_reference(I: pd.DataFrame, O: pd.DataFrame) -> pd.DataFrame:
+    """Expected year-level results of the DAX_Measures YoY measures.
+
+    Mirrors the DAX: prior year counted only when the year is YoY-comparable (2015-2024: prior-period start
+    >= 01-10-2013 and period end <= 04-05-2025); no prior-year events -> BLANK; percentage = change / PY.
+    """
+    D = dimdate_frame()
+    comparable = D.groupby("Year")["Is YoY Comparable Year"].all()
+    rows = []
+    scopes = [
+        ("Intakes", "All", I, None), ("Intakes", "Animal type = Dog", I, ("animal_type", "Dog")),
+        ("Intakes", "Animal type = Cat", I, ("animal_type", "Cat")),
+        ("Intakes", "Intake type = Stray", I, ("intake_type", "Stray")),
+        ("Outcomes", "All", O, None), ("Outcomes", "Animal type = Dog", O, ("animal_type", "Dog")),
+        ("Outcomes", "Animal type = Cat", O, ("animal_type", "Cat")),
+    ]
+    for fam, scope, df, flt in scopes:
+        d = df if flt is None else df[df[flt[0]] == flt[1]]
+        datecol = "intake_date" if fam == "Intakes" else "outcome_date"
+        yrs = pd.to_datetime(d[datecol]).dt.year.value_counts()
+        for yr in sorted(comparable.index):
+            cy = int(yrs.get(yr, 0))
+            py = int(yrs.get(yr - 1, 0)) if comparable[yr] else None
+            py = None if py == 0 else py
+            chg = None if py is None else cy - py
+            rows.append({"measure_family": fam, "scope": scope, "year": yr, "current_year": cy,
+                         "previous_year": py, "yoy_change": chg,
+                         "yoy_change_pct": None if py is None else round(chg / py, 6),
+                         "note": "" if py is not None else ("first year: no prior data" if yr == 2013 else
+                                 "prior year 2013 partial" if yr == 2014 else "partial year" if yr == 2025 else
+                                 "no prior-year events")})
+    return pd.DataFrame(rows)
 
 
 def main() -> int:

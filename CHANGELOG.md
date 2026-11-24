@@ -6,6 +6,23 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 24-11-2026 — Report YoY measures
+#### Added
+- `powerbi/dax/02_Time_Intelligence.dax`: `DAX_Measures[Total Intakes Previous Year]`, `[Total Intakes YoY Change]`,
+  `[Total Intakes YoY Change %]` and the three `Total Outcomes …` equivalents. Use `[Total Intakes]` /
+  `[Total Outcomes]`, `SAMEPERIODLASTYEAR ( DimDate[Date] )` with `REMOVEFILTERS ( DimDate )`, the partial-year guard
+  (BLANK for 2013, 2014, 2025) and `DIVIDE`.
+- `outputs/powerbi/yoy_reference.csv` (annual expected values: All, Dog, Cat, Stray scopes) and 14
+  time-intelligence checks in `analysis/validate_powerbi_model.py` (151 pass), cross-checked against
+  `outputs/analysis/annual_event_counts.csv`, `annual_intakes_by_animal_type.csv`, `annual_intakes_by_type.csv`.
+- Tests for the YoY measures and reference values.
+#### Changed
+- `docs/POWER_BI_DATA_MODEL.md` §9.1 (behaviour, expected annual output, visual configuration), §10.
+  Existing base measures, `Intake/Outcome Events PY` measures, relationships and the PBIX are unchanged.
+#### Known limitations
+- DAX not executed in Power BI. The working PBIX visuals use the auto date/time hierarchy on `DimDate[Date]`,
+  indicating DimDate is not marked as a date table; mark it and use `DimDate[Year]` before relying on YoY values.
+
 ### 24-11-2026 — Short-stay measure cleanup (416 vs 439 reconciliation)
 #### Added
 - `Visits Under 24 Hours` (32,417) in `powerbi/dax/01_Core_Measures.dax`; `Same-Day Visits` (22,149, same calendar

@@ -128,9 +128,86 @@ DEFINE
         VAR _py = [Outcome Events (01-10 to 31-12) PY]
         RETURN IF ( NOT ISBLANK ( _cy ) && NOT ISBLANK ( _py ), DIVIDE ( _cy - _py, _py ) )
 
+    // ================= Report YoY measures (home table: DAX_Measures) =================
+    // Canonical YoY measures for the report. Same comparison rule as the "Intake/Outcome Events PY" family
+    // above, but self-contained (no helper measure) and with REMOVEFILTERS ( DimDate ) so that a filter on any
+    // DimDate column (e.g. DimDate[Year]) is replaced by the shifted dates even if DimDate is not yet marked
+    // as a date table. Do not put both families on the same visual.
+    //
+    // Date role: [Total Intakes] follows R1 (intake_date), [Total Outcomes] follows R2 (outcome_date).
+    // Other filters (DimAnimalType, DimIntakeType, fact columns) are kept: CALCULATE only replaces DimDate.
+    // DimIntakeType filters intake measures only; it has no relationship to FactOutcomes (not applicable).
+    //
+    // BLANK rules: the prior year must be a complete comparison period inside the extract -
+    //   prior-period start >= first extract date (01-10-2013) and current-period end <= last complete day
+    //   (04-05-2025). At year level: 2015-2024 return values; 2013 (first year, no prior data), 2014 (prior year
+    //   2013 is partial) and 2025 (partial) return BLANK. Use the like-for-like window measures for 2025/2013.
+    //   No prior-year events -> BLANK; DIVIDE avoids division by zero.
+
+    // Display folder: 03 Time Intelligence\YoY      Format: #,0
+    MEASURE DAX_Measures[Total Intakes Previous Year] =
+        VAR _first = MIN ( DimDate[Date] )
+        VAR _last = MAX ( DimDate[Date] )
+        VAR _extractStart = CALCULATE ( MIN ( DimDate[Date] ), REMOVEFILTERS ( DimDate ) )
+        VAR _lastComplete =
+            CALCULATE (
+                MAX ( DimDate[Date] ),
+                REMOVEFILTERS ( DimDate ),
+                DimDate[Is Complete Extract Day] = TRUE ()
+            )
+        VAR _isComparable =
+            NOT ISBLANK ( _first )
+                && EDATE ( _first, -12 ) >= _extractStart
+                && _last <= _lastComplete
+        RETURN
+            IF (
+                _isComparable,
+                CALCULATE ( [Total Intakes], REMOVEFILTERS ( DimDate ), SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+            )
+
+    // Display folder: 03 Time Intelligence\YoY      Format: +#,0;-#,0;0
+    MEASURE DAX_Measures[Total Intakes YoY Change] =
+        VAR _py = [Total Intakes Previous Year]
+        RETURN IF ( NOT ISBLANK ( _py ), [Total Intakes] - _py )
+
+    // Display folder: 03 Time Intelligence\YoY      Format: Percentage, 1 decimal (0.0%)
+    MEASURE DAX_Measures[Total Intakes YoY Change %] =
+        DIVIDE ( [Total Intakes YoY Change], [Total Intakes Previous Year] )
+
+    // Display folder: 03 Time Intelligence\YoY      Format: #,0
+    MEASURE DAX_Measures[Total Outcomes Previous Year] =
+        VAR _first = MIN ( DimDate[Date] )
+        VAR _last = MAX ( DimDate[Date] )
+        VAR _extractStart = CALCULATE ( MIN ( DimDate[Date] ), REMOVEFILTERS ( DimDate ) )
+        VAR _lastComplete =
+            CALCULATE (
+                MAX ( DimDate[Date] ),
+                REMOVEFILTERS ( DimDate ),
+                DimDate[Is Complete Extract Day] = TRUE ()
+            )
+        VAR _isComparable =
+            NOT ISBLANK ( _first )
+                && EDATE ( _first, -12 ) >= _extractStart
+                && _last <= _lastComplete
+        RETURN
+            IF (
+                _isComparable,
+                CALCULATE ( [Total Outcomes], REMOVEFILTERS ( DimDate ), SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+            )
+
+    // Display folder: 03 Time Intelligence\YoY      Format: +#,0;-#,0;0
+    MEASURE DAX_Measures[Total Outcomes YoY Change] =
+        VAR _py = [Total Outcomes Previous Year]
+        RETURN IF ( NOT ISBLANK ( _py ), [Total Outcomes] - _py )
+
+    // Display folder: 03 Time Intelligence\YoY      Format: Percentage, 1 decimal (0.0%)
+    MEASURE DAX_Measures[Total Outcomes YoY Change %] =
+        DIVIDE ( [Total Outcomes YoY Change], [Total Outcomes Previous Year] )
+
 // Validation query. Expected (outputs/powerbi/model_validation_summary.csv):
 //   2014: PY blank (2013 partial); 2019 intake YoY +16.21%; 2020 intake YoY -51.41%, outcome YoY -50.56%;
 //   2025: PY blank; (01-01 to 04-05) intakes 3,745 vs PY 3,991 = -6.16%.
+//   Report YoY measures by year: outputs/powerbi/yoy_reference.csv (2013, 2014, 2025 BLANK).
 EVALUATE
 SUMMARIZECOLUMNS (
     DimDate[Year],
@@ -139,6 +216,10 @@ SUMMARIZECOLUMNS (
     "Intakes YoY %", [Intake Events YoY %],
     "Outcomes", [Total Outcomes],
     "Outcomes YoY %", [Outcome Events YoY %],
+    "Total Intakes Previous Year", [Total Intakes Previous Year],
+    "Total Intakes YoY Change %", [Total Intakes YoY Change %],
+    "Total Outcomes Previous Year", [Total Outcomes Previous Year],
+    "Total Outcomes YoY Change %", [Total Outcomes YoY Change %],
     "Intakes 01-01..04-05", [Intake Events (01-01 to 04-05)],
     "Intakes 01-01..04-05 YoY %", [Intake Events (01-01 to 04-05) YoY %]
 )
