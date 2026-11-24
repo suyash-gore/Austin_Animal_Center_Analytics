@@ -39,7 +39,7 @@ SOURCES = {
 M_FILES = ["RepoRoot.m", "FactIntakes.m", "FactOutcomes.m", "FactVisits.m", "DimDate.m", "DimAnimalType.m",
            "DimIntakeType.m"]
 DAX_FILES = ["00_Model_Relationships.md", "01_Core_Measures.dax", "02_Time_Intelligence.dax",
-             "03_Visit_Operations.dax", "04_Outcome_Analysis.dax"]
+             "03_Visit_Operations.dax", "04_Outcome_Analysis.dax", "05_Diagnostics.dax"]
 
 # Validation targets (from the audit outputs; DECISION_LOG D-009, D-018). Not hardcoded in any measure.
 EXPECTED = {
@@ -59,6 +59,8 @@ REQUIRED_MEASURES = [
     "Provisional Live Outcomes", "Provisional Non-Live Outcomes", "Indeterminate Outcomes",
     "Open Intake Visits", "Long Stay Visits", "Repeat Intake Visits", "Method-Dependent Visits",
     "Same-Day Reversed Candidates",
+    "Visits Under 24 Hours", "Zero-Duration Visits (Diagnostic)", "LOS Floored to Zero (Diagnostic)",
+    "Identical Timestamp Visits (Diagnostic)",
 ]
 MATCHED, U_IN, U_OUT = "Matched visit", "Intake without matched outcome", "Outcome without matched intake"
 REASON_CODES = [  # mirrors FactVisits.m
@@ -359,6 +361,10 @@ def run_checks() -> pd.DataFrame:
             if col not in cols[table] and col not in defs:
                 unknown.append(f"{f}: {table}[{col}]")
     c.eq("artefacts", "DAX column references exist in the model", [], sorted(set(unknown)))
+    dg = (DAX_DIR / "05_Diagnostics.dax").read_text(encoding="utf-8").split("EVALUATE")[0]
+    c.eq("artefacts", "Diagnostics use strict == and the matched-visit filter", True,
+         "FactVisits[los_days] == 0" in dg and "FactVisits[los_days] = 0" not in dg
+         and dg.count('FactVisits[visit_status] = "Matched visit"') == 3)
     rel = (DAX_DIR / "00_Model_Relationships.md").read_text(encoding="utf-8")
     c.eq("artefacts", "Relationship spec has 9 relationships incl. inactive outcome_date and DimIntakeType",
          True, rel.count("| R") >= 9
@@ -395,6 +401,9 @@ def dax_reference(I, O, V, Vr, D) -> dict:
     M = V[V["visit_status"] == MATCHED]
     los = pd.to_numeric(M["los_days"])
     ak = pd.read_csv(REPO_ROOT / "outputs" / "analysis" / "analysis_key_metrics.csv").set_index("metric")["value"].astype(float)
+    km = pd.read_csv(REPO_ROOT / "outputs" / "matching" / "matching_key_metrics.csv").set_index("metric")["value"].astype(float)
+    ld = pd.read_csv(REPO_ROOT / "outputs" / "matching" / "los_distribution.csv").set_index("los_band")
+    sc = pd.read_csv(SOURCES["ScenarioComparison"]).set_index("scenario")
     ann = pd.read_csv(REPO_ROOT / "outputs" / "analysis" / "annual_event_counts.csv").set_index("year")
     lfl = pd.read_csv(REPO_ROOT / "outputs" / "analysis" / "like_for_like_periods.csv")
     lfl = lfl[lfl["window"] == "01-01 to 04-05"].set_index("year")
@@ -414,7 +423,20 @@ def dax_reference(I, O, V, Vr, D) -> dict:
         "Visits Over 30 Days": (int((los > 30).sum()), None, ""),
         "Visits Over 90 Days": (int((los > 90).sum()), int(ak["visits_over_90d"]), "analysis_key_metrics"),
         "Visits Over 365 Days": (int((los > 365).sum()), int(ak["visits_over_365d"]), "analysis_key_metrics"),
-        "Same-Day Visits": (int(flag(M["same_day_visit"]).sum()), None, ""),
+        "Same-Day Visits": (int(flag(M["same_day_visit"]).sum()), int(km["same_day_visits"]),
+                            "same calendar date; matching_key_metrics"),
+        "Visits Under 24 Hours": (int((los < 1).sum()), int(ld.loc["Under 1 day", "visits"]),
+                                  "LOS < 1 day; los_distribution"),
+        "Zero-Duration Visits (Diagnostic)": (int((los == 0).sum()), int(sc.loc["A_excl_reversed", "zero_day_stays"]),
+                                              "LOS exactly 0; scenario_comparison zero_day_stays"),
+        "LOS Floored to Zero (Diagnostic)": (int(flag(M["los_floored_to_zero"]).sum()), int(km["los_floored_to_zero"]),
+                                             "matching_key_metrics"),
+        "Identical Timestamp Visits (Diagnostic)": (
+            int((pd.to_datetime(M["outcome_datetime"]) == pd.to_datetime(M["intake_datetime"])).sum()),
+            int((los == 0).sum()) - int(flag(M["los_floored_to_zero"]).sum()), "= zero-duration - floored"),
+        "Blank-trap check: rows matching los_days = 0 if unmatched rows were not excluded": (
+            int((los == 0).sum()) + int(V["los_days"].isna().sum()), None,
+            "what a DAX '= 0' filter without the matched filter would return; must NOT be reported"),
         "Share of Matched Visits Over 30 Days": (round(float((los > 30).mean()), 6), None, ""),
         "Adoption Outcomes": (int(og.get("Adoption", 0)), None, "outcome events"),
         "Return to Owner Outcomes": (int(og.get("Return to Owner", 0)), None, "outcome events incl. Rto-Adopt"),

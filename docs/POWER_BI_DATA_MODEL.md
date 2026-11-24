@@ -8,7 +8,7 @@ Desktop manually (§11). No visuals are built at this stage.
 |---|---|
 | Power Query (M) | `powerbi/power_query/RepoRoot.m`, `FactIntakes.m`, `FactOutcomes.m`, `FactVisits.m`, `DimDate.m`, `DimAnimalType.m`, `DimIntakeType.m` |
 | Relationships | `powerbi/dax/00_Model_Relationships.md` |
-| DAX measures | `powerbi/dax/01_Core_Measures.dax` … `04_Outcome_Analysis.dax` |
+| DAX measures | `powerbi/dax/01_Core_Measures.dax` … `04_Outcome_Analysis.dax`, `05_Diagnostics.dax` |
 | Validation | `analysis/validate_powerbi_model.py` → `outputs/powerbi/model_validation_summary.csv`; tests `analysis/tests/test_powerbi_model.py` |
 
 Analytical definitions are unchanged from the audit (DECISION_LOG D-008 to D-019).
@@ -151,6 +151,33 @@ visit rows have no intake date and are reachable only through R4.
   unknown (D-019). Intake cohorts near 05-05-2025 are right-censored (long stays still open). The 225
   time-reversed candidates are excluded; including them moves P90 to 55.34 (sensitivity only).
 
+### 7.1 Short-stay definitions: same-day, under 24 hours, zero duration
+
+Three different things are easily confused. All count **matched visits only**:
+
+| Measure | Definition | Count | Use |
+|---|---|---:|---|
+| `Same-Day Visits` | intake and final outcome on the same calendar date (`same_day_visit`) | 22,149 | **Business KPI** for "same-day" stays |
+| `Visits Under 24 Hours` | `los_days < 1` | 32,417 | Business KPI, duration-based |
+| `Zero-Duration Visits (Diagnostic)` | `los_days` exactly 0 | 439 | Data-quality diagnostic only |
+| `LOS Floored to Zero (Diagnostic)` | date-only (midnight) outcome on the intake date; raw duration negative, set to 0 (D-011) | 416 | Data-quality diagnostic only |
+| `Identical Timestamp Visits (Diagnostic)` | intake and outcome timestamps exactly equal | 23 | Data-quality diagnostic only |
+
+439 = 416 + 23. All 439 are same-day visits; the other 21,710 same-day visits have real, positive durations of
+up to 23 hours. A zero duration is mostly a **precision artefact**: 3,787 outcomes record a date but no time,
+so "exactly 0 days" says more about the timestamp than about the stay. Therefore:
+
+* Report short stays as **"Same-day visits"** (calendar date) or **"Visits under 24 hours"** (duration).
+* Do not use the term **"zero-day"** in director-facing visuals; 416 and 439 are diagnostics in the display
+  folder `99 Diagnostics\LOS Precision`.
+* The audit figure 416 (`los_floored_to_zero`, `outputs/matching/matching_key_metrics.csv`) is the floored
+  count, not a same-day count; 439 is "zero-day stays" in the methodology §11.2 sensitivity table.
+
+**Blank handling.** Unmatched rows have blank `los_days`. In DAX `BLANK() = 0` and `BLANK() < 1` are TRUE,
+so without the matched-visit filter a `= 0` filter returns 2,870 (439 + 2,431 unmatched rows). The diagnostics
+filter `visit_status = "Matched visit"` and use the strict `==` operator; `Visits Under 24 Hours` also requires
+`NOT ISBLANK(los_days)`.
+
 ## 8. Provisional outcome grouping
 
 `outcome_status_provisional`: Live = Adoption, Return to Owner (incl. Rto-Adopt), Transfer, Relocate;
@@ -183,10 +210,11 @@ complete day is 04-05-2025.
 |---|---|
 | 01 Core\Event Counts | Total Intakes, Total Outcomes, Distinct Animals Intake, Distinct Animals Outcome |
 | 01 Core\Visit Counts | Matched Visits, Matched Visits (by Outcome Date), Unmatched Intake Events, Unmatched Outcome Events |
-| 02 Length of Stay | Median LOS (Days), Average LOS (Days), P90 LOS (Days), Visits Over 30/90/365 Days, Same-Day Visits, Share of Matched Visits Over 30 Days |
+| 02 Length of Stay | Median LOS (Days), Average LOS (Days), P90 LOS (Days), Visits Over 30/90/365 Days, Same-Day Visits, Visits Under 24 Hours, Share of Matched Visits Over 30 Days |
 | 03 Time Intelligence | Is Comparable YoY Period (helper); Intake/Outcome Events PY, YoY Change, YoY %, (Full Calendar Years); like-for-like (01-01 to 04-05) and (01-10 to 31-12) with PY and YoY % |
 | 04 Visit Operations | Open Intake Visits, Long Stay Visits, Repeat Intake Visits, Repeat Intake Share, Method-Dependent Visits, Same-Day Reversed Candidates |
 | 05 Outcomes | Adoption / Return to Owner / Transfer / Euthanasia / Died Outcomes; Provisional Live / Non-Live / Indeterminate Outcomes; Adoption, Return to Owner and Provisional Live Share of Matched Visits |
+| 99 Diagnostics\LOS Precision | Zero-Duration Visits (Diagnostic), LOS Floored to Zero (Diagnostic), Identical Timestamp Visits (Diagnostic) |
 
 `Same-Day Reversed Candidates` counts **pairs**: it counts only the intake-only row of each flagged pair (225),
 not both events (450).
@@ -207,6 +235,8 @@ not both events (450).
 | Repeat Intake Visits | 17,489 |
 | Method-Dependent Visits | 76 |
 | Same-Day Reversed Candidates | 225 |
+| Same-Day Visits / Visits Under 24 Hours | 22,149 / 32,417 |
+| Zero-Duration / LOS Floored to Zero / Identical Timestamp (Diagnostic) | 439 / 416 / 23 |
 | Intake Events YoY % (2019 / 2020) | +16.21% / −51.41% |
 
 The complete list (every measure, plus cross-checks against `outputs/analysis` and `outputs/matching`) is
@@ -251,12 +281,29 @@ python -m pytest analysis/tests/test_powerbi_model.py -q
    *Make this relationship active*. Delete any relationship auto-detected on other columns.
 9. **Measures.** Open DAX query view, paste `01_Core_Measures.dax`, Run, check the result against §10, then
    use *Update model: Add new measure* (or "Update model with changes") to save the measures. Repeat for
-   02, 03 and 04 in order. Set each measure's display folder and format string from the comment above it.
+   02, 03, 04 and 05 in order. Set each measure's display folder and format string from the comment above it.
 10. **Reconcile.** Run the `EVALUATE` query at the end of each file and compare with
     `outputs/powerbi/model_validation_summary.csv`. Any difference means a load or relationship error —
     do not adjust measures to force agreement.
 11. **Hide technical columns** (date keys, `animal_type` in facts, `source_row`, raw diagnostics) once the
     report uses the dimension columns.
+
+### 11.1 Working PBIX: measures to rename or retire
+
+`powerbi/Austin_Animal_Center_Analytics_Working.pbix` (committed in `c4d223b`) keeps its measures in a
+`DAX_Measures` table that is not in the repository's DAX files. Only its report metadata is readable here; the
+measure expressions sit in the compressed DataModel and were **not inspected or changed**. Readable metadata
+shows one page with one card bound to `DAX_Measures[Same-Day Visit Flag Count]`; no visual references
+`Zero-Day Visits`. In Power BI Desktop:
+
+1. Open `Zero-Day Visits`. If it is `los_days = 0` for matched visits (439), **retire it** and use
+   `Zero-Duration Visits (Diagnostic)` instead; if it returns 2,870 it is missing the matched-visit filter.
+2. Check `Same-Day Visit Flag Count`. If it returns 22,149, **replace** it on the card with `Same-Day Visits`
+   and delete it; any other value means a different definition — compare with §7.1.
+3. Add the measures from `01_Core_Measures.dax` (`Visits Under 24 Hours`) and `05_Diagnostics.dax`. They may
+   live in `DAX_Measures` instead of the fact tables: change the home table in the `MEASURE` line or move them
+   afterwards (Model view > Properties > Home table). Measure references are by name, so nothing else changes.
+4. Run the `EVALUATE` block of `05_Diagnostics.dax` and confirm 439 / 416 / 23 / 22,149 / 32,417 before saving.
 
 Save the PBIX only after step 10 reconciles. Do not commit a PBIX with an absolute personal path in
 `RepoRoot` without noting it.

@@ -130,3 +130,31 @@ def test_intake_type_dimension(checks):
     assert "FactIntakes[intake_type], FactVisits[intake_type]" in m and "List.RemoveNulls" in m
     assert "FactOutcomes" not in m.split("let", 1)[1]  # not sourced from / related to outcomes
     assert "intake_type" in v.m_added_columns("DimIntakeType.m") or "[intake_type = text]" in m
+
+
+@pytest.mark.parametrize("measure,expected", [
+    ("Same-Day Visits", 22_149), ("Visits Under 24 Hours", 32_417),
+    ("Zero-Duration Visits (Diagnostic)", 439), ("LOS Floored to Zero (Diagnostic)", 416),
+    ("Identical Timestamp Visits (Diagnostic)", 23),
+])
+def test_short_stay_reference_values(checks, measure, expected):
+    row = checks[(checks["check_group"] == "dax_reference") & (checks["check"] == measure)].iloc[0]
+    assert row["status"] == "PASS" and int(row["actual"]) == expected
+
+
+def test_short_stay_measures_exclude_unmatched_and_blanks():
+    b = measure_bodies()
+    for m in ["Same-Day Visits", "Visits Under 24 Hours", "Zero-Duration Visits (Diagnostic)",
+              "LOS Floored to Zero (Diagnostic)", "Identical Timestamp Visits (Diagnostic)"]:
+        assert 'FactVisits[visit_status] = "Matched visit"' in b[m], m
+    assert "FactVisits[los_days] == 0" in b["Zero-Duration Visits (Diagnostic)"]
+    assert "NOT ISBLANK ( FactVisits[los_days] )" in b["Visits Under 24 Hours"]
+    assert "same_day_visit] = TRUE" in b["Same-Day Visits"]
+    assert "Zero-Day Visits" not in b  # the ambiguous name is not defined in the repository
+
+
+def test_zero_duration_reconciles(checks):
+    ref = checks[checks["check_group"] == "dax_reference"].set_index("check")["actual"].astype(str)
+    assert int(ref["Zero-Duration Visits (Diagnostic)"]) == int(ref["LOS Floored to Zero (Diagnostic)"]) + \
+        int(ref["Identical Timestamp Visits (Diagnostic)"])
+    assert int(ref["Blank-trap check: rows matching los_days = 0 if unmatched rows were not excluded"]) == 2_870

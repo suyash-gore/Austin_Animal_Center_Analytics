@@ -6,6 +6,20 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 24-11-2026 — Short-stay measure cleanup (416 vs 439 reconciliation)
+#### Added
+- `Visits Under 24 Hours` (32,417) in `powerbi/dax/01_Core_Measures.dax`; `Same-Day Visits` (22,149, same calendar
+  date) confirmed and documented as the business short-stay KPI.
+- `powerbi/dax/05_Diagnostics.dax`: `Zero-Duration Visits (Diagnostic)` (439), `LOS Floored to Zero (Diagnostic)`
+  (416), `Identical Timestamp Visits (Diagnostic)` (23); matched visits only, strict `==` so blanks never match.
+- Validator cross-checks of all five against matching/sensitivity outputs (137 checks pass) and tests.
+#### Changed
+- `docs/POWER_BI_DATA_MODEL.md` §7.1 (definitions, blank-handling trap = 2,870), §10, §11.1 (PBIX measures to
+  rename/retire). No change to source CSVs, matching outputs, methodology or the PBIX.
+#### Known limitations
+- The working PBIX measure expressions (`Zero-Day Visits`, `Same-Day Visit Flag Count`) could not be read; the
+  rename/retire steps must be done in Power BI Desktop.
+
 ### 23-11-2026 — Conformed intake type dimension
 #### Added
 - `powerbi/power_query/DimIntakeType.m`: distinct non-null `intake_type` of FactIntakes and FactVisits (6 members),

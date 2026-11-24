@@ -1,0 +1,55 @@
+// =====================================================================================================
+// 05_Diagnostics.dax — data-quality diagnostics for LOS precision (NOT business KPIs)
+// Requires: 01_Core_Measures.dax applied. Dated by intake date (FactVisits active relationship).
+//
+// Short-stay definitions (all matched visits only; reconciled in docs/POWER_BI_DATA_MODEL.md §7.1):
+//   Same-Day Visits                    22,149  intake and outcome on the same calendar date   (business KPI, 01)
+//   Visits Under 24 Hours              32,417  LOS < 1 day                                     (business KPI, 01)
+//   Zero-Duration Visits (Diagnostic)     439  LOS exactly 0 = 416 floored + 23 identical timestamps
+//   LOS Floored to Zero (Diagnostic)      416  date-only (midnight) outcome on the intake date; raw duration
+//                                              negative, LOS set to 0 (D-011)
+//   Identical Timestamp Visits (Diagnostic) 23 intake and outcome timestamps exactly equal
+// A zero duration is mostly a timestamp-precision artefact (3,787 outcomes carry a date but no time), so these
+// measures must not be presented as "zero-day stays".
+//
+// Blank handling: unmatched visit rows have BLANK los_days. In DAX, BLANK() = 0 evaluates TRUE, so a plain
+// "= 0" filter would also count the 2,431 unmatched rows (result 2,870). These measures therefore
+//   (1) filter visit_status = "Matched visit" explicitly, and
+//   (2) use the strict equality operator "==", for which BLANK() == 0 is FALSE.
+// =====================================================================================================
+DEFINE
+    // Display folder: 99 Diagnostics\LOS Precision       Format: #,0      Expected unfiltered: 439
+    MEASURE FactVisits[Zero-Duration Visits (Diagnostic)] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( FactVisits[los_days] == 0 )
+        )
+
+    // Display folder: 99 Diagnostics\LOS Precision       Format: #,0      Expected unfiltered: 416
+    MEASURE FactVisits[LOS Floored to Zero (Diagnostic)] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( FactVisits[los_floored_to_zero] == TRUE () )
+        )
+
+    // Display folder: 99 Diagnostics\LOS Precision       Format: #,0      Expected unfiltered: 23
+    MEASURE FactVisits[Identical Timestamp Visits (Diagnostic)] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( FactVisits[los_days] == 0 ),
+            KEEPFILTERS ( FactVisits[los_floored_to_zero] == FALSE () )
+        )
+
+// Expected unfiltered: 439, 416, 23 (and 439 = 416 + 23). Compare with
+// outputs/powerbi/model_validation_summary.csv (check_group = dax_reference).
+EVALUATE
+ROW (
+    "Zero-Duration Visits (Diagnostic)", [Zero-Duration Visits (Diagnostic)],
+    "LOS Floored to Zero (Diagnostic)", [LOS Floored to Zero (Diagnostic)],
+    "Identical Timestamp Visits (Diagnostic)", [Identical Timestamp Visits (Diagnostic)],
+    "Same-Day Visits", [Same-Day Visits],
+    "Visits Under 24 Hours", [Visits Under 24 Hours]
+)

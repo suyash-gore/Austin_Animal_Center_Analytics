@@ -104,13 +104,26 @@ DEFINE
             KEEPFILTERS ( FactVisits[los_days] > 365 )
         )
 
-    // Display folder: 02 Length of Stay         Format: #,0
-    // Intake and final outcome on the same calendar date (includes LOS floored to 0 under D-011).
+    // Display folder: 02 Length of Stay         Format: #,0      Expected unfiltered: 22,149
+    // BUSINESS definition of a short stay: intake and final outcome on the SAME CALENDAR DATE
+    // (same_day_visit). Includes the 416 visits whose LOS was floored to 0 (D-011) and the 23 with identical
+    // timestamps. Label in reports as "Same-day visits", never "zero-day".
     MEASURE FactVisits[Same-Day Visits] =
         CALCULATE (
             COUNTROWS ( FactVisits ),
             KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
             KEEPFILTERS ( FactVisits[same_day_visit] = TRUE () )
+        )
+
+    // Display folder: 02 Length of Stay         Format: #,0      Expected unfiltered: 32,417
+    // Duration-based short stay: LOS below 1 day (24 h), regardless of calendar date. In DAX a blank compares
+    // as 0 (BLANK() < 1 is TRUE), so the non-blank guard is kept alongside the matched-visit filter.
+    MEASURE FactVisits[Visits Under 24 Hours] =
+        CALCULATE (
+            COUNTROWS ( FactVisits ),
+            KEEPFILTERS ( FactVisits[visit_status] = "Matched visit" ),
+            KEEPFILTERS ( NOT ISBLANK ( FactVisits[los_days] ) ),
+            KEEPFILTERS ( FactVisits[los_days] < 1 )
         )
 
     // Display folder: 02 Length of Stay         Format: 0.0%
@@ -125,6 +138,8 @@ ROW (
     "Matched Visits", [Matched Visits],                    // 172,547
     "Unmatched Intake Events", [Unmatched Intake Events],  // 1,229
     "Unmatched Outcome Events", [Unmatched Outcome Events],// 1,202
+    "Same-Day Visits", [Same-Day Visits],                  // 22,149
+    "Visits Under 24 Hours", [Visits Under 24 Hours],      // 32,417
     "Median LOS (Days)", [Median LOS (Days)],              // 6.00
     "P90 LOS (Days)", [P90 LOS (Days)]                     // 55.56
 )
