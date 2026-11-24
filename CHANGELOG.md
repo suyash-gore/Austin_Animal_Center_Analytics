@@ -6,6 +6,18 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 24-11-2026 — Executive Summary dog LOS figure reconciled (12.07 → 12.08)
+#### Fixed
+- `assets/images/executive-summary-background.png`: "5.12 → 12.07 days" corrected to "5.12 → 12.08 days". Only the
+  final digit was replaced (33 × 50 px region; 1,593 pixels; all other pixels identical; 1672 × 941 RGB, lossless
+  PNG). Evidence: primary dataset (D-018), Dog matched visits, pooled median of `los_days` by intake year —
+  2014–2019: 61,626 visits, 5.117361 → 5.12; 2023–2024: 10,134 visits, 12.078472 → 12.08
+  (`outputs/sensitivity/scenario_comparison.csv`, `A_excl_reversed`). 12.07 (12.067014) included 10 dog
+  time-reversed candidate visits with LOS 0, i.e. different cohort membership, not a calculation or rounding change.
+- `README.md` note updated; `DECISION_LOG.md` D-017 annotated with the primary-basis values (history preserved).
+#### Known limitations
+- The PBIX still embeds the previous image; replace the Executive Summary background in Power BI Desktop.
+
 ### 24-11-2026 — Repository finalisation: README, assets and documentation review
 #### Changed
 - Moved `Austin Animal Center Executive Findings.png` (repository root, added in `af6aca4`) to

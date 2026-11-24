@@ -195,9 +195,10 @@ review microchip scanning, identification and contact-data quality, and owner ou
 Supporting context: full-year intake events averaged 18,216 (2014–2019) and 11,643 (2022–2024), with a level
 shift from March 2020 whose cause is not identifiable from the data; intakes peak in May.
 
-> **Note on the Executive Summary image.** The background shows the dog figure as "5.12 → 12.07 days". The
-> current primary dataset gives **12.08** (12.07 was the pooled figure before the 225 time-reversed pairs were
-> excluded, DECISION_LOG D-018). The difference is 0.01 day; update the image text if exact agreement is required.
+> **Executive Summary figure.** The image shows "5.12 → 12.08 days", the pooled medians of the primary dataset
+> (`outputs/sensitivity/scenario_comparison.csv`, scenario `A_excl_reversed`, columns
+> `dog_median_pooled_2014_2019` / `dog_median_pooled_2023_2024`). An earlier version showed 12.07, the value
+> before the 225 time-reversed pairs were excluded (D-018).
 
 ## 10. Caveats and limitations
 

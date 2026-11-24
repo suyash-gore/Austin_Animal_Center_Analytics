@@ -832,7 +832,11 @@ that window). Superseded for director-facing use; values retained in
 `outputs/analysis/` unchanged.\
 **Also clarified:** dog LOS baselines (5.12 / 12.35 days) are unweighted
 averages of annual intake-cohort medians; pooled medians are 5.11 /
-12.07. Both are reported.
+12.07. Both are reported.\
+> *Note (24-11-2026): the values above were computed before D-018. On the
+> primary dataset (225 time-reversed pairs excluded) the pooled medians
+> are 5.12 / 12.08 and the averaged annual medians 5.12 / 12.38; these are
+> the figures used in the README and the Executive Summary image.*
 
 ### D-018 --- Primary dataset excludes same-day time-reversed pairs (23-11-2026)
 
