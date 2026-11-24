@@ -241,10 +241,12 @@ animal-type filter: Dog intakes 2020 = 5,417 vs 10,929 (−50.4%).
 `Total Intakes` by `DimDate[Year]` with `Total Intakes YoY Change %` on the secondary axis (line). Slicers:
 `DimAnimalType[Animal Type]`, `DimIntakeType[intake_type]`, `DimDate[Year]`. Label 2025 "partial (to 05-05)".
 
-**Date table requirement.** `DimDate` must be marked as the date table and Auto date/time switched off. The
-working PBIX's visuals currently use `DimDate.Date.Variation.Date Hierarchy` (the auto date/time hierarchy),
-which exists only when DimDate is **not** marked; on that hierarchy the filter comes from a hidden local date
-table, so prior-year measures can return BLANK. Read-only metadata check only — the model was not inspected.
+**Date table requirement.** `DimDate` must be marked as the date table and Auto date/time switched off. On the
+auto date/time hierarchy (`DimDate.Date.Variation.Date Hierarchy`) the filter comes from a hidden local date
+table, so prior-year measures can return BLANK. Status of the working PBIX (read-only report-metadata check):
+up to `ce9564a` its visuals used that hierarchy; as of `af6aca4` they use `DimDate[Year]` and
+`DimDate[Month-Year Display]` instead. Whether DimDate is marked as a date table is stored in the compressed
+model and cannot be confirmed from the repository — verify in Power BI Desktop.
 
 ## 10. Measures and validation
 
@@ -336,22 +338,29 @@ python -m pytest analysis/tests/test_powerbi_model.py -q
 11. **Hide technical columns** (date keys, `animal_type` in facts, `source_row`, raw diagnostics) once the
     report uses the dimension columns.
 
-### 11.1 Working PBIX: measures to rename or retire
+### 11.1 Working PBIX: current report and checks
 
-`powerbi/Austin_Animal_Center_Analytics_Working.pbix` (committed in `c4d223b`) keeps its measures in a
-`DAX_Measures` table that is not in the repository's DAX files. Only its report metadata is readable here; the
-measure expressions sit in the compressed DataModel and were **not inspected or changed**. Readable metadata
-shows one page with one card bound to `DAX_Measures[Same-Day Visit Flag Count]`; no visual references
-`Zero-Day Visits`. In Power BI Desktop:
+`powerbi/Austin_Animal_Center_Analytics_Working.pbix` (latest commit `af6aca4`) is the report. It keeps its
+measures in a `DAX_Measures` table; the measure expressions sit in the compressed DataModel and were **not
+inspected or changed** from this repository. Readable report metadata (as of `af6aca4`):
 
-1. Open `Zero-Day Visits`. If it is `los_days = 0` for matched visits (439), **retire it** and use
-   `Zero-Duration Visits (Diagnostic)` instead; if it returns 2,870 it is missing the matched-visit filter.
-2. Check `Same-Day Visit Flag Count`. If it returns 22,149, **replace** it on the card with `Same-Day Visits`
-   and delete it; any other value means a different definition — compare with §7.1.
-3. Add the measures from `01_Core_Measures.dax` (`Visits Under 24 Hours`) and `05_Diagnostics.dax`. They may
-   live in `DAX_Measures` instead of the fact tables: change the home table in the `MEASURE` line or move them
-   afterwards (Model view > Properties > Home table). Measure references are by name, so nothing else changes.
-4. Run the `EVALUATE` block of `05_Diagnostics.dax` and confirm 439 / 416 / 23 / 22,149 / 32,417 before saving.
+| Page | Visual types | Fields / measures referenced |
+|---|---|---|
+| Executive Summary | page background image, action buttons | background = `assets/images/executive-summary-background.png` (byte-identical) |
+| Shelter Overview | cards, line chart, clustered bar, slicers, text | Total Intakes, Total Outcomes, Matched Visits, Median Intake-to-Outcome Days; DimDate[Date], DimDate[Month-Year Display], DimAnimalType[Animal Type], DimIntakeType[intake_type], FactOutcomes[outcome_group] |
+| Operational Insights | cards, clustered bar, line-and-column combo, text | Matched Visits, Median / Average / P90 Intake-to-Outcome Days, Total Intakes, Total Intakes YoY Change %; DimDate[Year], DimAnimalType[Animal Type] |
+
+`Median / Average / P90 Intake-to-Outcome Days` are PBIX names that do not exist in `powerbi/dax/`; they are
+expected to correspond to `Median / Average / P90 LOS (Days)`. In Power BI Desktop:
+
+1. Confirm unfiltered values: Median Intake-to-Outcome Days 6.00, P90 55.56, Matched Visits 172,547, Total Intakes
+   173,776, Total Outcomes 173,749 (`outputs/powerbi/model_validation_summary.csv`). A different value means a
+   different definition (e.g. a missing matched-visit filter).
+2. If `Zero-Day Visits` or `Same-Day Visit Flag Count` still exist, retire them in favour of §7.1 measures
+   (`Zero-Day Visits` = 439 → `Zero-Duration Visits (Diagnostic)`; 22,149 → `Same-Day Visits`).
+3. Measures copied from `powerbi/dax/` may be homed in `DAX_Measures` (change the table in the `MEASURE` line or
+   Model view > Properties > Home table); references are by name.
+4. Confirm `Total Intakes YoY Change %` returns BLANK for 2013, 2014 and 2025 and +16.2% / −51.4% for 2019 / 2020.
 
 Save the PBIX only after step 10 reconciles. Do not commit a PBIX with an absolute personal path in
 `RepoRoot` without noting it.

@@ -6,6 +6,25 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 24-11-2026 — Repository finalisation: README, assets and documentation review
+#### Changed
+- Moved `Austin Animal Center Executive Findings.png` (repository root, added in `af6aca4`) to
+  `assets/images/executive-summary-background.png` with `git mv` (byte-identical; 1672 × 941 PNG, identical to the
+  background embedded in the working PBIX).
+- `README.md` rewritten from the repository's contents: objective, sources and period (extract ends 05-05-2025;
+  2013 and 2025 partial), cleaning, visit matching, model, the three report pages, KPIs, findings with
+  definitions and caveats, structure, reproduction and validation.
+- `docs/POWER_BI_DATA_MODEL.md` §9.1 and §11.1 updated to the report as of `af6aca4` (pages, measures referenced,
+  auto date hierarchy no longer used; date-table marking still to verify in Desktop).
+- `docs/BUSINESS_OPPORTUNITY_REGISTER.md`: Finding 1 cohort-completeness figures corrected to the primary dataset
+  (0.26% / 2.37%; previously 0.20% / 2.24% from the pre-D-018 basis).
+- `outputs/powerbi/model_validation_summary.csv` regenerated (151 checks pass; auto-date-hierarchy check now False).
+#### Validated
+- `python analysis/validate_powerbi_model.py`: 151 PASS, 34 INFO; `python -m pytest analysis/tests -q`: 86 passed.
+#### Known limitations
+- Executive Summary image shows the dog pooled median as 12.07 days; the primary dataset gives 12.08 (pre-D-018
+  value; 0.01 day). PBIX and image not modified.
+
 ### 24-11-2026 — Report YoY measures
 #### Added
 - `powerbi/dax/02_Time_Intelligence.dax`: `DAX_Measures[Total Intakes Previous Year]`, `[Total Intakes YoY Change]`,

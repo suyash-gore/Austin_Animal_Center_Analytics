@@ -131,8 +131,8 @@ director controls. Approval pending (Stage 3).
 * *Calculation (verified, `outputs/sensitivity/dog_los_verification.csv`):* cohorts are by **intake year**;
   5.12 / 12.38 are the **unweighted average of annual medians** (pooled medians: 5.12 → 12.08). The 30-day
   shares are averages of annual shares rounded per year (unrounded 8.69 → 22.61; pooled 8.67 → 22.58).
-  Foster-subtype outcomes are 13–16% of 2023–2024 dog visits. Cohort completeness: 0.20% (2023) and
-  2.24% (2024) of dog intakes have no accepted outcome; they are open stays, so the 2024 median is, if
+  Foster-subtype outcomes are 13–16% of 2023–2024 dog visits. Cohort completeness: 0.26% (2023) and
+  2.37% (2024) of dog intakes have no accepted outcome; they are open stays, so the 2024 median is, if
   anything, understated.
 * *Sensitivity:* including the 225 time-reversed candidates gives 5.12 → 12.35 days and 8.66% → 22.55%
   (pooled); strict timestamps give 5.13 → 12.39. The finding does not depend on these assumptions.
