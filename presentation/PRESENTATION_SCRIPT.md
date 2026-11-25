@@ -165,7 +165,7 @@ So before using this as a complete performance measure, I would want to compare 
 
 "I wanted to understand the wider environment in which the shelter operates, but I kept that separate from the findings in my dataset.
 
-For example, Texas law sets standards for animal shelter housing, sanitation and separation. It also requires shelters to scan animals for microchips as soon as practicable after taking them into custody.
+For example, Texas law sets standards for animal shelter housing, sanitation and separation. It also requires shelters to scan animals for microchips as soon as practicable after taking them into custody. The law also provides for an annual veterinary inspection of animal shelters.
 
 Austin's public guidance describes a seventy-two-hour stray hold. The City also has a stated live-outcome commitment, with wildlife treated separately in its reporting.
 
