@@ -136,8 +136,7 @@ erDiagram
 
 ## 7. Power BI report
 
-File: **`powerbi/Austin_Animal_Center_Analytics_Working.pbix`** (the current report; latest update in commit
-`af6aca4`). `powerbi/Austin_Animal_Center_Analytics.pbix` (16.7 KB) is the original blank file supplied with the
+File: **`powerbi/Austin_Animal_Center_Analytics_Final.pbix`** (the submitted report; commit `682a568`). `powerbi/Austin_Animal_Center_Analytics.pbix` (16.7 KB) is the original blank file supplied with the
 brief and is kept for history only. Page contents below are taken from the report's readable metadata.
 
 | Page | Purpose | Main content |
@@ -232,13 +231,14 @@ Austin_Animal_Center_Analytics/
 │   ├── audit/ · matching/ · analysis/ · sensitivity/   # validated pipeline outputs
 │   └── powerbi/               # model validation summary, YoY reference values
 ├── powerbi/
-│   ├── Austin_Animal_Center_Analytics_Working.pbix     # current report
+│   ├── Austin_Animal_Center_Analytics_Final.pbix       # submitted report
 │   ├── Austin_Animal_Center_Analytics.pbix             # original blank file (history)
 │   ├── power_query/           # M queries (FactIntakes, FactOutcomes, FactVisits, DimDate, DimAnimalType,
 │   │                          # DimIntakeType, RepoRoot parameter)
 │   └── dax/                   # relationships spec and measure library
 ├── references/design/         # visual design reference (not project content)
-└── presentation/ · website/   # placeholders for later stages
+├── website/                   # 10-slide presentation (open website/index.html)
+└── presentation/              # speaking script, interview kit, Power BI demo plan
 ```
 
 ## 12. Reproducibility and validation
@@ -277,7 +277,16 @@ and writes `outputs/powerbi/model_validation_summary.csv` and `outputs/powerbi/y
 `DimDate` as the date table and turn off Auto date/time; then compare the measures with
 `outputs/powerbi/model_validation_summary.csv` (`docs/POWER_BI_DATA_MODEL.md` §11).
 
-## 13. Documentation map
+## 13. Presentation materials
+
+| File | Purpose |
+|---|---|
+| `website/index.html` | 10-slide full-screen presentation (no dependencies; open in a browser, press F; see `website/README.md`) |
+| `presentation/PRESENTATION_SCRIPT.md` | ~10-minute speaking script aligned to the slides, with the hand-over to Power BI |
+| `presentation/POWER_BI_DEMO_PLAN.md` | ordered live walkthrough of the three report pages |
+| `presentation/INTERVIEW_PREPARATION_KIT.md` | backup Q&A: prioritisation, cleaning, matching, model, LOS, YoY, DAX, findings, CRM |
+
+## 14. Documentation map
 
 | Document | Contents |
 |---|---|

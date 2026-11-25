@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Austin Animal Center — From Records to Action</title>
+<meta name="description" content="Executive presentation: how animals enter Austin Animal Center, what happens next, and where operational action may help.">
+<link rel="stylesheet" href="css/presentation.css">
+</head>
+<body>
+<div class="viewport">
+<main class="stage" id="stage">
+
+<!-- ============ 1. OPENING ============ -->
+<section class="slide cover active" data-title="Opening">
+  <div class="top"><div class="brand"><span class="mark"></span>Austin Animal Center Analytics</div><span class="kicker">Director briefing</span></div>
+  <div class="body">
+    <p class="kicker" style="margin-top:40px">October 2013 – May 2025 · City of Austin open data</p>
+    <h1 style="margin:18px 0 26px">How animals come in,<br>what happens next,<br><span class="accent">and where to act.</span></h1>
+    <p class="lead">Eleven years of intake and outcome records, rebuilt into individual shelter visits and narrowed to three findings the shelter can act on.</p>
+    <div style="margin-top:22px"><span class="pill">Presented by Suyash Gore</span><span class="pill">Power BI report + analytical audit</span></div>
+    <div class="cover-kpis">
+      <div><b>173,812</b><span>intake records</span></div>
+      <div><b>173,775</b><span>outcome records</span></div>
+      <div><b>172,547</b><span>reconstructed matched visits</span></div>
+      <div><b>3</b><span>findings for action</span></div>
+    </div>
+  </div>
+  <aside class="speaker" hidden>Open with the director's question. Eleven years of records, rebuilt into visits, narrowed to three actionable findings. ~45 s.</aside>
+</section>
+
+<!-- ============ 2. DIRECTOR'S QUESTIONS ============ -->
+<section class="slide" data-title="The director's questions">
+  <div class="top"><div class="brand"><span class="mark"></span>The business problem</div><span class="kicker">02</span></div>
+  <h2>The director's questions</h2>
+  <p class="sub">“You are the analyst for an animal shelter. The director wants to know how animals come in, what happens to them, and where to act.”</p>
+  <div class="body">
+    <div class="grid g3">
+      <div class="panel"><div class="eyebrow">How do animals come in?</div><p>Volume, intake type and seasonality — what demand the shelter faces and how it has changed.</p></div>
+      <div class="panel"><div class="eyebrow">What happens to them?</div><p>Adoption, return to owner, transfer and other outcomes — measured per visit, not per record.</p></div>
+      <div class="panel"><div class="eyebrow">Where should we act?</div><p>Patterns the shelter can influence, backed by evidence strong enough to defend.</p></div>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="panel">
+        <h3>Source data</h3>
+        <ul class="clean">
+          <li><strong>Intakes:</strong> 173,812 records · 01-10-2013 to 04-05-2025</li>
+          <li><strong>Outcomes:</strong> 173,775 records · 01-10-2013 to 05-05-2025</li>
+          <li>Public City of Austin open-data extract; 2013 and 2025 are <strong>partial years</strong></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Assignment scope</h3>
+        <ul class="clean">
+          <li>A 2–3 page Power BI report using both datasets</li>
+          <li>A model linking intakes to outcomes, a date table and length of stay per visit</li>
+          <li>Trend with year-over-year comparison; slicers for animal type, intake type and date</li>
+          <li><strong>Three findings the director should act on</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <aside class="speaker" hidden>Frame the brief: three questions, two datasets, partial first and last years. The mandatory report elements are covered in the Power BI demo; today's focus is the third question — where to act.</aside>
+</section>
+
+<!-- ============ 3. CHOOSING THE RIGHT PROBLEMS ============ -->
+<section class="slide dense" data-title="Choosing the right problems">
+  <div class="top"><div class="brand"><span class="mark"></span>Prioritisation</div><span class="kicker">03</span></div>
+  <h2>Choosing the right problems</h2>
+  <p class="sub">15 candidate opportunities, each scored 1–5 on six criteria: business relevance · data availability · data reliability · analytical depth · actionability · interpretation safety.</p>
+  <div class="body">
+    <div class="split" style="grid-template-columns:1.2fr .8fr">
+      <div class="panel" style="padding:16px 20px">
+        <table class="rank">
+          <thead><tr><th>#</th><th>Opportunity</th><th class="barcell">Score</th><th style="text-align:right">/ 30</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td>1</td><td>Owner surrender patterns <span class="choose">· Finding 2</span></td><td class="barcell"><div class="bar" style="width:93%"></div></td><td class="num">28</td></tr>
+            <tr><td>2</td><td>Intake volume and seasonality</td><td class="barcell"><div class="bar" style="width:87%"></div></td><td class="num">26</td></tr>
+            <tr><td>3</td><td>Adoption outcomes</td><td class="barcell"><div class="bar" style="width:87%"></div></td><td class="num">26</td></tr>
+            <tr class="pick"><td>4</td><td>Length of stay <span class="choose">· Finding 1</span></td><td class="barcell"><div class="bar" style="width:87%"></div></td><td class="num">26</td></tr>
+            <tr class="pick"><td>5</td><td>Return-to-owner outcomes <span class="choose">· Finding 3</span></td><td class="barcell"><div class="bar" style="width:83%"></div></td><td class="num">25</td></tr>
+            <tr><td>6</td><td>Intake-to-outcome throughput</td><td class="barcell"><div class="bar" style="width:80%"></div></td><td class="num">24</td></tr>
+            <tr><td>7</td><td>Stray animal intake patterns</td><td class="barcell"><div class="bar" style="width:77%"></div></td><td class="num">23</td></tr>
+            <tr><td>8</td><td>Age-based outcome patterns</td><td class="barcell"><div class="bar" style="width:77%"></div></td><td class="num">23</td></tr>
+          </tbody>
+        </table>
+        <p class="footnote" style="padding-top:8px">Ranks 9–15: repeat visits 23 · long-stay animals 22 · euthanasia 21 · intake condition 21 · transfer dependency 20 · death / other non-live 18 · breed 14.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="panel tint">
+          <h3>Why these three</h3>
+          <ul class="clean">
+            <li>Strong evidence that holds under every matching scenario tested</li>
+            <li>A lever the shelter controls</li>
+            <li>A definition that can be stated and defended in one sentence</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Deliberately not selected</h3>
+          <ul class="clean">
+            <li><strong>Breed patterns</strong> — unreliable visual labels, stigma risk</li>
+            <li><strong>Live-release rate</strong> — official formula not verified</li>
+            <li><strong>Cause of the 2020 drop</strong> — not identifiable from the data</li>
+          </ul>
+        </div>
+        <div class="callout caveat">Volume and seasonality ranked highly and appear in the report as context; they describe demand rather than a shelter lever.</div>
+      </div>
+    </div>
+  </div>
+  <aside class="speaker" hidden>Explain the scoring, then why the three: evidence, lever, defensible definition. Mention what was rejected and why. These are my recommended findings — not yet endorsed by the director.</aside>
+</section>
+
+<!-- ============ 4. TRUSTWORTHY FOUNDATION ============ -->
+<section class="slide" data-title="A trustworthy foundation">
+  <div class="top"><div class="brand"><span class="mark"></span>Data foundation</div><span class="kicker">04</span></div>
+  <h2>Building a trustworthy foundation</h2>
+  <p class="sub">The source tables record <strong>events</strong>. One animal can arrive and leave many times, so joining intakes to outcomes on Animal ID alone would pair the wrong records.</p>
+  <div class="body">
+    <div class="flow">
+      <div class="step"><h3>Source events</h3><div class="n">173,812</div><div class="t">intake records</div><div class="n" style="margin-top:8px">173,775</div><div class="t">outcome records</div></div>
+      <div class="arrow">→</div>
+      <div class="step"><h3>Audit &amp; clean</h3><div class="t">Exact duplicates removed (36 intake, 26 outcome) · dates and data types standardised · quality issues flagged, not deleted</div><div class="n" style="margin-top:8px;font-size:28px">173,776 · 173,749</div><div class="t">analytic intake · outcome events</div></div>
+      <div class="arrow">→</div>
+      <div class="step"><h3>Reconstruct visits</h3><div class="t">Chronological matching: an intake pairs with the animal's next outcome, unless the animal was taken in again first</div></div>
+      <div class="arrow">→</div>
+      <div class="step" style="background:var(--teal-soft)"><h3>Candidate visits</h3><div class="n">174,978</div><div class="t"><strong>172,547</strong> matched visits<br>1,229 intake-only · 1,202 outcome-only</div></div>
+    </div>
+    <div class="grid g3" style="margin-top:20px">
+      <div class="callout"><b>Why the analytical tables differ from the source.</b> I audited and cleaned the originals, removed exact duplicates, standardised dates and types, and rebuilt individual visits. The Power BI model is built on those visit and event tables.</div>
+      <div class="callout caveat"><b>Not every record has a partner.</b> Intake-only rows are mostly animals still in care when the extract ends; outcome-only rows mostly relate to intakes before October 2013. They are kept and reported, not forced.</div>
+      <div class="callout caveat"><b>225 same-day pairs left unconfirmed.</b> Where an outcome was logged a few hours before a same-day intake, the data cannot prove one visit, so these are excluded from confirmed matches. Results barely change either way.</div>
+    </div>
+  </div>
+  <aside class="speaker" hidden>Key message: events vs visits. Explain duplicates, standardisation and chronological matching in plain language. Be clear that unmatched records exist and are kept. Keep this under 90 seconds.</aside>
+</section>
+
+<!-- ============ 5. ANALYTICAL APPROACH ============ -->
+<section class="slide" data-title="Analytical approach">
+  <div class="top"><div class="brand"><span class="mark"></span>Approach</div><span class="kicker">05</span></div>
+  <h2>Analytical approach</h2>
+  <p class="sub">Each question is answered at the right level of detail, with definitions fixed before looking at results.</p>
+  <div class="body">
+    <div class="grid g3">
+      <div class="panel"><div class="eyebrow">Two levels of analysis</div><h3>Events and visits</h3><p><strong>Events</strong> answer volume questions — how many animals came in or left. <strong>Visits</strong> answer journey questions — how long, and how it ended. Event shares are never treated as conversion rates.</p></div>
+      <div class="panel"><div class="eyebrow">Length of stay</div><h3>Intake to final recorded outcome</h3><p>Measured on matched visits only. Medians are used because stays are highly skewed: median 6.00 days, 90th percentile 55.56 days. It is <strong>not</strong> confirmed kennel time — foster periods are not recorded.</p></div>
+      <div class="panel"><div class="eyebrow">Time comparisons</div><h3>Like-for-like periods</h3><p>The extract ends 05-05-2025, so 2013 and 2025 are partial. Year-over-year uses complete years only; findings compare a <strong>2014–2019 baseline</strong> with recent years.</p></div>
+    </div>
+    <div class="panel tint" style="margin-top:20px">
+      <h3>From question to evidence</h3>
+      <div class="grid g3" style="gap:14px">
+        <p><strong>Where is capacity going?</strong><br>Dog time to final outcome by intake cohort → Finding 1</p>
+        <p><strong>Why do animals come back?</strong><br>Owner surrenders whose previous visit ended in adoption → Finding 2</p>
+        <p><strong>Are lost dogs getting home?</strong><br>Share of stray-dog visits ending in return to owner → Finding 3</p>
+      </div>
+    </div>
+    <p class="footnote">Every figure in this presentation is reproducible from the project's Python pipeline and validated outputs; findings were tested against alternative matching rules and moved by no more than 0.05 percentage points.</p>
+  </div>
+  <aside class="speaker" hidden>Events vs visits; LOS definition and its caveat; partial years. Then map each director question to a finding.</aside>
+</section>
+
+<!-- ============ 6. FINDING 1 ============ -->
+<section class="slide" data-title="Finding 1 — Dog length of stay">
+  <div class="top"><div class="brand"><span class="mark"></span>Finding 1 · Length of stay</div><span class="kicker">06</span></div>
+  <h2>Dogs now take more than twice as long to reach a final outcome</h2>
+  <div class="body">
+    <div class="split">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="panel">
+          <div class="eyebrow">Pooled median, dog matched visits, by intake year</div>
+          <div class="headline-kpi"><span class="from">5.12</span><span class="arrow">→</span><span class="to">12.08</span><span class="unit">days</span></div>
+          <p class="kpi-label">2014–2019 (61,626 visits) → 2023–2024 (10,134 visits)</p>
+        </div>
+        <div class="grid g2">
+          <div class="panel"><div class="kpi small">4.95 → 8.94<span class="unit">days</span></div><div class="kpi-label">Median for dog visits with no foster subtype on the outcome</div></div>
+          <div class="panel"><div class="kpi small">8.67% → 22.58%</div><div class="kpi-label">Share of those dog visits lasting more than 30 days</div></div>
+        </div>
+        <div class="panel"><div class="eyebrow">Why it matters</div><p>Intake events fell 40% (19,726 in 2019 → 11,815 in 2024), yet the estimated average number of animals between intake and outcome fell only 18% (1,120 → 916). Longer stays are absorbing the capacity freed by lower intake.</p></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="callout action"><b>Recommendation — a long-stay pathway for dogs.</b><br>Review every dog at day 14 and day 30 with a named placement plan (adoption promotion, foster, partner transfer). Track the share of dogs over 30 days monthly as an operating KPI.</div>
+        <div class="callout caveat"><b>Interpretation.</b> This is time from intake to the final recorded outcome. Foster placement dates are not recorded, so shelter-only and foster time cannot be separated. The trend holds when foster-subtype outcomes are excluded.</div>
+        <div class="callout"><b>What it does not show.</b> The data identifies the change, not its cause. The next step is to break long stays down by intake type, age and outcome category.</div>
+      </div>
+    </div>
+  </div>
+  <aside class="speaker" hidden>Lead with 5.12 → 12.08 (pooled median — say the statistic). Robustness: non-foster 4.95 → 8.94, >30 days 8.67% → 22.58%. Capacity argument. Recommendation, then caveat.</aside>
+</section>
+
+<!-- ============ 7. FINDING 2 ============ -->
+<section class="slide" data-title="Finding 2 — Owner surrender after adoption">
+  <div class="top"><div class="brand"><span class="mark"></span>Finding 2 · Owner surrender</div><span class="kicker">07</span></div>
+  <h2>About one in four owner surrenders was previously adopted from the shelter</h2>
+  <div class="body">
+    <div class="split">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="panel">
+          <div class="eyebrow">Owner-surrender visits, 2016–2024 (27,256)</div>
+          <div class="ladder" style="margin-top:10px">
+            <div class="rung"><span class="lbl">Any prior adoption</span><div class="track"><div class="fill" style="width:97.8%"></div></div><span class="val">24.46%</span></div>
+            <div class="rung"><span class="lbl">Within 30 days</span><div class="track"><div class="fill" style="width:59.6%"></div></div><span class="val">14.89%</span></div>
+            <div class="rung"><span class="lbl">Within 7 days</span><div class="track"><div class="fill light" style="width:35.8%"></div></div><span class="val">8.96%</span></div>
+          </div>
+          <p class="kpi-label" style="margin-top:12px">6,668 · 4,058 · 2,441 visits. Of the returns, 60.86% happened within 30 days of adoption.</p>
+        </div>
+        <div class="panel"><div class="eyebrow">Definition</div><p>An owner-surrender visit whose <strong>previous matched visit for the same animal</strong> at this shelter ended in adoption. Time is measured from that adoption to the surrender intake.</p></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="callout action"><b>Recommendation — support adopters in the first 30 days.</b><br>Structured check-ins around day 3 and day 14, a behaviour-support line, and a return-prevention conversation before a surrender is accepted. Measure the 30-day return share each month.</div>
+        <div class="callout"><b>Why it matters.</b> Most returns happen early, when support is most likely to help — and every avoided return is a kennel that stays free.</div>
+        <div class="callout caveat"><b>Interpretation.</b> A prior adoption does not explain <em>why</em> an animal was surrendered — surrender reasons are not recorded. Adoptions before October 2013 are invisible, so 2016 onward is used.</div>
+      </div>
+    </div>
+  </div>
+  <aside class="speaker" hidden>24.46% any prior adoption; 14.89% within 30 days; 8.96% within 7 days — all shares of owner surrenders, 2016–2024. Early concentration = window for support. Caveat: reason unknown.</aside>
+</section>
+
+<!-- ============ 8. FINDING 3 ============ -->
+<section class="slide" data-title="Finding 3 — Stray dog return to owner">
+  <div class="top"><div class="brand"><span class="mark"></span>Finding 3 · Reunification</div><span class="kicker">08</span></div>
+  <h2>Fewer stray dogs are going home to their owners</h2>
+  <div class="body">
+    <div class="split">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="panel">
+          <div class="eyebrow">Share of stray-dog visits ending in return to owner</div>
+          <div class="headline-kpi"><span class="from">29.46%</span><span class="arrow">→</span><span class="to">12.51%</span></div>
+          <p class="kpi-label">2014–2019 average of annual intake cohorts → 2024</p>
+        </div>
+        <div class="grid g2">
+          <div class="panel"><div class="kpi small">2,036 → 386</div><div class="kpi-label">Stray-dog visits ending in return to owner, 2019 → 2024</div></div>
+          <div class="panel"><div class="kpi small">1.82<span class="unit">days</span></div><div class="kpi-label">Median time to return to owner for dogs; 63.5% within 3 days — the fastest way out of the shelter</div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="callout action"><b>Recommendation — reunify at the door.</b><br>Scan every stray dog for a microchip at intake, post found dogs the same day, check owner-contact data quality, and promote the City's free microchip and ID-tag service. Track return-to-owner share alongside field returns.</div>
+        <div class="callout"><b>Why it matters.</b> Every reunification ends a stay within days, frees capacity quickly and is the best outcome for the owner.</div>
+        <div class="callout caveat"><b>Interpretation.</b> Dogs returned to owners in the field, without a shelter intake, are not in this dataset. A changed mix of dogs reaching the shelter could also lower the share. Verify against operational records before treating it as performance.</div>
+      </div>
+    </div>
+  </div>
+  <aside class="speaker" hidden>29.46% → 12.51%; absolute 2,036 → 386. RTO is the fastest exit. Recommendation: reunify at the door. Field-return blind spot — be explicit.</aside>
+</section>
+
+<!-- ============ 9. WELFARE, POLICY, ENVIRONMENT ============ -->
+<section class="slide dense" data-title="Welfare, policy and environmental context">
+  <div class="top"><div class="brand"><span class="mark"></span>Context</div><span class="kicker">09</span></div>
+  <h2>Welfare, policy and environmental context</h2>
+  <p class="sub" style="margin-bottom:16px">External context frames the findings. It is kept separate from what the data shows.</p>
+  <div class="body">
+    <div class="grid g4" style="gap:14px">
+      <div class="panel" style="padding:18px">
+        <span class="tag law">State law</span>
+        <p><strong>Texas Health &amp; Safety Code ch. 823</strong> — shelters must meet housing and sanitation standards, separate animals by species, sex and size, and keep healthy animals apart from sick ones; an annual veterinary inspection is required.<sup>1</sup></p>
+        <p style="margin-top:8px"><strong>Safe Outdoor Dogs Act (SB 5, 2021)</strong> — restrained dogs need adequate shelter, shade and drinkable water; chains are prohibited.<sup>2</sup></p>
+      </div>
+      <div class="panel" style="padding:18px">
+        <span class="tag city">City ordinance &amp; policy</span>
+        <p><strong>Stray hold</strong> — about three days (72 hours) before a stray can be adopted or transferred; owner surrenders transfer to the City immediately.<sup>3</sup></p>
+        <p style="margin-top:8px"><strong>95% live-outcome commitment</strong> (2019); a 2024 code change excludes wildlife such as coyotes, raccoons and bats from that reporting.<sup>4</sup></p>
+      </div>
+      <div class="panel" style="padding:18px">
+        <span class="tag guide">Official findings &amp; guidance</span>
+        <p><strong>City Auditor, Sept 2023</strong> — the shelter's welfare priorities conflict, and it frequently limited intake because of space.<sup>5</sup></p>
+        <p style="margin-top:8px"><strong>Public health</strong> — bats and skunks are typically the main rabies sources in Texas<sup>6</sup>; CDC advises shade, fresh water and never leaving pets in cars in extreme heat.<sup>7</sup></p>
+      </div>
+      <div class="panel" style="padding:18px;background:var(--amber-soft);border-color:rgba(183,121,31,.25)">
+        <span class="tag data">What our data shows</span>
+        <p>Longer dog stays (Finding 1) bear directly on space — the pressure the audit describes.</p>
+        <p style="margin-top:8px">87% of wildlife-intake visits end in euthanasia, mostly recorded as rabies risk — consistent with the public-health context, and the reason wildlife is reported separately.</p>
+        <span class="tag hypo" style="margin-top:10px">Hypothesis only</span>
+        <p>Heat and weather may affect welfare before intake; the dataset records no diagnoses or exposures, so this is not a finding.</p>
+      </div>
+    </div>
+    <p class="sources" style="margin-top:14px">
+      1 <a href="https://statutes.capitol.texas.gov/SOTWDocs/HS/htm/HS.823.htm">Tex. Health &amp; Safety Code §823.003</a> ·
+      2 <a href="https://capitol.texas.gov/tlodocs/873/billtext/html/SB00005F.htm">SB 5, 87th Leg., 3rd C.S.</a> ·
+      3 <a href="https://www.austintexas.gov/animal-services/reclaim-your-pet">Austin Animal Services — Reclaim your pet</a>;
+        <a href="https://www.austintexas.gov/animal-services/ordinance-change-faqs">Ordinance change FAQs</a> ·
+      4 <a href="https://www.austintexas.gov/animal-services/ordinance-change-faqs">Ordinance change FAQs</a> ·
+      5 <a href="https://austintexas.gov/sites/default/files/files/Auditor/Audit_Reports/Austin_Animal_Center_September_2023.pdf">Office of the City Auditor, Austin Animal Center (Sept 2023)</a> ·
+      6 <a href="https://www.dshs.texas.gov/sites/default/files/IDCU/disease/rabies/cases/Reports/epi-annual-rabies-2025.pdf">Texas DSHS annual rabies report</a> ·
+      7 <a href="https://www.cdc.gov/heat-health/risk-factors/heat-and-pets.html">CDC — Heat and Pets</a>.
+      Compiled 25-11-2026 from summaries of these official sources; the pages could not be opened directly from the build environment, so wording should be checked against the source before it is quoted. Not legal advice.
+    </p>
+  </div>
+  <aside class="speaker" hidden>Four columns: state law, city policy, official findings and guidance, our data. Stress the separation: context, not findings. Do not claim the data proves health exposures.</aside>
+</section>
+
+<!-- ============ 10. RECOMMENDATIONS ============ -->
+<section class="slide" data-title="Recommendations and conclusion">
+  <div class="top"><div class="brand"><span class="mark"></span>Action plan</div><span class="kicker">10</span></div>
+  <h2>From records to action</h2>
+  <div class="body">
+    <div class="grid g3">
+      <div class="panel">
+        <div class="eyebrow">Priority 1 · capacity</div>
+        <h3>Dog long-stay pathway</h3>
+        <p>Day-14 and day-30 case reviews with a placement plan.</p>
+        <p style="margin-top:8px"><strong>Monitor:</strong> share of dog visits over 30 days (no foster subtype) — baseline 22.58% for 2023–2024.</p>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">Priority 2 · prevention</div>
+        <h3>First-30-days adopter support</h3>
+        <p>Early check-ins, behaviour support and return-prevention conversations.</p>
+        <p style="margin-top:8px"><strong>Monitor:</strong> share of owner surrenders adopted within the previous 30 days — baseline 14.89% for 2016–2024.</p>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">Priority 3 · reunification</div>
+        <h3>Reunify at the door</h3>
+        <p>Microchip scans at intake, same-day posting, owner-contact data quality.</p>
+        <p style="margin-top:8px"><strong>Monitor:</strong> return-to-owner share of stray-dog visits — baseline 12.51% in 2024 — alongside field returns.</p>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="callout caveat"><b>Limits to keep in view.</b> Length of stay is time to the final recorded outcome, not kennel time. Surrender reasons and field returns are not recorded. 2013 and 2025 are partial years. The outcome grouping in the report is provisional, not the City's live-release rate. These are descriptive patterns, not causes.</div>
+      <div class="callout"><b>Data that would sharpen the picture.</b> Foster start and end dates, recorded surrender reasons, and field reunifications — each would turn a well-supported pattern into a measurable operating metric.</div>
+    </div>
+    <div class="panel tint" style="margin-top:18px;text-align:center;padding:20px">
+      <p style="font-size:26px;line-height:1.4;color:var(--navy);font-weight:600">Three findings, three levers: get long-stay dogs moving, support adopters early, and get lost dogs home faster.</p>
+      <p style="margin-top:6px">Next: the Power BI report — how the director can explore these patterns.</p>
+    </div>
+  </div>
+  <aside class="speaker" hidden>Prioritised plan with a baseline KPI for each. Limits in one breath. Closing line, then switch to Power BI Desktop.</aside>
+</section>
+
+</main>
+</div>
+
+<aside class="notes" id="notes" aria-live="polite"><h4>Presenter notes · press N to hide</h4><div id="notes-body"></div></aside>
+
+<footer class="controls">
+  <div class="cg">
+    <button class="btn" id="prev" type="button" aria-label="Previous slide">‹</button>
+    <button class="btn" id="next" type="button" aria-label="Next slide">›</button>
+    <span class="counter" id="counter">01 / 10</span>
+    <span class="title-now" id="title-now"></span>
+  </div>
+  <div class="progress" aria-hidden="true"><i id="progress"></i></div>
+  <div class="cg">
+    <div class="dots" id="dots"></div>
+    <button class="btn" id="notes-btn" type="button" aria-label="Toggle presenter notes">Notes</button>
+    <button class="btn" id="fs" type="button" aria-label="Toggle full screen">Full screen</button>
+    <span class="hint">← → Space · F · N</span>
+  </div>
+</footer>
+
+<script src="js/presentation.js"></script>
+</body>
+</html>

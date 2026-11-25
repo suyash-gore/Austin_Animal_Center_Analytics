@@ -6,6 +6,25 @@ This project has not yet completed its formal source-data audit. No preliminary 
 
 ## [Unreleased]
 
+### 25-11-2026 — Presentation website, speaking script, interview kit and demo plan
+#### Added
+- `website/index.html`, `website/css/presentation.css`, `website/js/presentation.js`, `website/README.md`: 10-slide
+  full-screen presentation (keyboard/space/button/dot/URL-hash navigation, progress and slide number, presenter
+  notes on N, full screen on F, responsive stacked layout below 900 px). No external dependencies. Design adapted
+  from `references/design/Vetology_Week6_Presentation.html` (layout language only).
+- `presentation/PRESENTATION_SCRIPT.md` (≈ 10 minutes, slide-aligned, with the Power BI hand-over),
+  `presentation/POWER_BI_DEMO_PLAN.md`, `presentation/INTERVIEW_PREPARATION_KIT.md`.
+#### Changed
+- `README.md`: presentation materials section; PBIX references updated to
+  `powerbi/Austin_Animal_Center_Analytics_Final.pbix` (`682a568`).
+#### Validated
+- Headless Chromium at 1920×1080, 1366×768, 390×844: no console errors or failed loads, no desktop overflow,
+  navigation verified. All 95 numbers on the slides found in validated outputs / knowledge kit (except the cited
+  statute section).
+#### Known limitations
+- Slide 9 policy/public-health context compiled from web-search summaries of official sources; the pages could
+  not be opened from the build environment (network policy). Wording to be checked before quoting.
+
 ### 24-11-2026 — Executive Summary dog LOS figure reconciled (12.07 → 12.08)
 #### Fixed
 - `assets/images/executive-summary-background.png`: "5.12 → 12.07 days" corrected to "5.12 → 12.08 days". Only the
