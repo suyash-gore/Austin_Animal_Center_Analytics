@@ -1,83 +1,181 @@
-# Power BI Live Demonstration Plan
+# Power BI — Live Report Plan and Practice Exercises
 
-**File:** `powerbi/Austin_Animal_Center_Analytics_Final.pbix` (submitted version; do not save changes during the
-demo). **Length:** 4–5 minutes. **Order:** Executive Summary → Shelter Overview → Operational Insights.
+**Interview format (confirmed):** Thursday 26-11-2026, 19:00 IST, 45–50 minutes. First 20 minutes: report and
+findings (10) · data model and DAX (5) · data problems (5). Then Power BI and SQL questions with **live changes to
+the report while screen-sharing**. There is **no separate mandatory demo segment** — use the report when a question
+calls for it, and use the exercises below to practise the live changes.
 
-Page contents below come from the PBIX report metadata in the repository (page names, visual titles, slicers and
-fields). Click behaviour (cross-filtering, synced slicers) follows Power BI defaults and the candidate's own
-Desktop checks; it has **not** been executed from the repository.
+**Report:** `powerbi/Austin_Animal_Center_Analytics_Final.pbix` (submitted). Three pages: **Executive Summary**,
+**Shelter Overview**, **Operational Insights**.
 
-## Before the interview (5 minutes)
+**What is verified and what isn't.** Page names, visual titles, slicers and the fields/measures used come from the
+PBIX report metadata in the repository. Click paths and on-screen behaviour below follow standard Power BI Desktop
+behaviour but have **not** been executed from the repository — rehearse each exercise once in Desktop. Menu labels
+can differ slightly between Desktop versions.
 
-1. Open the PBIX in Power BI Desktop; wait for visuals to render. Do **not** press Refresh — the queries read local
-   CSV files through the `RepoRoot` parameter; viewing does not need them.
-2. Clear all slicers on both analytical pages (Date full range, Animal Type and Animal Intake Type = All).
-3. Check the unfiltered card values against the validated outputs:
+---
 
-   | Measure on the cards | Expected |
-   |---|---:|
-   | Total Intakes | 173,776 |
-   | Total Outcomes | 173,749 |
-   | Matched Visits | 172,547 |
-   | Median Intake-to-Outcome Days | 6.00 |
-   | P90 Intake-to-Outcome Days | 55.56 |
-   | Average Intake-to-Outcome Days | 21.03 |
+## 1. Safeguards (read first)
 
-4. Open the Executive Summary page. Close the Filters pane and the Fields pane for a cleaner view (View ribbon).
-5. Decide which year to use for the YoY example: **2020** (intakes −51.4% vs 2019) and **2019** (+16.2%) are good;
-   2013, 2014 and 2025 deliberately show blank YoY.
+1. **Never practise on, or save over, the submitted PBIX.**
+2. Tonight, in File Explorer, copy the submitted file twice:
+   * `Austin_Animal_Center_Analytics_PRACTICE.pbix` — for rehearsing the exercises (break it freely).
+   * `Austin_Animal_Center_Analytics_INTERVIEW.pbix` — an untouched copy to open and edit during the interview.
+3. In the interview, open the **INTERVIEW** copy. If asked, say: "This is a copy of the submitted file, so I can make
+   changes without touching the version I sent you."
+4. Make only **report-level** changes live: titles, filters, slicers, new cards, new temporary measures, interactions.
+   **Do not** change relationships, Power Query steps, data types or existing measures during the interview, and do
+   **not** press *Refresh* (the queries read local CSVs through the `RepoRoot` parameter; viewing doesn't need them).
+5. Undo is **Ctrl + Z**. If anything goes wrong: close **without saving** and reopen the INTERVIEW copy.
 
-## 1. Executive Summary (≈ 45 s)
+---
 
-* **Show:** the three findings with recommended actions and the interpretation notes at the bottom.
-* **Say:** "This is the director's landing page: the three findings from my presentation, each with an action, and
-  the caveats underneath."
-* **Click:** the *Shelter Overview* navigation button (Ctrl + click in Desktop editing mode).
+## 2. Pre-interview checklist (15 minutes before)
 
-## 2. Shelter Overview (≈ 1 min 45 s)
+- [ ] Power BI Desktop updated and opened; the INTERVIEW copy open; visuals fully rendered.
+- [ ] Notifications off; other windows closed; screen resolution and zoom comfortable for sharing.
+- [ ] On **Shelter Overview** and **Operational Insights**: clear every slicer (eraser icon on each slicer header) —
+      Date = full range, Animal Type = All, Animal Intake Type = All.
+- [ ] Unfiltered card values match the validated outputs:
 
-Visuals: four KPI cards; *Monthly Intake vs. Outcome Trends* (October 2013 – May 2025); *Intake Volume by Animal
-Type*; *Outcome Distribution by Category*; slicers *Date*, *Animal Type*, *Animal Intake Type*.
+  | Measure | Expected |
+  |---|---:|
+  | Total Intakes | 173,776 |
+  | Total Outcomes | 173,749 |
+  | Matched Visits | 172,547 |
+  | Median Intake-to-Outcome Days | 6.00 |
+  | Average Intake-to-Outcome Days | 21.03 |
+  | P90 Intake-to-Outcome Days | 55.56 |
 
-1. **Cards** — "Intakes and outcomes are event counts after removing exact duplicates; matched visits are the
-   reconstructed visits; the median is time from intake to final recorded outcome."
-2. **Monthly trend** — point to the drop from March 2020 and the lower level afterwards. "The data shows when it
-   happened, not why."
-3. **Animal Type slicer → Dog.** All visuals update. "Every visual responds to the same slicers." (Slicers are synced
-   with Operational Insights — the selection carries over.)
-4. **Animal Intake Type slicer → Stray.** "Intake type comes from a shared intake-type dimension, so it filters intake
-   events and visits together. Outcome events have no intake type, so the outcome visual is not filtered by it."
-   *(Check this in rehearsal; if the outcome visual changes, say it is filtered through visits.)*
-5. **Optional cross-filter:** click the *Dog* bar in *Intake Volume by Animal Type*; the other visuals highlight.
-   Click again to clear.
-6. Reset Intake Type to All; keep Dog selected for the next page.
+- [ ] *Annual Intake Volume & Year-over-Year Change* shows blank YoY for 2013, 2014 and 2025; 2019 ≈ +16.2%,
+      2020 ≈ −51.4%.
+- [ ] Filters pane and Data pane visible (View ribbon) — you will need them for live changes.
+- [ ] Start on the **Executive Summary** page. Website open in a browser tab for the first 10 minutes.
 
-## 3. Operational Insights (≈ 1 min 45 s)
+---
 
-Visuals: four KPI cards (Median, Average, P90 Intake-to-Outcome Days, Matched Visits); *Median Length of Stay by
-Animal Type*; *Annual Intake Volume & Year-over-Year Change* (columns = intake volume, line = YoY %); note "LOS
-represents matched intake-to-outcome duration; shelter and foster periods cannot be separated"; slicers *Date*,
-*Animal Type*, *Animal Intake Type*.
+## 3. If asked to show the report (optional, ≈ 2 minutes)
 
-1. **Cards** — "Median, average and ninetieth percentile: the gap between them shows how skewed stays are."
-2. **Median Length of Stay by Animal Type** — "Length of stay is calculated per matched visit, as a measure, so it
-   responds to every filter."
-3. **Annual combo chart** — "Columns are intake volume; the line is year-over-year change. 2013, 2014 and 2025
-   intentionally have no YoY value: 2013 and 2025 are partial years, and 2014's prior year is partial." Hover over
-   2020 (≈ −51.4%).
-4. **Date slicer** → restrict to 2023–2024 with Animal Type = Dog; the median card rises compared with the full
-   range. "This is the recent dog cohort behind Finding 1." (The headline 5.12 → 12.08 days is a pooled median by
-   intake-year cohort from the audit outputs; the card shows the median for whatever is filtered.)
-5. Clear all slicers.
+1. **Executive Summary** — "The director's landing page: three findings, actions and caveats." Ctrl + click the
+   *Shelter Overview* button.
+2. **Shelter Overview** — cards (event counts and matched visits); *Monthly Intake vs. Outcome Trends* (drop from
+   March 2020); *Intake Volume by Animal Type*; *Outcome Distribution by Category*; slicers Date, Animal Type, Animal
+   Intake Type. Set Animal Type = Dog: "every visual responds; the slicer is synced to the next page."
+3. **Operational Insights** — Median / Average / P90 Intake-to-Outcome Days; *Median Length of Stay by Animal Type*;
+   *Annual Intake Volume & Year-over-Year Change* — "blank YoY for partial comparison years by design." Note on the
+   page: LOS is matched intake-to-outcome duration; shelter and foster periods can't be separated.
+4. Clear the slicers again.
 
-## Close (≈ 15 s)
+---
 
-"The report gives the director the overview, the operational detail and the three findings in one place, and every
-number traces back to a documented, tested preparation pipeline. Happy to take questions."
+## 4. Live Power BI Practice Exercises
 
-## If something goes wrong
+Practise each on the **PRACTICE** copy, then undo. For each: *where to click → what to change → expected result →
+what to say → how to undo.*
 
-* **A visual shows an error after an accidental refresh** — close without saving and reopen the PBIX (data is stored
-  in the file).
-* **A card shows a different unfiltered value** — check for an active slicer or a visual-level filter first.
-* **YoY shows blank for a year** — expected for 2013, 2014 and 2025 (partial comparison periods).
+### Exercise 1 — Change a visual title
+
+* **Where:** Shelter Overview → click *Monthly Intake vs. Outcome Trends* → **Format visual** (paintbrush icon in the
+  Visualizations pane) → **General** → **Title** → **Text**.
+* **Change:** type `Monthly Intake vs Outcome Events (Oct 2013 – May 2025)`.
+* **Expect:** the chart title updates immediately.
+* **Say:** "Titles are formatting only — the data and measures don't change. I'd make the title say exactly what the
+  chart counts, here events rather than visits."
+* **Undo:** Ctrl + Z, or retype the original title *Monthly Intake vs. Outcome Trends*.
+
+### Exercise 2 — Apply and remove a visual-level filter
+
+* **Where:** click *Outcome Distribution by Category* → **Filters** pane → **Filters on this visual** → drag
+  **DimAnimalType → Animal Type** into the well (or expand it if already listed).
+* **Change:** Basic filtering → tick **Cat**.
+* **Expect:** only that visual changes to cats; the other visuals and the cards stay unchanged.
+* **Say:** "There are three filter levels: visual, page and report. A visual-level filter affects just this chart,
+  unlike the slicer, which filters the whole page."
+* **Undo:** click the eraser on that filter card (clear) or the **×** (remove it from the visual).
+
+### Exercise 3 — Change slicer selections and explain the effect
+
+* **Where:** Shelter Overview → **Animal Type** slicer → choose **Dog**; then **Animal Intake Type** → **Stray**.
+* **Expect:** all visuals on the page update; the selection is synced to Operational Insights (check by switching
+  page).
+* **Say:** "The slicer filters the Animal Type dimension, which filters all three fact tables through one-to-many,
+  single-direction relationships. Intake type filters intakes and visits; outcome events don't have an intake type,
+  so outcome-event visuals don't respond to that slicer."
+  *(Rehearse: note which visuals change with Intake Type and adjust the sentence to what you see.)*
+* **Undo:** eraser icon on each slicer header (Clear selections).
+
+### Exercise 4 — Add a Card visual using an existing measure
+
+* **Where:** click an empty area of the canvas (so nothing is selected) → **Visualizations** pane → **Card** →
+  from the **Data** pane, expand **DAX_Measures** → tick **Total Outcomes**.
+* **Expect:** a new card showing **173,749** when no slicers are applied (fewer if slicers are active).
+* **Say:** "A card shows a single measure. It respects the page's slicers because the measure is evaluated in the
+  current filter context."
+* **Undo:** select the new card → **Delete**.
+
+### Exercise 5 — Create a simple temporary measure
+
+* **Where:** **Data** pane → right-click **DAX_Measures** → **New measure** → type in the formula bar:
+
+```dax
+Practice Dog Intakes =
+CALCULATE ( [Total Intakes], DimAnimalType[Animal Type] = "Dog" )
+```
+
+* Press **Enter**, then add it to a new Card (as in Exercise 4).
+* **Expect:** **94,588** with no slicers (dog intake events after duplicate removal).
+* **Then demonstrate filter context:** set the Animal Type slicer to **Cat** — the card **still shows 94,588**.
+  "CALCULATE replaced the Animal Type filter from the slicer with Dog. If I wanted the slicer to still apply, I'd
+  wrap the condition in KEEPFILTERS — then selecting Cat would give blank."
+* **Undo:** Data pane → right-click **Practice Dog Intakes** → **Delete from model**; delete the card.
+
+### Exercise 6 — A basic measure modification
+
+Don't edit production measures live. Modify the **practice** measure instead (or duplicate a measure first).
+
+* **Where:** right-click **Practice Dog Intakes** → **New measure** (or select it and edit in the formula bar).
+* **Change (a share):**
+
+```dax
+Practice Dog Share of Intakes =
+DIVIDE ( [Practice Dog Intakes], [Total Intakes] )
+```
+
+* Then **Measure tools** ribbon → **Format** → **Percentage**, **1** decimal place.
+* **Expect:** **54.4%** with no slicers (94,588 ÷ 173,776).
+* **Say:** "DIVIDE is safer than the slash operator — it returns blank instead of an error if the denominator is zero.
+  Measures can reference other measures, so the definition stays in one place."
+* **Variation if asked:** change `"Dog"` to `"Cat"` in Practice Dog Intakes and watch every dependent measure update.
+* **Undo:** delete both practice measures (dependent measure first) and any cards using them.
+
+### Exercise 7 — Visual interactions and filter context
+
+* **Cross-filtering:** on Shelter Overview, click the **Dog** bar in *Intake Volume by Animal Type*.
+  **Expect:** the other visuals filter or highlight to dogs. **Say:** "Clicking a data point adds it to the filter
+  context of the other visuals — like a temporary slicer." Click the bar again (or empty space) to clear.
+* **Edit interactions:** select *Intake Volume by Animal Type* → **Format** ribbon → **Edit interactions** → on
+  *Monthly Intake vs. Outcome Trends* click the **None** icon (circle with a line).
+  **Expect:** clicking a bar no longer affects the trend chart. **Say:** "Interactions control how visuals filter each
+  other — filter, highlight or none."
+* **Undo:** in Edit interactions, set the trend chart back to its original icon (filter or highlight, whichever it was
+  — note it before changing), then click **Edit interactions** again to turn the mode off.
+
+---
+
+## 5. Quick answers while editing
+
+* **"What's the filter context of this card?"** — "Every active slicer, visual filter, page and report filter, plus
+  any cross-filter selection. The measure is calculated inside that."
+* **"Measure or calculated column?"** — "Measure — it has to respond to slicers. A calculated column is fixed per row
+  at refresh."
+* **"Why did the card not change when I changed the slicer?"** — "Because CALCULATE overrides that column's filter
+  (Exercise 5), or the visual isn't related to the sliced table, or interactions are set to None."
+* **"How would you add a new slicer?"** — "Select an empty area, choose the Slicer visual, drag a dimension column —
+  e.g. DimDate Year — then sync it to other pages with View → Sync slicers if needed."
+
+## 6. If something goes wrong
+
+* **A visual shows an error after an accidental refresh** — close without saving and reopen the INTERVIEW copy.
+* **A card shows an unexpected value** — check slicers, the Filters pane and any cross-filter selection first.
+* **YoY is blank for a year** — expected for 2013, 2014 and 2025 (partial comparison periods).
+* **You can't find a field** — use the search box at the top of the Data pane.

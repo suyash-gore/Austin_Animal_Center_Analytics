@@ -9,6 +9,18 @@ recorded outcome, not kennel time · the provisional outcome grouping is not the
 findings are my recommendations, not approved by the director · be honest about what AI helped implement and what
 you verified yourself.
 
+### Interview format (Thursday 26-11-2026, 19:00 IST, 45–50 minutes)
+
+| Segment | Time | Material |
+|---|---|---|
+| Report and findings | 10 min | `website/index.html` + `presentation/PRESENTATION_SCRIPT.md` |
+| Data model and DAX | 5 min | `presentation/DATA_MODEL_AND_DAX_WALKTHROUGH.md` |
+| Data problems discovered | 5 min | `presentation/DATA_QUALITY_WALKTHROUGH.md` |
+| Power BI and SQL questions | remaining | this kit — sections 1–10 (project, Power BI, CRM) and **section 11 (SQL)** |
+| Live report changes (screen-share) | during questions | `presentation/POWER_BI_DEMO_PLAN.md` — *Live Power BI Practice Exercises* |
+
+Have Power BI Desktop open with the submitted PBIX (a practice copy for any edits — see the demo plan).
+
 ---
 
 ## 1. Business problem and prioritisation
@@ -221,3 +233,344 @@ Desktop, and can explain each method and number. Every figure is reproducible fr
 **Q: How would someone reproduce your numbers?**
 `pip install -r requirements.txt`, `python analysis/run_all.py`, then `python -m pytest analysis/tests -q` (86 tests
 pass); the model validator checks the Power BI inputs (151 checks pass).
+
+---
+
+## 11. SQL interview preparation
+
+### 11.0 Read this first
+
+* **The project did not use a SQL database.** Cleaning and visit matching were done in Python (pandas); Power BI
+  reads the resulting CSV files. Everything below is an **illustrative SQL exercise** using the project's real
+  table structure and verified column names — useful because the interviewer may ask "how would you do this in
+  SQL?".
+* **Dialect: Microsoft SQL Server (T-SQL)** — the most common partner to Power BI. PostgreSQL differences are noted
+  where they matter.
+* **Checked against the data:** the *logic* of every query in 11.3 was run in SQLite against the project CSVs on
+  25-11-2026 and reproduced the validated figures shown under each query. The T-SQL text itself was not executed on
+  a SQL Server instance.
+* **If asked "did you use SQL in this project?"** — "No, the pipeline is Python, but the same logic translates
+  directly to SQL; for example, I'd find duplicates with GROUP BY … HAVING and rebuild visits with a window
+  function."
+
+### 11.1 Assumed tables (loaded from the project files)
+
+| SQL table | Source file | Key columns used below |
+|---|---|---|
+| `dbo.raw_intakes` | `data/raw/Austin_Animal_Center_Intakes__10_01_2013_to_05_05_2025_.csv` | `[Animal ID]`, `[Name]`, `[DateTime]`, `[MonthYear]`, `[Found Location]`, `[Intake Type]`, `[Intake Condition]`, `[Animal Type]`, `[Sex upon Intake]`, `[Age upon Intake]`, `[Breed]`, `[Color]` (all text, as in the source) |
+| `dbo.intakes_clean` | `data/processed/intakes_clean.csv` | `intake_event_id`, `animal_id`, `intake_datetime` (datetime2), `intake_date` (date), `intake_type`, `animal_type`, `is_exact_duplicate` (bit) |
+| `dbo.outcomes_clean` | `data/processed/outcomes_clean.csv` | `outcome_event_id`, `animal_id`, `outcome_datetime`, `outcome_date`, `outcome_type`, `outcome_subtype`, `outcome_group`, `outcome_is_midnight` (bit), `is_exact_duplicate` (bit) |
+| `dbo.candidate_visits` | `outputs/matching/candidate_visits.csv` | `visit_id`, `visit_status`, `animal_id`, `intake_event_id`, `outcome_event_id`, `intake_datetime`, `outcome_datetime`, `intake_date`, `los_days`, `animal_type`, `intake_type`, `outcome_group`, `same_day_visit` |
+
+`visit_status` values: `'Matched visit'`, `'Intake without matched outcome'`, `'Outcome without matched intake'`.
+Space-containing source column names need square brackets in T-SQL (`[Animal ID]`; PostgreSQL uses `"Animal ID"`).
+
+### 11.2 Core concepts in one breath each
+
+| Topic | What to say | Project example |
+|---|---|---|
+| `SELECT … WHERE … ORDER BY` | choose columns, filter rows, sort the result | stray intakes in 2024, newest first |
+| `INNER JOIN` | only rows that match on both sides | visits joined to intakes on `intake_event_id` |
+| `LEFT JOIN` | all rows from the left, matches from the right, NULLs where none | all intakes, with their visit if one exists → find unmatched |
+| `RIGHT JOIN` | mirror of LEFT; usually rewritten as LEFT for readability | — |
+| `FULL OUTER JOIN` | all rows from both sides | compare two lists of event IDs and see what's missing on each side |
+| `GROUP BY` / aggregates | one row per group with `COUNT`, `SUM`, `AVG`, `MIN`, `MAX` | intakes per month |
+| `HAVING` | filter **after** grouping (WHERE filters before) | groups with `COUNT(*) > 1` = duplicates |
+| CTE (`WITH … AS`) | a named, readable sub-step | build the event stream, then match it |
+| Subquery | a query inside another query | `WHERE NOT EXISTS (SELECT 1 …)` |
+| `CASE WHEN` | if-then logic inside a query | label stays as same-day / short / long |
+| `NULL`, `IS NULL`, `COALESCE` | NULL means unknown; `= NULL` never works; `COALESCE` gives a fallback | `COALESCE(outcome_subtype, '(not recorded)')` |
+| `ROW_NUMBER` / `RANK` / `DENSE_RANK` | number rows within a group; RANK leaves gaps after ties, DENSE_RANK doesn't | visit number per animal |
+| `LAG` / `LEAD` | value from the previous / next row in a window | previous visit's outcome; next event for the animal |
+| Date filtering | use ranges on the raw column so indexes work | `intake_date >= '2024-01-01' AND intake_date < '2025-01-01'` |
+| Indexing | speeds up lookups and joins on the indexed columns | index on `(animal_id, intake_datetime)` |
+| Reconciliation | prove totals agree between steps | matched + intake-only = cleaned intakes |
+
+### 11.3 Ten project queries
+
+#### Q1 — Find duplicate intake records
+
+```sql
+-- Exact duplicates: rows identical in all 12 source columns
+SELECT [Animal ID], [DateTime], [Intake Type], COUNT(*) AS copies
+FROM dbo.raw_intakes
+GROUP BY [Animal ID], [Name], [DateTime], [MonthYear], [Found Location], [Intake Type],
+         [Intake Condition], [Animal Type], [Sex upon Intake], [Age upon Intake], [Breed], [Color]
+HAVING COUNT(*) > 1;
+
+-- Number the copies; rn > 1 are the excess rows
+WITH numbered AS (
+    SELECT *,
+           ROW_NUMBER() OVER (
+               PARTITION BY [Animal ID], [Name], [DateTime], [MonthYear], [Found Location], [Intake Type],
+                            [Intake Condition], [Animal Type], [Sex upon Intake], [Age upon Intake], [Breed], [Color]
+               ORDER BY (SELECT NULL)) AS rn
+    FROM dbo.raw_intakes
+)
+SELECT COUNT(*) AS excess_copies FROM numbered WHERE rn > 1;   -- 36
+```
+
+* **Returns:** each duplicated record with its number of copies; then the count of extra copies — **36** (26 for
+  outcomes).
+* **Why useful:** duplicates inflate counts and can create duplicate visits.
+* **Say:** "GROUP BY every column and HAVING COUNT greater than one finds exact duplicates; ROW_NUMBER lets me keep
+  the first copy and flag the rest. In the project I flagged rather than deleted, so nothing is lost."
+* *Deleting (if asked):* `DELETE FROM numbered WHERE rn > 1;` works in T-SQL through the CTE.
+
+#### Q2 — Monthly intake volume
+
+```sql
+SELECT DATEFROMPARTS(YEAR(intake_date), MONTH(intake_date), 1) AS month_start,
+       COUNT(*)                                                AS intake_events
+FROM dbo.intakes_clean
+WHERE is_exact_duplicate = 0
+GROUP BY DATEFROMPARTS(YEAR(intake_date), MONTH(intake_date), 1)
+ORDER BY month_start;
+```
+
+* **Returns:** one row per month with intake count — e.g. **March 2020 = 883, April 2020 = 312**.
+* **Why useful:** trend and seasonality; this is what the monthly line chart shows.
+* *PostgreSQL:* `date_trunc('month', intake_date)`; SQL Server 2022+ also has `DATETRUNC(month, intake_date)`.
+
+#### Q3 — Outcome distribution
+
+```sql
+SELECT outcome_group,
+       COUNT(*)                                            AS outcome_events,
+       CAST(100.0 * COUNT(*) / SUM(COUNT(*)) OVER () AS decimal(5,2)) AS pct_of_outcome_events
+FROM dbo.outcomes_clean
+WHERE is_exact_duplicate = 0
+GROUP BY outcome_group
+ORDER BY outcome_events DESC;
+```
+
+* **Returns:** Adoption **84,586**, Transfer 48,683, Return to Owner 26,928, Euthanasia 10,832, …
+* **Why useful:** the outcome mix. `SUM(COUNT(*)) OVER ()` is a window over the grouped result — the grand total on
+  every row.
+* **Careful:** these are shares of outcome **events**, not conversion rates from intakes.
+
+#### Q4 — Match intakes to outcomes chronologically
+
+```sql
+WITH events AS (
+    SELECT animal_id, intake_event_id AS event_id, 'I' AS kind,
+           intake_datetime AS sort_dt, 0 AS kind_order
+    FROM dbo.intakes_clean
+    WHERE is_exact_duplicate = 0
+    UNION ALL
+    SELECT animal_id, outcome_event_id, 'O',
+           -- date-only (midnight) outcomes count as happening later that day
+           CASE WHEN outcome_is_midnight = 1
+                THEN DATEADD(SECOND, 86399, CAST(outcome_date AS datetime2))
+                ELSE outcome_datetime END,
+           1
+    FROM dbo.outcomes_clean
+    WHERE is_exact_duplicate = 0
+),
+ordered AS (
+    SELECT *,
+           LEAD(kind)     OVER (PARTITION BY animal_id ORDER BY sort_dt, kind_order, event_id) AS next_kind,
+           LEAD(event_id) OVER (PARTITION BY animal_id ORDER BY sort_dt, kind_order, event_id) AS next_event_id
+    FROM events
+)
+SELECT animal_id, event_id AS intake_event_id, next_event_id AS outcome_event_id
+FROM ordered
+WHERE kind = 'I' AND next_kind = 'O';
+```
+
+* **Returns:** one row per matched visit — **172,547** pairs, identical to the project's primary matched visits.
+* **How it works:** stack intakes and outcomes into one timeline per animal, sort it, and pair each intake with the
+  **next** event if that event is an outcome. If the next event is another intake, the first intake has no
+  recorded outcome; an outcome with no intake just before it stays unmatched.
+* **Say:** "That's the adjacent-event rule in one window function: an intake pairs with the next outcome unless the
+  animal came in again first."
+
+#### Q5 — Unmatched intake and outcome records
+
+```sql
+-- Intakes with no matched visit
+SELECT i.intake_event_id, i.animal_id, i.intake_datetime
+FROM dbo.intakes_clean AS i
+LEFT JOIN dbo.candidate_visits AS v
+       ON v.intake_event_id = i.intake_event_id
+      AND v.visit_status = 'Matched visit'
+WHERE i.is_exact_duplicate = 0
+  AND v.visit_id IS NULL;                       -- 1,229
+
+-- Same idea with NOT EXISTS, for outcomes
+SELECT o.outcome_event_id, o.animal_id, o.outcome_datetime
+FROM dbo.outcomes_clean AS o
+WHERE o.is_exact_duplicate = 0
+  AND NOT EXISTS (SELECT 1 FROM dbo.candidate_visits AS v
+                  WHERE v.outcome_event_id = o.outcome_event_id
+                    AND v.visit_status = 'Matched visit');   -- 1,202
+```
+
+* **Why useful:** shows what didn't pair — mostly still in care (intakes) or arrived before October 2013 (outcomes).
+* **Trap:** put the `visit_status` condition in the **ON** clause. In the WHERE clause it would turn the LEFT JOIN
+  into an INNER JOIN and return nothing.
+
+#### Q6 — Length of stay
+
+```sql
+WITH los AS (
+    SELECT visit_id, animal_type,
+           CASE WHEN DATEDIFF(SECOND, intake_datetime, outcome_datetime) < 0 THEN 0.0
+                ELSE DATEDIFF(SECOND, intake_datetime, outcome_datetime) / 86400.0
+           END AS los_days                       -- negative only for date-only same-day outcomes → 0
+    FROM dbo.candidate_visits
+    WHERE visit_status = 'Matched visit'
+)
+SELECT DISTINCT
+       PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY los_days) OVER () AS median_los,   -- 6.00
+       PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY los_days) OVER () AS p90_los,      -- 55.56
+       AVG(los_days) OVER ()                                         AS avg_los       -- 21.03
+FROM los;
+```
+
+* **Returns:** median **6.00**, P90 **55.56**, average **21.03** days — the same as the Power BI measures.
+* **Why useful:** LOS is the core visit metric; `PERCENTILE_CONT` uses the same interpolation as DAX
+  `PERCENTILE.INC`.
+* *T-SQL note:* `PERCENTILE_CONT` is a window function in SQL Server (hence `OVER ()` and `DISTINCT`); in PostgreSQL
+  it is an ordered-set aggregate: `SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY los_days) FROM los;`
+* **Say:** "Time from intake to final recorded outcome, matched visits only — not kennel time."
+
+#### Q7 — Owner surrenders following a recent adoption
+
+```sql
+WITH mv AS (
+    SELECT *,
+           LAG(outcome_group)    OVER (PARTITION BY animal_id ORDER BY intake_datetime, intake_event_id) AS prev_outcome_group,
+           LAG(outcome_datetime) OVER (PARTITION BY animal_id ORDER BY intake_datetime, intake_event_id) AS prev_outcome_datetime
+    FROM dbo.candidate_visits
+    WHERE visit_status = 'Matched visit'
+),
+os AS (
+    SELECT *, DATEDIFF(SECOND, prev_outcome_datetime, intake_datetime) / 86400.0 AS days_since_prev_outcome
+    FROM mv
+    WHERE intake_type = 'Owner Surrender'
+      AND intake_date >= '2016-01-01' AND intake_date < '2025-01-01'
+)
+SELECT COUNT(*) AS owner_surrenders,                                                        -- 27,256
+       SUM(CASE WHEN prev_outcome_group = 'Adoption' THEN 1 ELSE 0 END) AS after_any_adoption,  -- 6,668 (24.46%)
+       SUM(CASE WHEN prev_outcome_group = 'Adoption' AND days_since_prev_outcome <= 30
+                THEN 1 ELSE 0 END) AS within_30_days,                                        -- 4,058 (14.89%)
+       SUM(CASE WHEN prev_outcome_group = 'Adoption' AND days_since_prev_outcome <= 7
+                THEN 1 ELSE 0 END) AS within_7_days                                         -- 2,441 (8.96%)
+FROM os;
+```
+
+* **Returns:** the Finding 2 numbers exactly.
+* **How it works:** `LAG` looks back to the animal's previous matched visit; `CASE WHEN` counts those that ended in
+  adoption, overall and within 30 / 7 days.
+* **Why the LAG is computed before filtering:** if you filter to owner surrenders first, the "previous visit" would
+  be the previous *owner surrender*, not the previous visit.
+
+#### Q8 — Return-to-owner percentage for stray dogs
+
+```sql
+SELECT YEAR(intake_date) AS intake_year,
+       COUNT(*) AS stray_dog_visits,
+       SUM(CASE WHEN outcome_group = 'Return to Owner' THEN 1 ELSE 0 END) AS rto_visits,
+       CAST(100.0 * SUM(CASE WHEN outcome_group = 'Return to Owner' THEN 1 ELSE 0 END) / COUNT(*)
+            AS decimal(5,2)) AS rto_pct
+FROM dbo.candidate_visits
+WHERE visit_status = 'Matched visit'
+  AND animal_type = 'Dog'
+  AND intake_type = 'Stray'
+GROUP BY YEAR(intake_date)
+ORDER BY intake_year;
+```
+
+* **Returns:** e.g. 2019 = 7,556 visits, **2,036** RTO, 26.95%; 2024 = 3,086 visits, **386** RTO, **12.51%**. The
+  average of the 2014–2019 yearly percentages is **29.46%**.
+* **Why `100.0`:** integer division would return 0; multiplying by a decimal first forces decimal arithmetic.
+* **Say:** "Denominator is matched stray-dog visits; Return to Owner includes Rto-Adopt."
+
+#### Q9 — Window functions for previous visits
+
+```sql
+SELECT animal_id, visit_id, intake_datetime, intake_type, outcome_group,
+       ROW_NUMBER() OVER (PARTITION BY animal_id ORDER BY intake_datetime) AS visit_number,
+       LAG(outcome_group) OVER (PARTITION BY animal_id ORDER BY intake_datetime) AS previous_outcome,
+       DATEDIFF(DAY,
+                LAG(outcome_datetime) OVER (PARTITION BY animal_id ORDER BY intake_datetime),
+                intake_datetime) AS days_since_previous_outcome,
+       LEAD(intake_datetime) OVER (PARTITION BY animal_id ORDER BY intake_datetime) AS next_intake
+FROM dbo.candidate_visits
+WHERE visit_status = 'Matched visit';
+```
+
+* **Returns:** every visit with its number for that animal, the previous outcome, days since it, and the next intake.
+* **ROW_NUMBER vs RANK vs DENSE_RANK:** with a tie on the ordering value, ROW_NUMBER still gives 1, 2; RANK gives 1, 1,
+  then 3; DENSE_RANK gives 1, 1, then 2. For visit numbers I want ROW_NUMBER, with a tie-breaker (e.g. `visit_id`) in
+  the ORDER BY so the result is deterministic.
+
+#### Q10 — Validate record counts and data quality
+
+```sql
+-- 1. Reconciliation: every cleaned event appears exactly once in the visit table
+SELECT
+  (SELECT COUNT(*) FROM dbo.intakes_clean  WHERE is_exact_duplicate = 0) AS intake_events,     -- 173,776
+  (SELECT COUNT(*) FROM dbo.outcomes_clean WHERE is_exact_duplicate = 0) AS outcome_events,    -- 173,749
+  (SELECT COUNT(*) FROM dbo.candidate_visits WHERE intake_event_id  IS NOT NULL) AS visit_rows_with_intake,   -- 173,776
+  (SELECT COUNT(*) FROM dbo.candidate_visits WHERE outcome_event_id IS NOT NULL) AS visit_rows_with_outcome,  -- 173,749
+  (SELECT COUNT(*) FROM dbo.candidate_visits) AS all_visit_rows;                                -- 174,978
+
+-- 2. One-to-one: no intake or outcome used twice; no negative LOS
+SELECT COUNT(*) - COUNT(DISTINCT intake_event_id)  AS reused_intakes,     -- 0
+       COUNT(*) - COUNT(DISTINCT outcome_event_id) AS reused_outcomes,    -- 0
+       SUM(CASE WHEN los_days < 0 THEN 1 ELSE 0 END) AS negative_los       -- 0
+FROM dbo.candidate_visits
+WHERE visit_status = 'Matched visit';
+
+-- 3. Missing values (NULL handling)
+SELECT COUNT(*) AS outcome_rows,
+       SUM(CASE WHEN outcome_subtype IS NULL THEN 1 ELSE 0 END) AS subtype_missing   -- 94,115
+FROM dbo.outcomes_clean;
+```
+
+* **Why useful:** proves nothing was lost or double-counted between steps — the same checks the Python tests run.
+* `COUNT(column)` ignores NULLs, `COUNT(*)` doesn't — a common interview point.
+
+### 11.4 Date filtering and performance
+
+* **Prefer ranges** — `WHERE intake_date >= '2024-01-01' AND intake_date < '2025-01-01'` — over
+  `WHERE YEAR(intake_date) = 2024`. Wrapping a column in a function stops the database using an index on it
+  ("non-sargable").
+* **Half-open ranges** (`<` the next day) are safe for datetime columns; `BETWEEN '2024-01-01' AND '2024-12-31'`
+  misses times after midnight on 31 December.
+* **Indexes:** for the matching and window queries, an index on `(animal_id, intake_datetime)` matches the
+  `PARTITION BY … ORDER BY`. For Q5, indexes on `candidate_visits(intake_event_id)` and `(outcome_event_id)` make the
+  lookups fast. In the SQLite check, the Q5 anti-join ran in 0.16 s with those indexes; without them it was still
+  running after several minutes.
+* **Other tips:** select only needed columns (not `SELECT *`); filter early; check the execution plan; avoid
+  functions on join keys; pre-aggregate large tables before joining.
+
+### 11.5 Likely SQL questions — short spoken answers
+
+1. **"WHERE vs HAVING?"** — "WHERE filters rows before grouping; HAVING filters groups after aggregation — like keeping
+   only groups with more than one row to find duplicates."
+2. **"INNER vs LEFT JOIN?"** — "INNER keeps only matches; LEFT keeps everything on the left and fills NULLs where
+   there's no match — that's how I'd find intakes without an outcome."
+3. **"How do you remove duplicates?"** — "ROW_NUMBER partitioned by the columns that define a duplicate, then keep
+   row number one. For exact duplicates, partition by every column."
+4. **"What's a CTE and why use one?"** — "A named step inside a query, defined with WITH. It makes multi-step logic —
+   like building an event timeline, then matching it — readable and testable."
+5. **"LAG vs LEAD?"** — "LAG looks at the previous row in the window, LEAD at the next. I'd use LAG to find an animal's
+   previous outcome and LEAD to find its next event."
+6. **"ROW_NUMBER vs RANK vs DENSE_RANK?"** — "ROW_NUMBER always numbers uniquely; RANK gives ties the same number and
+   skips; DENSE_RANK gives ties the same number without skipping."
+7. **"How do you handle NULLs?"** — "Test with IS NULL, never equals NULL; COALESCE to supply a default for display;
+   and remember COUNT(column) ignores NULLs and AVG ignores them too."
+8. **"How would you calculate the median in SQL?"** — "PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY …). It's the same
+   interpolation as PERCENTILE.INC in DAX."
+9. **"How would you check your SQL output is right?"** — "Reconcile totals with the source, check keys are unique,
+   check no impossible values like negative durations, and spot-check a few records by hand."
+10. **"A query is slow — what do you do?"** — "Look at the execution plan, make sure filters and joins can use an
+    index, avoid functions on indexed columns, select fewer columns, and pre-aggregate where possible."
+11. **"Why not join intakes to outcomes on animal ID in SQL?"** — "Same reason as in Power BI: one animal has many
+    intakes and outcomes, so the join multiplies rows. I'd build an ordered event timeline per animal and pair each
+    intake with the next outcome using LEAD."
+12. **"SQL vs DAX — when would you use each?"** — "SQL or Power Query for shaping and cleaning data before it loads;
+    DAX for calculations that must respond to slicers and filters in the report."
