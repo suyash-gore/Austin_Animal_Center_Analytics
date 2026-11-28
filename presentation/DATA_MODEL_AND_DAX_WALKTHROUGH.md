@@ -100,6 +100,100 @@ definitions."
 
 ---
 
+# Data Model & DAX — Simplified Interview Script
+
+## **[0:00 — Why I used a star schema]**
+
+"I organised my data using something called a star schema.
+
+In simple terms, I have three main tables that store the actual events, and supporting tables that describe things like dates, animal types and intake types.
+
+I used this structure because it makes the data easier to organise and allows filters to work consistently across the report."
+
+## **[0:30 — Three fact tables]**
+
+"I created three main tables because each one serves a different purpose.
+
+- FactIntakes stores one record for every intake event. I use it to analyse how many animals entered the shelter.
+- FactOutcomes stores one record for every outcome event, such as adoption, transfer or return to owner.
+- FactVisits connects an intake with its corresponding outcome. This is particularly important for calculating Length of Stay.
+
+I also retained records that couldn't be matched, so we don't lose those records during the analysis."
+
+## **[1:15 — Why I didn't join using Animal ID]**
+
+"One important decision was not to directly connect intake and outcome records using Animal ID.
+
+The reason is that the same animal can enter the shelter multiple times. In our data, one animal appeared in as many as 33 intake records.
+
+So, simply joining on Animal ID could connect the wrong intake with the wrong outcome.
+
+Instead, I matched the records chronologically during data preparation and used the resulting visit-level table in Power BI."
+
+## **[1:45 — Relationships and dates]**
+
+"I connected the supporting tables to the fact tables using one-to-many relationships.
+
+For dates, there is one small detail. Each visit can have both an intake date and an outcome date.
+
+Power BI allows one active relationship between these tables for this date dimension, so I kept the intake-date relationship active and the outcome-date relationship inactive.
+
+When I need to analyse outcomes using the outcome date, I can activate that relationship inside a DAX calculation using a function called USERELATIONSHIP."
+
+## **[2:30 — Measures vs. calculated columns]**
+
+"For my calculations, I mainly used measures.
+
+The difference is quite simple. A calculated column stores a value for each row when the data is loaded.
+
+A measure calculates the result when the report is viewed, based on the filters selected.
+
+For example, if I select Dogs or choose a particular year, the same measure recalculates based on that selection.
+
+This is why measures were useful for my interactive dashboard."
+
+## **[3:00 — CALCULATE and Length of Stay]**
+
+"One of the important DAX functions I used is CALCULATE.
+
+It allows me to calculate something under a particular condition or filter.
+
+For example, when calculating median Length of Stay, I specifically tell Power BI to consider only matched visits. This ensures that unmatched records are not included in the calculation.
+
+I applied the same approach to the average and 90th percentile.
+
+The results were a median of 6 days, an average of 21.03 days and a 90th percentile of 55.56 days.
+
+The difference between these values tells us that some visits have much longer durations than others."
+
+## **[3:45 — Year-over-year calculation]**
+
+"I also created a year-over-year calculation to understand how intake volumes changed compared with the previous year.
+
+I used SAMEPERIODLASTYEAR to compare the selected period with the corresponding period in the previous year.
+
+I also added checks to avoid misleading comparisons for incomplete years, such as 2013 and 2025.
+
+For percentage calculations, I used DIVIDE because it handles cases where the previous year's value is zero without producing a division error."
+
+## **[4:20 — How slicers work]**
+
+"Finally, I connected the slicers to the data model.
+
+For example, when I select Dogs, the animal type filter flows through the relationships and updates the relevant visuals.
+
+The intake-type slicer works on intake and visit records. Outcome records don't have an intake type, so that filter doesn't directly apply to them.
+
+Similarly, date filters work according to the date relevant to each table."
+
+## **[4:50 — Closing]**
+
+"So overall, I focused on keeping the model organised, avoiding incorrect record matching, and creating measures that respond correctly to the user's selections.
+
+That is how I built the foundation for the interactive Power BI report."
+
+---
+
 ## 3. The key DAX, line by line
 
 ### Total Intakes — counting rows

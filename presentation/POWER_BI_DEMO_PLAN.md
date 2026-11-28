@@ -68,6 +68,45 @@ can differ slightly between Desktop versions.
 
 ---
 
+
+## **3. If asked to show the report (optional, ≈ 3–4 minutes)**
+
+1. **Executive Summary** — Start with the director's landing page, highlighting the three key findings, recommended actions and interpretation caveats.
+
+   - **Dog Length of Stay:** The median intake-to-final-recorded-outcome duration increased from 5.12 days (historical period) to 12.08 days (recent period), indicating that dogs are spending longer between intake and their final recorded outcome.
+   - **Owner Surrender:** 24.46% of owner-surrender visits had a previous shelter adoption record. Of these, 14.89% occurred within 30 days and 8.96% within 7 days, highlighting an opportunity to explore post-adoption support.
+   - **Stray Dog Return-to-Owner:** The recorded return-to-owner share declined from 29.46% (2014–2019 average) to 12.51% in 2024, indicating a need to review identification, microchip scanning and owner-contact processes.
+
+   Ctrl + click the **Shelter Overview** button.
+
+2. **Shelter Overview** — Explain the four KPI cards and three charts.
+
+   - **Total Intakes (173,776):** Total recorded intake events during the analysis period.
+   - **Total Outcomes (173,749):** Total recorded outcome events. These are separate events and do not necessarily represent the same visits.
+   - **Matched Visits (172,547):** Intake events successfully paired with their corresponding subsequent outcome events.
+   - **Median Intake-to-Outcome Days (6.00):** Half of the matched visits had a recorded duration of six days or less.
+   - **Monthly Intake vs. Outcome Trends:** Compares monthly intake and outcome volumes. The chart shows a significant disruption around March 2020, followed by changes in shelter activity.
+   - **Intake Volume by Animal Type:** Dogs and cats account for the majority of intake events, with dogs contributing the largest share.
+   - **Outcome Distribution by Category:** Adoption is the largest recorded outcome category, followed by transfer and return to owner.
+
+   Briefly demonstrate the Date, Animal Type and Animal Intake Type slicers. Select Dog under Animal Type to show how the report responds. Explain that slicers allow users to explore patterns across different categories.
+
+3. **Operational Insights** — Explain the duration measures and operational trends.
+
+   - **Matched Visits (172,547):** The matched population used for the intake-to-outcome duration analysis.
+   - **Median LOS (6.00 days):** Represents the typical matched intake-to-outcome duration and is less affected by unusually long stays.
+   - **Average LOS (21.03 days):** The higher average compared with the median indicates a right-skewed distribution, with some visits having considerably longer durations.
+   - **90th Percentile LOS (55.56 days):** 90% of matched visits had an intake-to-outcome duration of approximately 55.56 days or less. This helps identify the longer-stay tail.
+   - **Annual Intake Volume & Year-over-Year Change:** Shows annual intake volumes and percentage changes from the previous year. The sharp decline in 2020 and subsequent increase in 2021 highlight major changes in shelter activity. 2025 is a partial year, so it should not be directly compared with complete years.
+   - **Median Length of Stay by Animal Type:** Livestock has the highest median duration (19.9 days), followed by cats (7.2 days), dogs (6.0 days), birds (4.1 days) and other animals (0.7 days). This suggests that operational requirements may differ across animal categories.
+
+   Highlight the interpretation note: LOS represents matched intake-to-final-recorded-outcome duration; shelter and foster periods cannot be separated using the available data.
+
+4. **Clear all slicers and cross-filter selections** before finishing, so the report returns to its original unfiltered state.
+
+
+---
+
 ## 4. Live Power BI Practice Exercises
 
 Practise each on the **PRACTICE** copy, then undo. For each: *where to click → what to change → expected result →

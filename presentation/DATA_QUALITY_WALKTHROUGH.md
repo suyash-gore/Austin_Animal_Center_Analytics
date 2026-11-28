@@ -68,6 +68,78 @@ recorded. That's why I describe length of stay as time to the final recorded out
 
 ---
 
+# Data Quality — Simplified Interview Script
+
+## **[0:00 — Introduction]**
+
+"Before starting the analysis, I checked both datasets carefully.
+
+Although the data was generally well-structured, I found six important issues that needed attention. I'll briefly explain what I found and how I handled each one."
+
+## **[0:25 — 1. Duplicate Records]**
+
+"First, I found duplicate records — 36 extra rows in the intake data and 26 in the outcome data.
+
+I removed the extra copies from the analysis but kept them flagged for reference.
+
+I also found some records with the same animal and timestamp but different details. I didn't delete those because they could be genuine corrections. I kept them flagged for review."
+
+## **[1:15 — 2. Timestamp Issue]**
+
+"Second, I found 3,584 outcome records with a minus-five-hour timestamp.
+
+Initially, this looked like a time-zone issue. However, all these records were at midnight, and the timestamp pattern didn't match Austin's seasonal time changes.
+
+So I treated it as a date-only recording pattern and retained the original clock time rather than converting it. Otherwise, some records could have shifted to a different time or date."
+
+## **[2:00 — 3. Repeated Animal IDs]**
+
+"Third, I found that the same Animal ID could appear multiple times. In fact, one animal appeared in as many as 33 intake records.
+
+This means Animal ID alone cannot be used to connect an intake with an outcome, because it could match the wrong visits.
+
+So I matched records chronologically. Each intake was connected to its next valid outcome, unless another intake occurred first.
+
+This helped avoid incorrect matches and unrealistic Length of Stay calculations."
+
+## **[2:55 — 4. Unmatched Records]**
+
+"Fourth, some records could not be matched.
+
+We had 1,229 intakes without a matching outcome and 1,202 outcomes without a matching intake.
+
+This can happen because some animals were still in care when the dataset ended, while others had entered the shelter before our dataset started.
+
+I kept these records separately with their status instead of forcing a match. They were excluded from Length of Stay calculations."
+
+## **[3:35 — 5. Same-Day Matching Issues]**
+
+"Fifth, I found 225 cases where the outcome was recorded a few hours before the intake on the same day.
+
+These could be recording mistakes, but the data doesn't confirm that they belong to the same visit.
+
+So I kept them separate and flagged them instead of treating them as confirmed matches."
+
+## **[4:15 — 6. Missing and Inconsistent Fields]**
+
+"Finally, I found some missing and inconsistent values.
+
+For example, around 54% of outcome subtypes were blank. Most of these blanks were expected based on the type of outcome, so I didn't automatically treat them as errors.
+
+I also flagged 46 outcomes with missing outcome types, some negative animal ages and 33 birth dates that were later than the outcome dates.
+
+I retained these records rather than deleting potentially useful information."
+
+## **[4:40 — Limitations and Closing]**
+
+"Finally, there were some limitations in the available data.
+
+We didn't have foster placement dates, reasons for owner surrender or records of field reunifications.
+
+So, throughout the analysis, I refer to Length of Stay as the time between intake and the final recorded outcome, rather than claiming it represents actual time spent in the shelter."
+
+---
+
 ## 2. Issue by issue (reference table)
 
 | # | Issue | How identified | How handled | Why | Risk if mishandled |
